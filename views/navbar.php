@@ -9,7 +9,7 @@
                 <a class="nav-link" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.php?page=user">Usuários</a>
+                <a class="nav-link" href="index.php?page=users">Usuários</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="index.php?page=financial">Financeiro</a>
