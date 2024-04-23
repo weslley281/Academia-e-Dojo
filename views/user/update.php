@@ -1,5 +1,3 @@
-<?php include '../partials/header.php'; ?>
-
 <div class="container mt-5">
     <h1>Update User</h1>
     <form action="../../index.php?action=update&id=<?= htmlspecialchars($user['id']) ?>" method="post" class="form-group">
@@ -14,5 +12,3 @@
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>
-
-<?php include '../partials/footer.php'; ?>

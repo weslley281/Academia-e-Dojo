@@ -12,10 +12,10 @@ class User
         $this->today = Date("Y:m:d");
     }
 
-    public function create($name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $maritalStatus, $gender, $isMinor, $birthDate)
+    public function create($name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $postalCode, $maritalStatus, $gender, $isMinor, $birthDate)
     {
-        $stmt = $this->conn->prepare('INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, maritalStatus, gender, isMinor, birthDate, editDate, createDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        $stmt->bind_param('sssssssssssbsss', $name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $maritalStatus, $gender, $isMinor, $birthDate, $this->today, $this->today);
+        $stmt = $this->conn->prepare('INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postalCode, maritalStatus, gender, isMinor, birthDate, editDate, createDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->bind_param('ssssssssssssbsss', $name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $postalCode, $maritalStatus, $gender, $isMinor, $birthDate, $this->today, $this->today);
         return $stmt->execute();
     }
 
@@ -33,10 +33,10 @@ class User
         return $stmt->get_result()->fetch_assoc();
     }
 
-    public function update($id, $name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $maritalStatus, $gender, $isMinor, $birthDate)
+    public function update($id, $name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $postalCode, $maritalStatus, $gender, $isMinor, $birthDate)
     {
-        $stmt = $this->conn->prepare('UPDATE users SET name = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, maritalStatus = ?, gender = ?, isMinor = ?, birthDate = ?, editDate= ? WHERE id = ?');
-        $stmt->bind_param('ssssssssssbssi', $name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $maritalStatus, $gender, $isMinor, $birthDate, $this->today);
+        $stmt = $this->conn->prepare('UPDATE users SET name = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postalCode = ?, maritalStatus = ?, gender = ?, isMinor = ?, birthDate = ?, editDate= ? WHERE id = ?');
+        $stmt->bind_param('sssssssssssbssi', $name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $postalCode, $maritalStatus, $gender, $isMinor, $birthDate, $this->today);
         return $stmt->execute();
     }
 

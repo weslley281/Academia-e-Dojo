@@ -1,5 +1,3 @@
-<?php include '../partials/header.php'; ?>
-
 <div class="container mt-5">
     <h1>Delete User</h1>
     <p>Are you sure you want to delete this user?</p>
@@ -8,5 +6,3 @@
         <a href="../../index.php" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
-
-<?php include '../partials/footer.php'; ?>

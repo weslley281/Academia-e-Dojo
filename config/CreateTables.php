@@ -27,7 +27,7 @@ class CreateTables
         ";
 
         if ($conn->query($sql) === true) {
-            echo "Tabela de usuários criada com sucesso.";
+            //echo "Tabela de usuários criada com sucesso.";
         } else {
             echo "Erro ao criar tabela 'users': " . $conn->error;
         }

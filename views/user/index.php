@@ -1,7 +1,6 @@
-// views/user/index.php
 <div class="container mt-5">
     <h1>Users List</h1>
-    <a href="create.php" class="btn btn-success mb-3">Create New User</a>
+    <a href="index.php?page=user&action=create" class="btn btn-success mb-3">Criar novo Usuário</a>
     <table class="table table-striped">
         <thead>
             <tr>

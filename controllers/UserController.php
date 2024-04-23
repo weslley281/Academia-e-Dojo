@@ -10,9 +10,9 @@ class UserController
         $this->user = new User($conn);
     }
 
-    public function create($name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $maritalStatus, $gender, $isMinor, $birthDate)
+    public function create($name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $postalCode, $maritalStatus, $gender, $isMinor, $birthDate)
     {
-        return $this->user->create($name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $maritalStatus, $gender, $isMinor, $birthDate);
+        return $this->user->create($name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $postalCode, $maritalStatus, $gender, $isMinor, $birthDate);
     }
 
     public function read()
@@ -25,9 +25,9 @@ class UserController
         return $this->user->getById($id);
     }
 
-    public function update($id, $name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $maritalStatus, $gender, $isMinor, $birthDate)
+    public function update($id, $name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $postalCode, $maritalStatus, $gender, $isMinor, $birthDate)
     {
-        return $this->user->update($id, $name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $maritalStatus, $gender, $isMinor, $birthDate);
+        return $this->user->update($id, $name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $postalCode, $maritalStatus, $gender, $isMinor, $birthDate);
     }
 
     public function delete($id)
