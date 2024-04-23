@@ -33,8 +33,7 @@
 
         <div class="mb-3 form-group">
             <label for="state" class="form-label">Selecione o Estado</label>
-            <select class="form-select" id="state" name="state">
-                <option value="" selected disabled>Selecione um estado</option>
+            <select class="form-control" class="form-select" id="state" name="state">
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
                 <option value="AP">Amapá</option>
@@ -81,23 +80,52 @@
         </div>
 
         <div class="mb-3 form-group">
-            <label for="name" class="form-label"><strong>Nome:</strong></label>
-            <input type="text" id="name" name="name" class="form-control" required>
+            <label for="maritalStatus" class="form-label"><strong>Estádo Civil:</strong></label>
+            <select class="form-control" name="maritalStatus" id="maritalStatus" required>
+                <option value="single">Solteiro</option>
+                <option value="married">Casado</option>
+                <option value="divorced">Divorciado</option>
+                <option value="widower">Viúvo</option>
+            </select>
         </div>
 
         <div class="mb-3 form-group">
-            <label for="name" class="form-label"><strong>Nome:</strong></label>
-            <input type="text" id="name" name="name" class="form-control" required>
+            <label for="gender" class="form-label"><strong>Nome:</strong></label>
+            <select class="form-control" name="gender" id="gender">
+                <option value="masculine">Masculino</option>
+                <option value="feminine">Feminino</option>
+                <option value="non-binary">Não-Binário</option>
+                <option value="gender-fluid">Gênero-Fluido</option>
+                <option value="rransgender">Transgênero</option>
+                <option value="agender">Agênero</option>
+                <option value="two-spirit">Dois Espíritos</option>
+                <option value="other">Outro</option>
+                <option value="null">Prefiro não dizer</option>
+            </select>
         </div>
 
         <div class="mb-3 form-group">
-            <label for="name" class="form-label"><strong>Nome:</strong></label>
-            <input type="text" id="name" name="name" class="form-control" required>
+            <label for="isMinor" class="form-label"><strong>Nome:</strong></label>
+            <div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="isMinor" id="adult" value="false" checked required>
+                    <label class="form-check-label" for="adult">
+                        Não é menor de idade
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="isMinor" id="isMinor" value="true">
+                    <label class="form-check-label" for="isMinor">
+                        É menor de idade
+                    </label>
+                </div>
+            </div>
         </div>
 
         <div class="mb-3 form-group">
-            <label for="name" class="form-label"><strong>Nome:</strong></label>
-            <input type="text" id="name" name="name" class="form-control" required>
+            <label for="birthDate" class="form-label"><strong>Data de Nascimento:</strong></label>
+            <input type="date" id="birthDate" name="birthDate" class="form-control" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Criar</button>
