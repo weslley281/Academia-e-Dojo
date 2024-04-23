@@ -1,13 +1,11 @@
-// config/db.php
 <?php
-$servidor = 'academias.mysql.uhserver.com';
-$usuario = 'academias';
-$senha = 'Wesv@g28';
-$banco = 'academias';
+$host = 'academias.mysql.uhserver.com';
+$user = 'academias';
+$password = 'Wesv@g28';
+$database = 'academias';
 
-$conexao = new mysqli($servidor, $usuario, $senha, $banco);
+$conn = new mysqli($host, $user, $password, $database);
 
-if ($conexao->connect_error) {
-    die('Falha na conexão com o Banco de dados: ' . $conexao->connect_error);
+if ($conn->connect_error) {
+    die('Falha na conexão com o Banco de dados: ' . $conn->connect_error);
 }
-?>

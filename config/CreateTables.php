@@ -9,7 +9,7 @@ class CreateTables
         CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255),
-            phone VARCHAR(20),
+            phone VARCHAR(30),
             email VARCHAR(255),
             address VARCHAR(255),
             complement VARCHAR(255),
@@ -27,9 +27,9 @@ class CreateTables
         ";
 
         if ($conn->query($sql) === true) {
-            echo "Table 'users' created successfully.";
+            echo "Tabela de usuários criada com sucesso.";
         } else {
-            echo "Error creating table 'users': " . $conn->error;
+            echo "Erro ao criar tabela 'users': " . $conn->error;
         }
     }
 }

@@ -1,4 +1,3 @@
-// models/User.php
 <?php
 require_once __DIR__ . '/../config/db.php';
 
@@ -34,10 +33,10 @@ class User
         return $stmt->get_result()->fetch_assoc();
     }
 
-    public function update($id, $name, $email)
+    public function update($id, $name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $maritalStatus, $gender, $isMinor, $birthDate)
     {
-        $stmt = $this->conn->prepare('UPDATE users SET name = ?, email = ? WHERE id = ?');
-        $stmt->bind_param('ssi', $name, $email, $id);
+        $stmt = $this->conn->prepare('UPDATE users SET name = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, maritalStatus = ?, gender = ?, isMinor = ?, birthDate = ?, editDate= ? WHERE id = ?');
+        $stmt->bind_param('ssssssssssbssi', $name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $maritalStatus, $gender, $isMinor, $birthDate, $this->today);
         return $stmt->execute();
     }
 
@@ -48,4 +47,3 @@ class User
         return $stmt->execute();
     }
 }
-?>
