@@ -17,12 +17,17 @@ class CreateTables
             state VARCHAR(100),
             city VARCHAR(100),
             neighborhood VARCHAR(100),
+            postalCode VARCHAR(100),
             maritalStatus VARCHAR(50),
             gender VARCHAR(10),
             isMinor TINYINT(1),
             birthDate DATE,
             editDate DATETIME,
-            createDate DATETIME
+            createDate DATETIME,
+            password VARCHAR(255) NULL,
+            cpf VARCHAR(11) NULL,
+            UNIQUE (cpf),
+            UNIQUE (email)
         );
         ";
 

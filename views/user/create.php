@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <h1>Criar Usuário</h1>
-    <form action="../../index.php?action=create" method="post" class="form-group">
+    <form action="./user.php?action=create" method="post" class="form-group">
         <div class="mb-3 form-group">
             <label for="name" class="form-label"><strong>Nome:</strong></label>
             <input type="text" id="name" name="name" class="form-control" required>
@@ -90,7 +90,7 @@
         </div>
 
         <div class="mb-3 form-group">
-            <label for="gender" class="form-label"><strong>Nome:</strong></label>
+            <label for="gender" class="form-label"><strong>Genêro:</strong></label>
             <select class="form-control" name="gender" id="gender">
                 <option value="masculine">Masculino</option>
                 <option value="feminine">Feminino</option>
@@ -105,7 +105,7 @@
         </div>
 
         <div class="mb-3 form-group">
-            <label for="isMinor" class="form-label"><strong>Nome:</strong></label>
+            <label for="isMinor" class="form-label"><strong>É menor de Idade:</strong></label>
             <div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="isMinor" id="adult" value="false" checked required>
