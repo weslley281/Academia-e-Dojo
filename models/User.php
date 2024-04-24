@@ -21,7 +21,7 @@ class User
 
             return true; // Sucesso
         } catch (mysqli_sql_exception $e) {
-            echo $e;
+            error_log($e->getMessage(), 3, 'errors.log');
             return false;
         }
     }
@@ -33,8 +33,8 @@ class User
             return $result->fetch_all(MYSQLI_ASSOC);
 
         } catch (mysqli_sql_exception $e) {
-            echo $e;
-            return false;
+            error_log($e->getMessage(), 3, 'errors.log');
+            return []; // Retorna um array vazio em caso de erro
         }
     }
 
@@ -47,8 +47,8 @@ class User
 
             return $stmt->get_result()->fetch_assoc();
         } catch (mysqli_sql_exception $e) {
-            echo $e;
-            return false;
+            error_log($e->getMessage(), 3, 'errors.log');
+            return []; // Retorna um array vazio em caso de erro
         }
     }
 
@@ -61,7 +61,7 @@ class User
 
             return true; // Sucesso
         } catch (mysqli_sql_exception $e) {
-            echo $e;
+            error_log($e->getMessage(), 3, 'errors.log');
             return false;
         }
     }
@@ -74,7 +74,7 @@ class User
 
             return $stmt->execute();
         } catch (mysqli_sql_exception $e) {
-            echo $e;
+            error_log($e->getMessage(), 3, 'errors.log');
             return false;
         }
     }
