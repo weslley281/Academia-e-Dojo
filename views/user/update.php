@@ -162,6 +162,11 @@
             <input type="date" id="birthDate" name="birthDate" class="form-control" value="<?php echo $user["birthDate"] ?>" required>
         </div>
 
-        <button type="submit" class="mb-3 btn btn-secondary">Salvar</button>
+        <div class="row">
+            <div class="col"><button type="submit" class="mb-3 btn btn-secondary float-left">Salvar</button></div>
+            <div class="col"><a href="./index.php?page=users" class="btn btn-light float-right">Cancelar</a></div>
+        </div>
+
+
     </form>
 </div>

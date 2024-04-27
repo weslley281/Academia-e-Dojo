@@ -19,7 +19,7 @@
                         <td><?= htmlspecialchars($user['name']) ?></td>
                         <td><?= htmlspecialchars($user['email']) ?></td>
                         <td>
-                            <a href="index.php?page=users&action=update&id=<?= $user['id'] ?>" class="btn btn-warning">Editar</a>
+                            <a href="index.php?page=users&action=update&id=<?= $user['id'] ?>" class="btn btn-info">Editar</a>
                             <a href="index.php?page=users&action=delete&id=<?= $user['id'] ?>" class="btn btn-danger">Delete</a>
                         </td>
                         <?php

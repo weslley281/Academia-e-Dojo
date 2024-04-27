@@ -1,8 +1,8 @@
 <div class="container mt-5">
-    <h1>Delete User</h1>
-    <p>Are you sure you want to delete this user?</p>
-    <form action="../../index.php?action=delete&id=<?= htmlspecialchars($user['id']) ?>" method="post">
+    <h1>Deletar Usuário</h1>
+    <p>Você tem certeza que deseja deletar o usuáro <?php echo $user["name"] ?></p>
+    <form action="./user.php?action=delete" method="post" class="form-group">
         <button type="submit" class="btn btn-danger">Delete</button>
-        <a href="../../index.php" class="btn btn-secondary">Cancel</a>
+        <a href="./index.php?page=users" class="btn btn-light">Cancelar</a>
     </form>
 </div>
