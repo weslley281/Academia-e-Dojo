@@ -128,6 +128,6 @@
             <input type="date" id="birthDate" name="birthDate" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Criar</button>
+        <button type="submit" class="mb-3 btn btn-success">Criar</button>
     </form>
 </div>

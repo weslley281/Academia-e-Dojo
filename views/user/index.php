@@ -11,22 +11,26 @@
         </thead>
         <tbody>
             <?php
-$users = $userController->read();
+            $users = $userController->read();
 
-if (isset($users) && !empty($users)) {
-    echo "entrei aqui";
-    foreach ($users as $user) {?>
-                <tr>
-                    <td><?=htmlspecialchars($user['name'])?></td>
-                    <td><?=htmlspecialchars($user['email'])?></td>
-                    <td>
-                        <a href="update.php?id=<?=$user['id']?>" class="btn btn-warning">Editar</a>
-                        <a href="../../index.php?action=delete&id=<?=$user['id']?>" class="btn btn-danger">Delete</a>
-                    </td>
-                </tr>
+            if (isset($users) && !empty($users)) {
+                foreach ($users as $user) { ?>
+                    <tr>
+                        <td><?= htmlspecialchars($user['name']) ?></td>
+                        <td><?= htmlspecialchars($user['email']) ?></td>
+                        <td>
+                            <a href="index.php?page=users&action=update&id=<?= $user['id'] ?>" class="btn btn-warning">Editar</a>
+                            <a href="index.php?page=users&action=delete&id=<?= $user['id'] ?>" class="btn btn-danger">Delete</a>
+                        </td>
+                        <?php
+                        if (isset($_GET["action"]) && $_GET["action"] == "update" && isset($_GET["id"]) && $_GET["id"] == $user['id']) {
+                            include_once "update.php";
+                        }
+                        ?>
+                    </tr>
             <?php }
-}
-?>
+            }
+            ?>
         </tbody>
     </table>
 </div>
