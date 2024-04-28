@@ -9,27 +9,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_GET["action"]) && $_GET["action"] == "create") {
 
-        $name = $_POST["name"];
-        $phone = $_POST["phone"];
-        $email = $_POST["email"];
-        $address = $_POST["address"];
-        $complement = $_POST["complement"];
-        $country = $_POST["country"];
-        $state = $_POST["state"];
-        $city = $_POST["city"];
-        $neighborhood = $_POST["neighborhood"];
-        $postalCode = $_POST["postalCode"];
-        $maritalStatus = $_POST["maritalStatus"];
-        $gender = $_POST["gender"];
-        $birthDate = $_POST["birthDate"];
-
         if (isset($_POST["isMinor"]) && $_POST["isMinor"] == "true") {
             $isMinor = 1;
         } else {
             $isMinor = 0;
         }
 
-        if ($user->create($name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $postalCode, $maritalStatus, $gender, $isMinor, $birthDate)) {
+        $data = [
+            "name" => $_POST["name"],
+            "phone" => $_POST["phone"],
+            "email" => $_POST["email"],
+            "address" => $_POST["address"],
+            "complement" => $_POST["complement"],
+            "country" => $_POST["country"],
+            "state" => $_POST["state"],
+            "city" => $_POST["city"],
+            "neighborhood" => $_POST["neighborhood"],
+            "postalCode" => $_POST["postalCode"],
+            "maritalStatus" => $_POST["maritalStatus"],
+            "gender" => $_POST["gender"],
+            "birthDate" => $_POST["birthDate"],
+            "isMinor" => $isMinor,
+        ];
+
+        if ($user->create($data)) {
             header("Location: index.php?page=users&action=success");
             exit;
         } else {
@@ -38,31 +41,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } elseif (isset($_GET["action"]) && $_GET["action"] == "update") {
 
-        $name = $_POST["name"];
-        $phone = $_POST["phone"];
-        $email = $_POST["email"];
-        $address = $_POST["address"];
-        $complement = $_POST["complement"];
-        $country = $_POST["country"];
-        $state = $_POST["state"];
-        $city = $_POST["city"];
-        $neighborhood = $_POST["neighborhood"];
-        $postalCode = $_POST["postalCode"];
-        $maritalStatus = $_POST["maritalStatus"];
-        $gender = $_POST["gender"];
-        $birthDate = $_POST["birthDate"];
-
         if (isset($_POST["isMinor"]) && $_POST["isMinor"] == "true") {
             $isMinor = 1;
         } else {
             $isMinor = 0;
         }
 
-        if ($user->update($id, $name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $postalCode, $maritalStatus, $gender, $isMinor, $birthDate)) {
-            header("Location: index.php?page=users&action=saved");
+        $data = [
+            "name" => $_POST["name"],
+            "phone" => $_POST["phone"],
+            "email" => $_POST["email"],
+            "address" => $_POST["address"],
+            "complement" => $_POST["complement"],
+            "country" => $_POST["country"],
+            "state" => $_POST["state"],
+            "city" => $_POST["city"],
+            "neighborhood" => $_POST["neighborhood"],
+            "postalCode" => $_POST["postalCode"],
+            "maritalStatus" => $_POST["maritalStatus"],
+            "gender" => $_POST["gender"],
+            "birthDate" => $_POST["birthDate"],
+            "isMinor" => $isMinor,
+        ];
+
+        var_dump($data);
+
+        if ($user->update($data, $id)) {
+            //header("Location: index.php?page=users&action=saved");
             exit;
         } else {
-            header("Location: index.php?page=users&action=fail");
+            //header("Location: index.php?page=users&action=fail");
             exit;
         }
     } elseif (isset($_GET["action"]) && $_GET["action"] == "delete") {

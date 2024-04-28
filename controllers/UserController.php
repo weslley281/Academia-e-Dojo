@@ -10,9 +10,9 @@ class UserController
         $this->user = new User($conn);
     }
 
-    public function create($name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $postalCode, $maritalStatus, $gender, $isMinor, $birthDate)
+    public function create($data)
     {
-        return $this->user->create($name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $postalCode, $maritalStatus, $gender, $isMinor, $birthDate);
+        return $this->user->create($data);
     }
 
     public function read()
@@ -25,9 +25,9 @@ class UserController
         return $this->user->getById($id);
     }
 
-    public function update($id, $name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $postalCode, $maritalStatus, $gender, $isMinor, $birthDate)
+    public function update($data, $id)
     {
-        return $this->user->update($id, $name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $postalCode, $maritalStatus, $gender, $isMinor, $birthDate);
+        return $this->user->update($data, $id);
     }
 
     public function delete($id)
