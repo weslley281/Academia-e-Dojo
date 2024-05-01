@@ -4,7 +4,7 @@ require_once __DIR__ . '/../config/db.php';
 class User
 {
     private $conn;
-    private $today;
+    //private $today;
 
     public function __construct($conn)
     {
@@ -13,7 +13,7 @@ class User
             throw new Exception("Conexão com o banco de dados não fornecida.");
         }
         $this->conn = $conn;
-        $this->today = date("Y-m-d H:i:s");
+        //$this->today = date("Y-m-d H:i:s");
     }
 
     // Método para criar um novo usuário
@@ -22,13 +22,13 @@ class User
         try {
             // Consulta preparada para evitar SQL Injection
             $stmt = $this->conn->prepare(
-                'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postalCode, maritalStatus, gender, birthDate, password, editDate, createDate)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+                'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postalCode, maritalStatus, gender, birthDate, password)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
             );
 
             // Binda parâmetros usando o tipo adequado
             $stmt->bind_param(
-                'ssssssssssssssss',
+                'ssssssssssssss',
                 $data['name'],
                 $data['phone'],
                 $data['email'],
@@ -43,8 +43,8 @@ class User
                 $data['gender'],
                 $data['birthDate'],
                 $data['password'],
-                $this->today,
-                $this->today
+                //$this->today,
+                //$this->today
             );
 
             $stmt->execute(); // Executa a consulta
@@ -98,11 +98,11 @@ class User
         try {
             // Consulta preparada para atualizar usuário por ID
             $stmt = $this->conn->prepare(
-                'UPDATE users SET name = ?, phone = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postalCode = ?, maritalStatus = ?, gender = ?, birthDate = ?, editDate = ? WHERE id = ?'
+                'UPDATE users SET name = ?, phone = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postalCode = ?, maritalStatus = ?, gender = ?, birthDate = ? WHERE id = ?'
             );
 
             $stmt->bind_param(
-                'ssssssssssssssi',
+                'sssssssssssssi',
                 $data['name'],
                 $data['phone'],
                 $data['email'],
@@ -116,7 +116,7 @@ class User
                 $data['maritalStatus'],
                 $data['gender'],
                 $data['birthDate'],
-                $this->today,
+                //$this->today,
                 $id
             );
 

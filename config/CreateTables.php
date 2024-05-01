@@ -21,8 +21,8 @@ class CreateTables
             maritalStatus VARCHAR(50),
             gender VARCHAR(10),
             birthDate DATE,
-            editDate DATETIME,
-            createDate DATETIME,
+            editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             password VARCHAR(255) NULL,
             cpf VARCHAR(11) NULL,
             UNIQUE (cpf),
