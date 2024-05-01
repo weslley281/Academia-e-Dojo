@@ -8,81 +8,140 @@ class User
 
     public function __construct($conn)
     {
+        // Verifica se a conexão é válida
+        if ($conn === null) {
+            throw new Exception("Conexão com o banco de dados não fornecida.");
+        }
         $this->conn = $conn;
         $this->today = date("Y-m-d H:i:s");
     }
 
-    public function create($data)
+    // Método para criar um novo usuário
+    public function create(array $data)
     {
         try {
-            $stmt = $this->conn->prepare('INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postalCode, maritalStatus, gender, isMinor, birthDate, editDate, createDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-            $stmt->bind_param('ssssssssssssisss', $data["name"], $data["phone"], $data["email"], $data["address"], $data["complement"], $data["country"], $data["state"], $data["city"], $data["neighborhood"], $data["postalCode"], $data["maritalStatus"], $data["gender"], $data["isMinor"], $data["birthDate"], $this->today, $this->today);
-            $stmt->execute();
+            // Consulta preparada para evitar SQL Injection
+            $stmt = $this->conn->prepare(
+                'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postalCode, maritalStatus, gender, isMinor, birthDate, password, editDate, createDate)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            );
 
+            // Binda parâmetros usando o tipo adequado
+            $stmt->bind_param(
+                'ssssssssssssissss',
+                $data['name'],
+                $data['phone'],
+                $data['email'],
+                $data['address'],
+                $data['complement'],
+                $data['country'],
+                $data['state'],
+                $data['city'],
+                $data['neighborhood'],
+                $data['postalCode'],
+                $data['maritalStatus'],
+                $data['gender'],
+                $data['isMinor'],
+                $data['birthDate'],
+                $data['password'],
+                $this->today,
+                $this->today
+            );
+
+            $stmt->execute(); // Executa a consulta
             return true; // Sucesso
+
         } catch (mysqli_sql_exception $e) {
-            error_log($e->getMessage(), 3, 'errors.log');
-            return false;
+            // Registra erros para análise posterior
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return false; // Retorna falso em caso de erro
         }
     }
 
+    // Método para obter todos os usuários
     public function getAll()
     {
         try {
+            // Executa a consulta para obter todos os usuários
             $result = $this->conn->query('SELECT * FROM users');
+
+            // Retorna os resultados como uma matriz associativa
             return $result->fetch_all(MYSQLI_ASSOC);
 
         } catch (mysqli_sql_exception $e) {
-            error_log($e->getMessage(), 3, 'errors.log');
+            // Log de erro em caso de falha
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return []; // Retorna um array vazio em caso de erro
         }
     }
 
+    // Método para obter um usuário por ID
     public function getById($id)
     {
         try {
+            // Consulta preparada para obter usuário por ID
             $stmt = $this->conn->prepare('SELECT * FROM users WHERE id = ?');
             $stmt->bind_param('i', $id);
             $stmt->execute();
 
-            return $stmt->get_result()->fetch_assoc();
+            return $stmt->get_result()->fetch_assoc(); // Retorna a primeira linha do resultado
+
         } catch (mysqli_sql_exception $e) {
-            error_log($e->getMessage(), 3, 'errors.log');
-            return []; // Retorna um array vazio em caso de erro
+            // Log de erro em caso de falha
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return null; // Retorna null em caso de erro
         }
     }
 
-    public function update($data, $id)
+    // Método para atualizar um usuário por ID
+    public function update(array $data, $id)
     {
         try {
-            $stmt = $this->conn->prepare('UPDATE users SET name = ?, phone = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postalCode = ?, maritalStatus = ?, gender = ?, isMinor = ?, birthDate = ?, editDate= ? WHERE id = ?');
-            $stmt->bind_param('sssssssssssisssi', $data["name"], $data["phone"], $data["email"], $data["address"], $data["complement"], $data["country"], $data["state"], $data["city"], $data["neighborhood"], $data["postalCode"], $data["maritalStatus"], $data["gender"], $data["isMinor"], $data["birthDate"], $this->today, $id);
-            $stmt->execute();
-
-            $query = sprintf(
-                'UPDATE users SET name = %s, phone = %s, email = %s, address = %s, complement = %s, country = %s, state = %s, city = %s, neighborhood = %s, postalCode = %s, maritalStatus = %s, gender = %s, isMinor = %s, birthDate = %s, editDate = %s WHERE id = %s',
-                $data["name"], $data["phone"], $data["email"], $data["address"], $data["complement"], $data["country"], $data["state"], $data["city"], $data["neighborhood"], $data["postalCode"], $data["maritalStatus"], $data["gender"], $data["isMinor"], $data["birthDate"], $this->today, $id
+            // Consulta preparada para atualizar usuário por ID
+            $stmt = $this->conn->prepare(
+                'UPDATE users SET name = ?, phone = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postalCode = ?, maritalStatus = ?, gender = ?, isMinor = ?, birthDate = ?, editDate = ? WHERE id = ?'
             );
-            echo $query;
 
-            return true;
+            $stmt->bind_param(
+                'sssssssssssisssi',
+                $data['name'],
+                $data['phone'],
+                $data['email'],
+                $data['address'],
+                $data['complement'],
+                $data['country'],
+                $data['state'],
+                $data['city'],
+                $data['neighborhood'],
+                $data['postalCode'],
+                $data['maritalStatus'],
+                $data['gender'],
+                $data['isMinor'],
+                $data['birthDate'],
+                $this->today,
+                $id
+            );
+
+            $stmt->execute(); // Executa a atualização
+            return true; // Sucesso
 
         } catch (mysqli_sql_exception $e) {
-            error_log($e->getMessage(), 3, 'errors.log');
-            return false;
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log'); // Log de erro
+            return false; // Retorna falso em caso de erro
         }
     }
 
+    // Método para deletar um usuário por ID
     public function delete($id)
     {
         try {
             $stmt = $this->conn->prepare('DELETE FROM users WHERE id = ?');
             $stmt->bind_param('i', $id);
+            return $stmt->execute(); // Retorna true se a exclusão for bem-sucedida
 
-            return $stmt->execute();
         } catch (mysqli_sql_exception $e) {
-            error_log($e->getMessage(), 3, 'errors.log');
-            return false;
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log'); // Log de erro
+            return false; // Retorna falso em caso de erro
         }
     }
 }

@@ -1,84 +1,80 @@
 <?php
 require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../utils/generateRandomPassword.php';
+
+// Instância da classe User
 $user = new User($conn);
 
+// Verifica o método HTTP
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST["id"];
+    // Validação e Sanitização dos Dados
+    $id = isset($_POST['id']) ? intval($_POST['id']) : null;
 
-    if (isset($_GET["action"]) && $_GET["action"] == "create") {
+    // Verifica a ação a ser executada
+    $action = isset($_GET['action']) ? strtolower($_GET['action']) : '';
 
-        if (isset($_POST["isMinor"]) && $_POST["isMinor"] == "true") {
-            $isMinor = 1;
-        } else {
-            $isMinor = 0;
-        }
-
-        $data = [
-            "name" => $_POST["name"],
-            "phone" => $_POST["phone"],
-            "email" => $_POST["email"],
-            "address" => $_POST["address"],
-            "complement" => $_POST["complement"],
-            "country" => $_POST["country"],
-            "state" => $_POST["state"],
-            "city" => $_POST["city"],
-            "neighborhood" => $_POST["neighborhood"],
-            "postalCode" => $_POST["postalCode"],
-            "maritalStatus" => $_POST["maritalStatus"],
-            "gender" => $_POST["gender"],
-            "birthDate" => $_POST["birthDate"],
+    // Função para criar o array de dados de usuário
+    function getUserData($post)
+    {
+        $password = generateRandomPassword();
+        $isMinor = isset($post['isMinor']) && $post['isMinor'] === 'true' ? 1 : 0;
+        return [
+            "name" => htmlspecialchars($post["name"] ?? ''),
+            "phone" => htmlspecialchars($post["phone"] ?? ''),
+            "email" => filter_var($post["email"], FILTER_VALIDATE_EMAIL),
+            "address" => htmlspecialchars($post["address"] ?? ''),
+            "complement" => htmlspecialchars($post["complement"] ?? ''),
+            "country" => htmlspecialchars($post["country"] ?? ''),
+            "state" => htmlspecialchars($post["state"] ?? ''),
+            "city" => htmlspecialchars($post["city"] ?? ''),
+            "neighborhood" => htmlspecialchars($post["neighborhood"] ?? ''),
+            "postalCode" => htmlspecialchars($post["postalCode"] ?? ''),
+            "maritalStatus" => htmlspecialchars($post["maritalStatus"] ?? ''),
+            "gender" => htmlspecialchars($post["gender"] ?? ''),
+            "birthDate" => $post["birthDate"] ?? '',
             "isMinor" => $isMinor,
+            "password" => $password,
         ];
+    }
 
-        if ($user->create($data)) {
-            header("Location: ../index.php?page=users&action=success");
-            exit;
-        } else {
-            header("Location: ../index.php?page=users&action=fail");
-            exit;
-        }
-    } elseif (isset($_GET["action"]) && $_GET["action"] == "update") {
+    switch ($action) {
+        case 'create':
+            $data = getUserData($_POST);
+            if ($user->create($data)) {
+                header("Location: ../index.php?page=users&action=success");
+            } else {
+                header("Location: ../index.php?page=users&action=fail");
+            }
+            break;
 
-        if (isset($_POST["isMinor"]) && $_POST["isMinor"] == "true") {
-            $isMinor = 1;
-        } else {
-            $isMinor = 0;
-        }
+        case 'update':
+            if ($id === null) {
+                header("Location: ../index.php?page=users&action=invalid");
+                exit;
+            }
+            $data = getUserData($_POST);
+            if ($user->update($data, $id)) {
+                header("Location: ../index.php?page=users&action=saved");
+            } else {
+                header("Location: ../index.php?page=users&action=fail");
+            }
+            break;
 
-        $data = [
-            "name" => $_POST["name"],
-            "phone" => $_POST["phone"],
-            "email" => $_POST["email"],
-            "address" => $_POST["address"],
-            "complement" => $_POST["complement"],
-            "country" => $_POST["country"],
-            "state" => $_POST["state"],
-            "city" => $_POST["city"],
-            "neighborhood" => $_POST["neighborhood"],
-            "postalCode" => $_POST["postalCode"],
-            "maritalStatus" => $_POST["maritalStatus"],
-            "gender" => $_POST["gender"],
-            "birthDate" => $_POST["birthDate"],
-            "isMinor" => $isMinor,
-        ];
+        case 'delete':
+            if ($id === null) {
+                header("Location: ../index.php?page=users&action=invalid");
+                exit;
+            }
+            if ($user->delete($id)) {
+                header("Location: ../index.php?page=users&action=deleted");
+            } else {
+                header("Location: ../index.php?page=users&action=fail");
+            }
+            break;
 
-        var_dump($data);
-
-        if ($user->update($data, $id)) {
-            header("Location: ../index.php?page=users&action=saved");
-            exit;
-        } else {
-            header("Location: ../index.php?page=users&action=fail");
-            exit;
-        }
-    } elseif (isset($_GET["action"]) && $_GET["action"] == "delete") {
-        if ($user->delete($id)) {
-            header("Location: ../index.php?page=users&action=deleted");
-            exit;
-        } else {
-            header("Location: ../index.php?page=users&action=fail");
-            exit;
-        }
+        default:
+            header("Location: ../index.php?page=users&action=unknown");
+            break;
     }
 }
