@@ -36,4 +36,24 @@ class CreateTables
             echo "Erro ao criar tabela 'users': " . $conn->error;
         }
     }
+
+    public static function createMartialArtsTable($conn)
+    {
+        $sql = "
+        CREATE TABLE IF NOT EXISTS martialArt (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255),
+            descriptiom VARCHAR(30),
+            editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE (name)
+        );
+        ";
+
+        if ($conn->query($sql) === true) {
+            //echo "Tabela de usuários criada com sucesso.";
+        } else {
+            echo "Erro ao criar tabela 'users': " . $conn->error;
+        }
+    }
 }

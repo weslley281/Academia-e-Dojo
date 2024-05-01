@@ -5,6 +5,7 @@ require_once './models/User.php';
 $createTable = new CreateTables;
 $user = new User($conn);
 $createTable->createUsersTable($conn);
+$createTable->createMartialArtsTable($conn);
 
 // Cria a instância do modelo User para obter dados dos usuários
 $userModel = new User($conn);
