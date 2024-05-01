@@ -18,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     function getUserData($post)
     {
         $password = generateRandomPassword();
-        $isMinor = isset($post['isMinor']) && $post['isMinor'] === 'true' ? 1 : 0;
         return [
             "name" => htmlspecialchars($post["name"] ?? ''),
             "phone" => htmlspecialchars($post["phone"] ?? ''),

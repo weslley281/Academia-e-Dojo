@@ -21,7 +21,7 @@ class CreateTables
             maritalStatus VARCHAR(50),
             gender VARCHAR(10),
             birthDate DATE,
-            editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             password VARCHAR(255) NULL,
             cpf VARCHAR(11) NULL,
@@ -30,7 +30,7 @@ class CreateTables
         );
         ";
 
-        if ($conn->query($sql) === true) {
+        if ($conn->query($sql)) {
             //echo "Tabela de usuários criada com sucesso.";
         } else {
             echo "Erro ao criar tabela 'users': " . $conn->error;
@@ -40,11 +40,11 @@ class CreateTables
     public static function createMartialArtsTable($conn)
     {
         $sql = "
-        CREATE TABLE IF NOT EXISTS martialArt (
+        CREATE TABLE IF NOT EXISTS martialArts (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255),
             descriptiom VARCHAR(30),
-            editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             UNIQUE (name)
         );

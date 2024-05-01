@@ -19,8 +19,8 @@
                     Aulas
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Artes Marciais</a>
-                    <a class="dropdown-item" href="#">Outra ação</a>
+                    <a class="dropdown-item" href="index.php?page=martialArts">Artes Marciais</a>
+                    <a class="dropdown-item" href="#">Agendamento de Aulas</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Algo mais aqui</a>
                 </div>

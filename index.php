@@ -1,24 +1,24 @@
 <?php
 require_once "./config/db.php";
+require_once "./utils/renderAlert.php";
 require_once "./config/CreateTables.php";
 require_once './models/User.php';
+require_once './models/MartialArt.php';
 $createTable = new CreateTables;
 $user = new User($conn);
+$martialart = new MartialArt($conn);
+
 $createTable->createUsersTable($conn);
 $createTable->createMartialArtsTable($conn);
 
-// Cria a instância do modelo User para obter dados dos usuários
-$userModel = new User($conn);
-$users = $userModel->getAll();
-
-// Contagem total de usuários
-$totalUsers = count($users);
+$page = $_GET['page'] ?? 'dashboard';
+$action = $_GET['action'] ?? '';
 
 include_once './views/navbar.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -31,57 +31,66 @@ include_once './views/navbar.php';
 </head>
 
 <body>
-
     <div class="container">
         <?php
-if (isset($_GET["page"]) && $_GET["page"] == "users") {
-    if (isset($_GET["action"]) && $_GET["action"] == "create") {
-        include_once './views/user/create.php';
-    }
+// Usando switch para simplificar condicionais
+switch ($page) {
+    case 'users':
+        include_once './views/user/index.php';
+        if ($action === 'create') {
+            include_once './views/user/create.php';
+        } else {
+            switch ($action) {
+                case 'success':
+                    echo renderAlert('success', 'Sucesso!', 'Usuário criado com sucesso.');
+                    break;
 
-    if (isset($_GET["action"]) && $_GET["action"] == "success") {
-        ?>
-                <div class="mt-5 alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Sucesso!</strong> Usuário criado!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            <?php
-} elseif (isset($_GET["action"]) && $_GET["action"] == "fail") {
-        ?>
-                <div class="mt-5 alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Erro!</strong> Erro ao criar o usuário!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            <?php
-} elseif (isset($_GET["action"]) && $_GET["action"] == "saved") {
-        ?>
-                <div class="mt-5 alert alert-info alert-dismissible fade show" role="alert">
-                    <strong>Sucesso!</strong> Usuário editado!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            <?php
-} elseif (isset($_GET["action"]) && $_GET["action"] == "deleted") {
-        ?>
-                <div class="mt-5 alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Sucesso!</strong> Usuário deletado!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-        <?php
-}
+                case 'fail':
+                    echo renderAlert('danger', 'Erro!', 'Erro ao criar o usuário.');
+                    break;
 
-    include_once './views/user/index.php';
+                case 'saved':
+                    echo renderAlert('info', 'Sucesso!', 'Usuário editado com sucesso.');
+                    break;
+
+                case 'deleted':
+                    echo renderAlert('warning', 'Sucesso!', 'Usuário deletado.');
+                    break;
+            }
+        }
+        break;
+
+    case 'martialArts':
+        include_once './views/martialArt/index.php';
+        if ($action === 'create') {
+            include_once './views/martialArt/create.php';
+        } else {
+            switch ($action) {
+                case 'success':
+                    echo renderAlert('success', 'Sucesso!', 'Usuário criado com sucesso.');
+                    break;
+
+                case 'fail':
+                    echo renderAlert('danger', 'Erro!', 'Erro ao criar o usuário.');
+                    break;
+
+                case 'saved':
+                    echo renderAlert('info', 'Sucesso!', 'Usuário editado com sucesso.');
+                    break;
+
+                case 'deleted':
+                    echo renderAlert('warning', 'Sucesso!', 'Usuário deletado.');
+                    break;
+            }
+        }
+        break;
+
+    default:
+        echo "<h2>Página não encontrada</h2>";
+        break;
 }
 ?>
     </div>
-
 </body>
 
 </html>
