@@ -1,37 +1,84 @@
 <?php
 require_once __DIR__ . '/../models/User.php';
+require_once __DIR__ . '/../config/db.php';
+$user = new User($conn);
 
-class UserController
-{
-    private $user;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST["id"];
 
-    public function __construct($conn)
-    {
-        $this->user = new User($conn);
-    }
+    if (isset($_GET["action"]) && $_GET["action"] == "create") {
 
-    public function create($data)
-    {
-        return $this->user->create($data);
-    }
+        if (isset($_POST["isMinor"]) && $_POST["isMinor"] == "true") {
+            $isMinor = 1;
+        } else {
+            $isMinor = 0;
+        }
 
-    public function read()
-    {
-        return $this->user->getAll();
-    }
+        $data = [
+            "name" => $_POST["name"],
+            "phone" => $_POST["phone"],
+            "email" => $_POST["email"],
+            "address" => $_POST["address"],
+            "complement" => $_POST["complement"],
+            "country" => $_POST["country"],
+            "state" => $_POST["state"],
+            "city" => $_POST["city"],
+            "neighborhood" => $_POST["neighborhood"],
+            "postalCode" => $_POST["postalCode"],
+            "maritalStatus" => $_POST["maritalStatus"],
+            "gender" => $_POST["gender"],
+            "birthDate" => $_POST["birthDate"],
+            "isMinor" => $isMinor,
+        ];
 
-    public function get($id)
-    {
-        return $this->user->getById($id);
-    }
+        if ($user->create($data)) {
+            header("Location: ../index.php?page=users&action=success");
+            exit;
+        } else {
+            header("Location: ../index.php?page=users&action=fail");
+            exit;
+        }
+    } elseif (isset($_GET["action"]) && $_GET["action"] == "update") {
 
-    public function update($data, $id)
-    {
-        return $this->user->update($data, $id);
-    }
+        if (isset($_POST["isMinor"]) && $_POST["isMinor"] == "true") {
+            $isMinor = 1;
+        } else {
+            $isMinor = 0;
+        }
 
-    public function delete($id)
-    {
-        return $this->user->delete($id);
+        $data = [
+            "name" => $_POST["name"],
+            "phone" => $_POST["phone"],
+            "email" => $_POST["email"],
+            "address" => $_POST["address"],
+            "complement" => $_POST["complement"],
+            "country" => $_POST["country"],
+            "state" => $_POST["state"],
+            "city" => $_POST["city"],
+            "neighborhood" => $_POST["neighborhood"],
+            "postalCode" => $_POST["postalCode"],
+            "maritalStatus" => $_POST["maritalStatus"],
+            "gender" => $_POST["gender"],
+            "birthDate" => $_POST["birthDate"],
+            "isMinor" => $isMinor,
+        ];
+
+        var_dump($data);
+
+        if ($user->update($data, $id)) {
+            header("Location: ../index.php?page=users&action=saved");
+            exit;
+        } else {
+            header("Location: ../index.php?page=users&action=fail");
+            exit;
+        }
+    } elseif (isset($_GET["action"]) && $_GET["action"] == "delete") {
+        if ($user->delete($id)) {
+            header("Location: ../index.php?page=users&action=deleted");
+            exit;
+        } else {
+            header("Location: ../index.php?page=users&action=fail");
+            exit;
+        }
     }
 }

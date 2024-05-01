@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <h1>Editar Usuário</h1>
-    <form action="./user.php?action=update" method="post" class="form-group">
+    <form action="./controllers/UserController.php?action=update" method="post" class="form-group">
         <input type="hidden" name="id" value="<?php echo $_GET["id"] ?>">
         <div class="mb-3 form-group">
             <label for="name" class="form-label"><strong>Nome:</strong></label>
@@ -37,41 +37,41 @@
             <select class="form-control" class="form-select" id="state" name="state" required>
                 <option value="">Selecione um estado</option>
                 <?php
-                $states = array(
-                    'AC' => 'Acre',
-                    'AL' => 'Alagoas',
-                    'AP' => 'Amapá',
-                    'AM' => 'Amazonas',
-                    'BA' => 'Bahia',
-                    'CE' => 'Ceará',
-                    'DF' => 'Distrito Federal',
-                    'ES' => 'Espírito Santo',
-                    'GO' => 'Goiás',
-                    'MA' => 'Maranhão',
-                    'MT' => 'Mato Grosso',
-                    'MS' => 'Mato Grosso do Sul',
-                    'MG' => 'Minas Gerais',
-                    'PA' => 'Pará',
-                    'PB' => 'Paraíba',
-                    'PR' => 'Paraná',
-                    'PE' => 'Pernambuco',
-                    'PI' => 'Piauí',
-                    'RJ' => 'Rio de Janeiro',
-                    'RN' => 'Rio Grande do Norte',
-                    'RS' => 'Rio Grande do Sul',
-                    'RO' => 'Rondônia',
-                    'RR' => 'Roraima',
-                    'SC' => 'Santa Catarina',
-                    'SP' => 'São Paulo',
-                    'SE' => 'Sergipe',
-                    'TO' => 'Tocantins'
-                );
+$states = array(
+    'AC' => 'Acre',
+    'AL' => 'Alagoas',
+    'AP' => 'Amapá',
+    'AM' => 'Amazonas',
+    'BA' => 'Bahia',
+    'CE' => 'Ceará',
+    'DF' => 'Distrito Federal',
+    'ES' => 'Espírito Santo',
+    'GO' => 'Goiás',
+    'MA' => 'Maranhão',
+    'MT' => 'Mato Grosso',
+    'MS' => 'Mato Grosso do Sul',
+    'MG' => 'Minas Gerais',
+    'PA' => 'Pará',
+    'PB' => 'Paraíba',
+    'PR' => 'Paraná',
+    'PE' => 'Pernambuco',
+    'PI' => 'Piauí',
+    'RJ' => 'Rio de Janeiro',
+    'RN' => 'Rio Grande do Norte',
+    'RS' => 'Rio Grande do Sul',
+    'RO' => 'Rondônia',
+    'RR' => 'Roraima',
+    'SC' => 'Santa Catarina',
+    'SP' => 'São Paulo',
+    'SE' => 'Sergipe',
+    'TO' => 'Tocantins',
+);
 
-                foreach ($states as $code => $name) {
-                    $selected = ($user['state'] === $code) ? 'selected' : '';
-                    echo "<option value=\"$code\" $selected>$name</option>";
-                }
-                ?>
+foreach ($states as $code => $name) {
+    $selected = ($user['state'] === $code) ? 'selected' : '';
+    echo "<option value=\"$code\" $selected>$name</option>";
+}
+?>
             </select>
         </div>
 
@@ -94,18 +94,18 @@
             <label for="maritalStatus" class="form-label"><strong>Estado Civil:</strong></label>
             <select class="form-control" name="maritalStatus" id="maritalStatus" required>
                 <?php
-                $marital_statuses = [
-                    'single' => 'Solteiro',
-                    'married' => 'Casado',
-                    'divorced' => 'Divorciado',
-                    'widower' => 'Viúvo',
-                ];
+$marital_statuses = [
+    'single' => 'Solteiro',
+    'married' => 'Casado',
+    'divorced' => 'Divorciado',
+    'widower' => 'Viúvo',
+];
 
-                foreach ($marital_statuses as $status => $label) {
-                    $selected = ($user['maritalStatus'] === $status) ? 'selected' : '';
-                    echo "<option value=\"$status\" $selected>$label</option>";
-                }
-                ?>
+foreach ($marital_statuses as $status => $label) {
+    $selected = ($user['maritalStatus'] === $status) ? 'selected' : '';
+    echo "<option value=\"$status\" $selected>$label</option>";
+}
+?>
             </select>
         </div>
 
@@ -113,23 +113,23 @@
             <label for="gender" class="form-label"><strong>Gênero:</strong></label>
             <select class="form-control" name="gender" id="gender" required>
                 <?php
-                $genders = [
-                    'masculine' => 'Masculino',
-                    'feminine' => 'Feminino',
-                    'non-binary' => 'Não-Binário',
-                    'gender-fluid' => 'Gênero-Fluido',
-                    'transgender' => 'Transgênero',
-                    'agender' => 'Agênero',
-                    'two-spirit' => 'Dois Espíritos',
-                    'other' => 'Outro',
-                    'null' => 'Prefiro não dizer',
-                ];
+$genders = [
+    'masculine' => 'Masculino',
+    'feminine' => 'Feminino',
+    'non-binary' => 'Não-Binário',
+    'gender-fluid' => 'Gênero-Fluido',
+    'transgender' => 'Transgênero',
+    'agender' => 'Agênero',
+    'two-spirit' => 'Dois Espíritos',
+    'other' => 'Outro',
+    'null' => 'Prefiro não dizer',
+];
 
-                foreach ($genders as $gender => $label) {
-                    $selected = ($user['gender'] === $gender) ? 'selected' : '';
-                    echo "<option value=\"$gender\" $selected>$label</option>";
-                }
-                ?>
+foreach ($genders as $gender => $label) {
+    $selected = ($user['gender'] === $gender) ? 'selected' : '';
+    echo "<option value=\"$gender\" $selected>$label</option>";
+}
+?>
             </select>
         </div>
 
@@ -138,9 +138,9 @@
             <div>
                 <div class="form-check">
                     <?php
-                    // Determine qual valor é o correto com base no retorno de $user["isMinor"]
-                    $is_minor = ($user["isMinor"] == 1) ? true : false;
-                    ?>
+// Determine qual valor é o correto com base no retorno de $user["isMinor"]
+$is_minor = ($user["isMinor"] == 1) ? true : false;
+?>
                     <input class="form-check-input" type="radio" name="isMinor" id="not_minor" value="0" <?php echo !$is_minor ? 'checked' : ''; ?>>
                     <label class="form-check-label" for="not_minor">
                         Não é menor de idade

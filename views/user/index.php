@@ -11,26 +11,28 @@
         </thead>
         <tbody>
             <?php
-            $users = $userController->read();
+$users = $user->getAll();
 
-            if (isset($users) && !empty($users)) {
-                foreach ($users as $user) { ?>
+if (isset($users) && !empty($users)) {
+    foreach ($users as $user) {?>
                     <tr>
-                        <td><?= htmlspecialchars($user['name']) ?></td>
-                        <td><?= htmlspecialchars($user['email']) ?></td>
+                        <td><?=htmlspecialchars($user['name'])?></td>
+                        <td><?=htmlspecialchars($user['email'])?></td>
                         <td>
-                            <a href="index.php?page=users&action=update&id=<?= $user['id'] ?>" class="btn btn-info">Editar</a>
-                            <a href="index.php?page=users&action=delete&id=<?= $user['id'] ?>" class="btn btn-danger">Delete</a>
+                            <a href="index.php?page=users&action=update&id=<?=$user['id']?>" class="btn btn-info">Editar</a>
+                            <a href="index.php?page=users&action=delete&id=<?=$user['id']?>" class="btn btn-danger">Delete</a>
                         </td>
                         <?php
-                        if (isset($_GET["action"]) && $_GET["action"] == "update" && isset($_GET["id"]) && $_GET["id"] == $user['id']) {
-                            include_once "update.php";
-                        }
-                        ?>
+if (isset($_GET["action"]) && $_GET["action"] == "update" && isset($_GET["id"]) && $_GET["id"] == $user['id']) {
+        include_once "update.php";
+    } elseif (isset($_GET["action"]) && $_GET["action"] == "delete" && isset($_GET["id"]) && $_GET["id"] == $user['id']) {
+        include_once "delete.php";
+    }
+        ?>
                     </tr>
             <?php }
-            }
-            ?>
+}
+?>
         </tbody>
     </table>
 </div>

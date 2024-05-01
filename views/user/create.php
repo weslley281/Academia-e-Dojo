@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <h1>Criar Usuário</h1>
-    <form action="./user.php?action=create" method="post" class="form-group">
+    <form action="./controllers/UserController.php?action=create" method="post" class="form-group">
         <div class="mb-3 form-group">
             <label for="name" class="form-label"><strong>Nome:</strong></label>
             <input type="text" id="name" name="name" class="form-control" required>
