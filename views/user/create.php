@@ -105,25 +105,6 @@
         </div>
 
         <div class="mb-3 form-group">
-            <label for="isMinor" class="form-label"><strong>É menor de Idade:</strong></label>
-            <div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="isMinor" id="adult" value="false" checked required>
-                    <label class="form-check-label" for="adult">
-                        Não é menor de idade
-                    </label>
-                </div>
-
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="isMinor" id="isMinor" value="true">
-                    <label class="form-check-label" for="isMinor">
-                        É menor de idade
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <div class="mb-3 form-group">
             <label for="birthDate" class="form-label"><strong>Data de Nascimento:</strong></label>
             <input type="date" id="birthDate" name="birthDate" class="form-control" required>
         </div>

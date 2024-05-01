@@ -33,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             "maritalStatus" => htmlspecialchars($post["maritalStatus"] ?? ''),
             "gender" => htmlspecialchars($post["gender"] ?? ''),
             "birthDate" => $post["birthDate"] ?? '',
-            "isMinor" => $isMinor,
             "password" => $password,
         ];
     }

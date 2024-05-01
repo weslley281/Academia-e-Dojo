@@ -134,30 +134,6 @@ foreach ($genders as $gender => $label) {
         </div>
 
         <div class="mb-3 form-group">
-            <label for="isMinor" class="form-label"><strong>É menor de Idade:</strong></label>
-            <div>
-                <div class="form-check">
-                    <?php
-// Determine qual valor é o correto com base no retorno de $user["isMinor"]
-$is_minor = ($user["isMinor"] == 1) ? true : false;
-?>
-                    <input class="form-check-input" type="radio" name="isMinor" id="not_minor" value="0" <?php echo !$is_minor ? 'checked' : ''; ?>>
-                    <label class="form-check-label" for="not_minor">
-                        Não é menor de idade
-                    </label>
-                </div>
-
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="isMinor" id="is_minor" value="1" <?php echo $is_minor ? 'checked' : ''; ?>>
-                    <label class="form-check-label" for="is_minor">
-                        É menor de idade
-                    </label>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="mb-3 form-group">
             <label for="birthDate" class="form-label"><strong>Data de Nascimento:</strong></label>
             <input type="date" id="birthDate" name="birthDate" class="form-control" value="<?php echo $user["birthDate"] ?>" required>
         </div>

@@ -22,13 +22,13 @@ class User
         try {
             // Consulta preparada para evitar SQL Injection
             $stmt = $this->conn->prepare(
-                'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postalCode, maritalStatus, gender, isMinor, birthDate, password, editDate, createDate)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+                'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postalCode, maritalStatus, gender, birthDate, password, editDate, createDate)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
             );
 
             // Binda parâmetros usando o tipo adequado
             $stmt->bind_param(
-                'ssssssssssssissss',
+                'ssssssssssssssss',
                 $data['name'],
                 $data['phone'],
                 $data['email'],
@@ -41,7 +41,6 @@ class User
                 $data['postalCode'],
                 $data['maritalStatus'],
                 $data['gender'],
-                $data['isMinor'],
                 $data['birthDate'],
                 $data['password'],
                 $this->today,
@@ -99,11 +98,11 @@ class User
         try {
             // Consulta preparada para atualizar usuário por ID
             $stmt = $this->conn->prepare(
-                'UPDATE users SET name = ?, phone = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postalCode = ?, maritalStatus = ?, gender = ?, isMinor = ?, birthDate = ?, editDate = ? WHERE id = ?'
+                'UPDATE users SET name = ?, phone = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postalCode = ?, maritalStatus = ?, gender = ?, birthDate = ?, editDate = ? WHERE id = ?'
             );
 
             $stmt->bind_param(
-                'sssssssssssisssi',
+                'ssssssssssssssi',
                 $data['name'],
                 $data['phone'],
                 $data['email'],
@@ -116,7 +115,6 @@ class User
                 $data['postalCode'],
                 $data['maritalStatus'],
                 $data['gender'],
-                $data['isMinor'],
                 $data['birthDate'],
                 $this->today,
                 $id

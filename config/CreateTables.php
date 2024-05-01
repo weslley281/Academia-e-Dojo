@@ -20,7 +20,6 @@ class CreateTables
             postalCode VARCHAR(100),
             maritalStatus VARCHAR(50),
             gender VARCHAR(10),
-            isMinor TINYINT(1),
             birthDate DATE,
             editDate DATETIME,
             createDate DATETIME,
