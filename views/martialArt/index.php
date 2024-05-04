@@ -11,28 +11,30 @@
         </thead>
         <tbody>
             <?php
-$martialarts = $martialart->getAll();
+            $martialarts = $martialart->getAll();
 
-if (isset($martialarts) && !empty($martialarts)) {
-    foreach ($martialarts as $martialart) {?>
+            if (isset($martialarts) && !empty($martialarts)) {
+                foreach ($martialarts as $martialart) {
+                    $description = truncate($martialart['description'], 50);
+            ?>
                     <tr>
-                        <td><?=htmlspecialchars($martialart['name'])?></td>
-                        <td><?=htmlspecialchars($martialart['description'])?></td>
+                        <td><?= htmlspecialchars($martialart['name']) ?></td>
+                        <td><?= htmlspecialchars($description) ?></td>
                         <td>
-                            <a href="index.php?page=martialArts&action=update&id=<?=$martialart['id']?>" class="btn btn-info">Editar</a>
-                            <a href="index.php?page=martialArts&action=delete&id=<?=$martialart['id']?>" class="btn btn-danger">Delete</a>
+                            <a href="index.php?page=martialArts&action=update&id=<?= $martialart['id'] ?>" class="btn btn-info">Editar</a>
+                            <a href="index.php?page=martialArts&action=delete&id=<?= $martialart['id'] ?>" class="btn btn-danger">Delete</a>
                         </td>
                         <?php
-if (isset($_GET["action"]) && $_GET["action"] == "update" && isset($_GET["id"]) && $_GET["id"] == $martialart['id']) {
-        include_once "update.php";
-    } elseif (isset($_GET["action"]) && $_GET["action"] == "delete" && isset($_GET["id"]) && $_GET["id"] == $martialart['id']) {
-        include_once "delete.php";
-    }
-        ?>
+                        if (isset($_GET["action"]) && $_GET["action"] == "update" && isset($_GET["id"]) && $_GET["id"] == $martialart['id']) {
+                            include_once "update.php";
+                        } elseif (isset($_GET["action"]) && $_GET["action"] == "delete" && isset($_GET["id"]) && $_GET["id"] == $martialart['id']) {
+                            include_once "delete.php";
+                        }
+                        ?>
                     </tr>
             <?php }
-}
-?>
+            }
+            ?>
         </tbody>
     </table>
 </div>

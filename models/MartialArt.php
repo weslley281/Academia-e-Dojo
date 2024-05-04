@@ -21,10 +21,10 @@ class MartialArt
     {
         try {
             // Consulta preparada para evitar SQL Injection
-            $stmt = $this->conn->prepare('INSERT INTO martialArts (name, descriptiom) VALUES (?, ?)');
+            $stmt = $this->conn->prepare('INSERT INTO martialArts (name, description) VALUES (?, ?)');
 
             // Binda parâmetros usando o tipo adequado
-            $stmt->bind_param('ss', $data['name'], $data['descriptiom']);
+            $stmt->bind_param('ss', $data['name'], $data['description']);
 
             $stmt->execute(); // Executa a consulta
             return true; // Sucesso
@@ -45,7 +45,6 @@ class MartialArt
 
             // Retorna os resultados como uma matriz associativa
             return $result->fetch_all(MYSQLI_ASSOC);
-
         } catch (mysqli_sql_exception $e) {
             // Log de erro em caso de falha
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
@@ -76,9 +75,9 @@ class MartialArt
     {
         try {
             // Consulta preparada para atualizar usuário por ID
-            $stmt = $this->conn->prepare('UPDATE martialArts SET name = ?, descriptiom = ? WHERE id = ?');
+            $stmt = $this->conn->prepare('UPDATE martialArts SET name = ?, description = ? WHERE id = ?');
 
-            $stmt->bind_param('ss', $data['name'], $data['descriptiom'], $id);
+            $stmt->bind_param('ss', $data['name'], $data['description'], $id);
 
             $stmt->execute(); // Executa a atualização
             return true; // Sucesso

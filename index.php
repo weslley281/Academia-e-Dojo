@@ -1,7 +1,8 @@
 <?php
 require_once "./config/db.php";
-require_once "./utils/renderAlert.php";
 require_once "./config/CreateTables.php";
+require_once "./utils/renderAlert.php";
+require_once "./utils/truncate.php";
 require_once './models/User.php';
 require_once './models/MartialArt.php';
 $createTable = new CreateTables;
