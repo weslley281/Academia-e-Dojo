@@ -33,63 +33,69 @@ include_once './views/navbar.php';
 <body>
     <div class="container">
         <?php
-// Usando switch para simplificar condicionais
-switch ($page) {
-    case 'users':
-        include_once './views/user/index.php';
-        if ($action === 'create') {
-            include_once './views/user/create.php';
-        } else {
-            switch ($action) {
-                case 'success':
-                    echo renderAlert('success', 'Sucesso!', 'Usuário criado com sucesso.');
-                    break;
+        // Usando switch para simplificar condicionais
+        switch ($page) {
+            case 'users':
 
-                case 'fail':
-                    echo renderAlert('danger', 'Erro!', 'Erro ao criar o usuário.');
-                    break;
+                if ($action === 'create') {
+                    include_once './views/user/create.php';
+                } else {
+                    switch ($action) {
+                        case 'success':
+                            echo renderAlert('success', 'Sucesso!', 'Usuário criado com sucesso.');
+                            break;
 
-                case 'saved':
-                    echo renderAlert('info', 'Sucesso!', 'Usuário editado com sucesso.');
-                    break;
+                        case 'fail':
+                            echo renderAlert('danger', 'Erro!', 'Erro ao criar o usuário.');
+                            break;
 
-                case 'deleted':
-                    echo renderAlert('warning', 'Sucesso!', 'Usuário deletado.');
-                    break;
-            }
+                        case 'saved':
+                            echo renderAlert('info', 'Sucesso!', 'Usuário editado com sucesso.');
+                            break;
+
+                        case 'deleted':
+                            echo renderAlert('warning', 'Sucesso!', 'Usuário deletado.');
+                            break;
+                    }
+                }
+
+                include_once './views/user/index.php';
+
+                break;
+
+            case 'martialArts':
+
+                if ($action === 'create') {
+                    include_once './views/martialArt/create.php';
+                } else {
+                    switch ($action) {
+                        case 'success':
+                            echo renderAlert('success', 'Sucesso!', 'Usuário criado com sucesso.');
+                            break;
+
+                        case 'fail':
+                            echo renderAlert('danger', 'Erro!', 'Erro ao criar o usuário.');
+                            break;
+
+                        case 'saved':
+                            echo renderAlert('info', 'Sucesso!', 'Usuário editado com sucesso.');
+                            break;
+
+                        case 'deleted':
+                            echo renderAlert('warning', 'Sucesso!', 'Usuário deletado.');
+                            break;
+                    }
+                }
+
+                include_once './views/martialArt/index.php';
+
+                break;
+
+            default:
+                echo "<h2>Página não encontrada</h2>";
+                break;
         }
-        break;
-
-    case 'martialArts':
-        include_once './views/martialArt/index.php';
-        if ($action === 'create') {
-            include_once './views/martialArt/create.php';
-        } else {
-            switch ($action) {
-                case 'success':
-                    echo renderAlert('success', 'Sucesso!', 'Usuário criado com sucesso.');
-                    break;
-
-                case 'fail':
-                    echo renderAlert('danger', 'Erro!', 'Erro ao criar o usuário.');
-                    break;
-
-                case 'saved':
-                    echo renderAlert('info', 'Sucesso!', 'Usuário editado com sucesso.');
-                    break;
-
-                case 'deleted':
-                    echo renderAlert('warning', 'Sucesso!', 'Usuário deletado.');
-                    break;
-            }
-        }
-        break;
-
-    default:
-        echo "<h2>Página não encontrada</h2>";
-        break;
-}
-?>
+        ?>
     </div>
 </body>
 

@@ -43,7 +43,7 @@ class CreateTables
         CREATE TABLE IF NOT EXISTS martialArts (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255),
-            descriptiom VARCHAR(30),
+            description VARCHAR(500),
             editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             UNIQUE (name)

@@ -26,39 +26,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'create':
             $data = getMartialArtData($_POST);
             if ($martialArt->create($data)) {
-                header("Location: ../index.php?page=martialarts&action=success");
+                header("Location: ../index.php?page=martialArts&action=success");
             } else {
-                header("Location: ../index.php?page=martialarts&action=fail");
+                header("Location: ../index.php?page=martialArts&action=fail");
             }
             break;
 
         case 'update':
             if ($id === null) {
-                header("Location: ../index.php?page=martialarts&action=invalid");
+                header("Location: ../index.php?page=martialArts&action=invalid");
                 exit;
             }
             $data = getMartialArtData($_POST);
             if ($martialart->update($data, $id)) {
-                header("Location: ../index.php?page=martialarts&action=saved");
+                header("Location: ../index.php?page=martialArts&action=saved");
             } else {
-                header("Location: ../index.php?page=martialarts&action=fail");
+                header("Location: ../index.php?page=martialArts&action=fail");
             }
             break;
 
         case 'delete':
             if ($id === null) {
-                header("Location: ../index.php?page=martialarts&action=invalid");
+                header("Location: ../index.php?page=martialArts&action=invalid");
                 exit;
             }
             if ($martialart->delete($id)) {
-                header("Location: ../index.php?page=martialarts&action=deleted");
+                header("Location: ../index.php?page=martialArts&action=deleted");
             } else {
-                header("Location: ../index.php?page=martialarts&action=fail");
+                header("Location: ../index.php?page=martialArts&action=fail");
             }
             break;
 
         default:
-            header("Location: ../index.php?page=martialarts&action=unknown");
+            header("Location: ../index.php?page=martialArts&action=unknown");
             break;
     }
 }
