@@ -14,10 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verifica a ação a ser executada
     $action = isset($_GET['action']) ? strtolower($_GET['action']) : '';
 
-    // Função para criar o array de dados de usuário
+    // Função para criar o array de dados do usuário, com tipo padrão como 'student'
     function getUserData($post)
     {
-        $password = generateRandomPassword();
+        $password = generateRandomPassword(); // Gera uma senha aleatória
+
         return [
             "name" => htmlspecialchars($post["name"] ?? ''),
             "phone" => htmlspecialchars($post["phone"] ?? ''),
@@ -31,13 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             "postalCode" => htmlspecialchars($post["postalCode"] ?? ''),
             "maritalStatus" => htmlspecialchars($post["maritalStatus"] ?? ''),
             "gender" => htmlspecialchars($post["gender"] ?? ''),
-            "birthDate" => $post["birthDate"] ?? '',
+            "birthDate" => htmlspecialchars($post["birthDate"] ?? ''),
             "password" => $password,
+            "type" => 'student', // Define o tipo padrão como 'student'
         ];
     }
 
+    // Executa ações conforme o parâmetro 'action'
     switch ($action) {
-        case 'create':
+        case 'create': // Cria um novo usuário
             $data = getUserData($_POST);
             if ($user->create($data)) {
                 header("Location: ../index.php?page=users&action=success");
@@ -46,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             break;
 
-        case 'update':
+        case 'update': // Atualiza um usuário existente
             if ($id === null) {
                 header("Location: ../index.php?page=users&action=invalid");
                 exit;
@@ -59,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             break;
 
-        case 'delete':
+        case 'delete': // Deleta um usuário pelo ID
             if ($id === null) {
                 header("Location: ../index.php?page=users&action=invalid");
                 exit;
@@ -71,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             break;
 
-        default:
+        default: // Se nenhuma ação for definida
             header("Location: ../index.php?page=users&action=unknown");
             break;
     }

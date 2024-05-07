@@ -5,12 +5,15 @@ require_once "./utils/renderAlert.php";
 require_once "./utils/truncate.php";
 require_once './models/User.php';
 require_once './models/MartialArt.php';
+require_once './models/Class.php';
 $createTable = new CreateTables;
 $user = new User($conn);
 $martialart = new MartialArt($conn);
+$class = new ClassModel($conn);
 
 $createTable->createUsersTable($conn);
 $createTable->createMartialArtsTable($conn);
+$createTable->createClassTable($conn);
 
 $page = $_GET['page'] ?? 'dashboard';
 $action = $_GET['action'] ?? '';
@@ -91,6 +94,34 @@ include_once './views/navbar.php';
                 include_once './views/martialArt/index.php';
 
                 break;
+
+                case 'classes':
+
+                    if ($action === 'create') {
+                        include_once './views/class/create.php';
+                    } else {
+                        switch ($action) {
+                            case 'success':
+                                echo renderAlert('success', 'Sucesso!', 'Usuário criado com sucesso.');
+                                break;
+    
+                            case 'fail':
+                                echo renderAlert('danger', 'Erro!', 'Erro ao criar o usuário.');
+                                break;
+    
+                            case 'saved':
+                                echo renderAlert('info', 'Sucesso!', 'Usuário editado com sucesso.');
+                                break;
+    
+                            case 'deleted':
+                                echo renderAlert('warning', 'Sucesso!', 'Usuário deletado.');
+                                break;
+                        }
+                    }
+    
+                    include_once './views/class/index.php';
+    
+                    break;
 
             default:
                 echo "<h2>Página não encontrada</h2>";

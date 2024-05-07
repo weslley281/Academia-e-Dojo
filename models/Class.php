@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/db.php';
 
-class User
+class ClassModel
 {
     private $conn;
 
@@ -17,27 +17,18 @@ class User
     {
         try {
             $stmt = $this->conn->prepare(
-                'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postalCode, maritalStatus, gender, birthDate, password, type)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+                'INSERT INTO classes (idMartialArt, idInstructor, name, description, initialHour, finalHour)
+                 VALUES (?, ?, ?, ?, ?, ?)'
             );
 
             $stmt->bind_param(
-                'sssssssssssssss',
+                'iissss',
+                $data['idMartialArt'],
+                $data['idInstructor'],
                 $data['name'],
-                $data['phone'],
-                $data['email'],
-                $data['address'],
-                $data['complement'],
-                $data['country'],
-                $data['state'],
-                $data['city'],
-                $data['neighborhood'],
-                $data['postalCode'],
-                $data['maritalStatus'],
-                $data['gender'],
-                $data['birthDate'],
-                $data['password'],
-                $data['type']
+                $data['description'],
+                $data['initialHour'],
+                $data['finalHour']
             );
 
             $stmt->execute();
@@ -52,7 +43,7 @@ class User
     public function getAll()
     {
         try {
-            $result = $this->conn->query('SELECT * FROM users');
+            $result = $this->conn->query('SELECT * FROM classes');
             return $result->fetch_all(MYSQLI_ASSOC);
 
         } catch (mysqli_sql_exception $e) {
@@ -64,7 +55,7 @@ class User
     public function getById($id)
     {
         try {
-            $stmt = $this->conn->prepare('SELECT * FROM users WHERE id = ?');
+            $stmt = $this->conn->prepare('SELECT * FROM classes WHERE id = ?');
             $stmt->bind_param('i', $id);
             $stmt->execute();
 
@@ -80,25 +71,17 @@ class User
     {
         try {
             $stmt = $this->conn->prepare(
-                'UPDATE users SET name = ?, phone = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postalCode = ?, maritalStatus = ?, gender = ?, birthDate = ?, type = ? WHERE id = ?'
+                'UPDATE classes SET idMartialArt = ?, idInstructor = ?, name = ?, description = ?, initialHour = ?, finalHour = ? WHERE id = ?'
             );
 
             $stmt->bind_param(
-                'ssssssssssssssi',
+                'iissssi',
+                $data['idMartialArt'],
+                $data['idInstructor'],
                 $data['name'],
-                $data['phone'],
-                $data['email'],
-                $data['address'],
-                $data['complement'],
-                $data['country'],
-                $data['state'],
-                $data['city'],
-                $data['neighborhood'],
-                $data['postalCode'],
-                $data['maritalStatus'],
-                $data['gender'],
-                $data['birthDate'],
-                $data['type'],
+                $data['description'],
+                $data['initialHour'],
+                $data['finalHour'],
                 $id
             );
 
@@ -114,7 +97,7 @@ class User
     public function delete($id)
     {
         try {
-            $stmt = $this->conn->prepare('DELETE FROM users WHERE id = ?');
+            $stmt = $this->conn->prepare('DELETE FROM classes WHERE id = ?');
             $stmt->bind_param('i', $id);
             return $stmt->execute();
 
