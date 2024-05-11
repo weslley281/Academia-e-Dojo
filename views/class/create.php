@@ -13,12 +13,33 @@
 
         <div class="mb-3"> <!-- Campo para o ID da arte marcial associada -->
             <label for="idMartialArt" class="form-label"><strong>Arte Marcial:</strong></label>
-            <input type="number" id="idMartialArt" name="idMartialArt" class="form-control" required>
+            <select name="idMartialArt" class="form-control" id="idMartialArt">
+            <?php
+            $martialarts = $martialart->getAll();
+
+            if (isset($martialarts) && !empty($martialarts)) {
+                foreach ($martialarts as $martialart) {
+                    $description = truncate($martialart['description'], 50);
+            ?>
+                <option value="<?= htmlspecialchars($martialart['id']) ?>"><?= htmlspecialchars($martialart['name']) ?></option>
+            <?php
+                }}
+            ?>
+            </select>
         </div>
 
         <div class="mb-3"> <!-- Campo para o ID do instrutor associado -->
             <label for="idInstructor" class="form-label"><strong>Instrutor:</strong></label>
-            <input type="number" id="idInstructor" name="idInstructor" class="form-control" required>
+            <?php
+            $users = $user->getAllInstructors();
+
+            if (isset($users) && !empty($users)) {
+                foreach ($users as $user) {
+            ?>
+                <option value="<?= htmlspecialchars($user['id']) ?>"><?= htmlspecialchars($user['name']) ?></option>
+            <?php
+                }}
+            ?>
         </div>
 
         <div class="mb-3"> <!-- Campo para a hora inicial da classe -->

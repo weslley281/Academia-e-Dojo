@@ -51,6 +51,7 @@ class MartialArt
             return []; // Retorna um array vazio em caso de erro
         }
     }
+     
 
     // Método para obter um usuário por ID
     public function getById($id)

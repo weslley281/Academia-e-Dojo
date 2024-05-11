@@ -61,6 +61,21 @@ class User
         }
     }
 
+    public function getAllInstructors()
+    {
+        try {
+            // Executa a consulta para obter todos os usuários
+            $result = $this->conn->query('SELECT * FROM users WHERE type = instructor');
+
+            // Retorna os resultados como uma matriz associativa
+            return $result->fetch_all(MYSQLI_ASSOC);
+        } catch (mysqli_sql_exception $e) {
+            // Log de erro em caso de falha
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return []; // Retorna um array vazio em caso de erro
+        }
+    }
+
     public function getById($id)
     {
         try {
