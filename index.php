@@ -1,6 +1,7 @@
 <?php
 session_start();
-if (isset($_SESSION["id_usuario"]) && isset($_GET["id"]) && $_SESSION['nivel'] == "admin") {
+if (!isset($_SESSION["user_id"]) && $_GET['page'] != "login") {
+    echo "<script language='javascript'>window.location='./index.php?page=login'; </script>";
 }
 require_once "./config/db.php";
 require_once "./config/CreateTables.php";
@@ -66,14 +67,26 @@ include_once './views/navbar.php';
         <?php
 // Usando switch para simplificar condicionais
 switch ($page) {
+    case 'dashboard':
+        include_once "./views/dashboard.php";
+        break;
+
     case 'login':
         switch ($action) {
             case 'success':
                 echo renderAlert('success', 'Sucesso!', 'Loguin Registrado com Sucesso. Você já pode navegar.');
+                echo "<script>";
+                echo "setTimeout(function() { window.location.href = './index.php?page=dashboard'; }, 5000);";
+                echo "</script>";
+
                 break;
 
             case 'fail':
                 echo renderAlert('danger', 'Erro!', 'Erro ao fazer login: usuário ou senha incorreto.');
+                include_once './views/login.php';
+                break;
+            default:
+                include_once './views/login.php';
                 break;
         }
         break;

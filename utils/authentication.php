@@ -1,6 +1,6 @@
 <?php
 session_start(); // Inicia a sessão para armazenar dados de sessão
-require_once 'config/db.php'; // Conexão com o banco de dados
+require_once "../config/db.php";
 
 // Verifica se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -18,35 +18,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    if (isset($_POST['email'], $_POST['password'])) {
 
-    if (isset($_POST['usuario'], $_POST['senha'])) {
-        // Busca o usuário no banco de dados
         $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->bind_param("s", $email);
+        $stmt->bind_param("s", $_POST['email']);
         $stmt->execute();
         $user = $stmt->get_result()->fetch_assoc();
 
-        if ($user && password_verify($password, $user['password'])) {
-            // Armazena informações na sessão
+        if ($user && password_verify($_POST['password'], $user['password'])) {
+
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['email'] = $user['email'];
+            $_SESSION['type'] = $user['type'];
+            $_SESSION['name'] = $user['name'];
 
-            // Se a senha for temporária, redireciona para a página de atualização
-            if ($password === $temporaryPassword) {
-                header("Location: update_password.php");
-            } else {
-                // Redireciona para a página principal após autenticação bem-sucedida
-                header("Location: index.php?");
-            }
+            header("Location:  ../index.php?page=login&action=success");
+
             exit;
         } else {
-            $errorMessage = "E-mail ou senha incorretos.";
-            header("Location: index.php");
+            echo "PAREI AQUI 01";
+            //header("Location: ../index.php?page=login&action=fail");
         }
     } else {
-        $errorMessage = "E-mail ou senha incorretos.";
-        header("Location: index.php");
+        echo "PAREI AQUI 02";
+        //header("Location: ../index.php?page=login&action=fail");
     }
 }
