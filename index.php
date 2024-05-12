@@ -1,4 +1,7 @@
 <?php
+session_start();
+if (isset($_SESSION["id_usuario"]) && isset($_GET["id"]) && $_SESSION['nivel'] == "admin") {
+}
 require_once "./config/db.php";
 require_once "./config/CreateTables.php";
 require_once "./utils/renderAlert.php";
@@ -63,6 +66,17 @@ include_once './views/navbar.php';
         <?php
 // Usando switch para simplificar condicionais
 switch ($page) {
+    case 'login':
+        switch ($action) {
+            case 'success':
+                echo renderAlert('success', 'Sucesso!', 'Loguin Registrado com Sucesso. Você já pode navegar.');
+                break;
+
+            case 'fail':
+                echo renderAlert('danger', 'Erro!', 'Erro ao fazer login: usuário ou senha incorreto.');
+                break;
+        }
+        break;
     case 'users':
 
         if ($action === 'create') {
