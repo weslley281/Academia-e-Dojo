@@ -65,7 +65,7 @@ class User
     {
         try {
             // Executa a consulta para obter todos os usuários
-            $result = $this->conn->query('SELECT * FROM users WHERE type = instructor');
+            $result = $this->conn->query("SELECT * FROM users WHERE type = 'instructor'");
 
             // Retorna os resultados como uma matriz associativa
             return $result->fetch_all(MYSQLI_ASSOC);

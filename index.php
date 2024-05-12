@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["user_id"]) && $_GET['page'] != "login") {
+if (!isset($_SESSION["user_id"]) && !isset($_GET['page'])) {
     echo "<script language='javascript'>window.location='./index.php?page=login'; </script>";
 }
 require_once "./config/db.php";
