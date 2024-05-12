@@ -91,6 +91,21 @@ class User
         }
     }
 
+    public function getByEmail($email)
+    {
+        try {
+            $stmt = $this->conn->prepare('SELECT * FROM users WHERE email = ?');
+            $stmt->bind_param('i', $email);
+            $stmt->execute();
+
+            return $stmt->get_result()->fetch_assoc();
+
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return null;
+        }
+    }
+
     public function update(array $data, $id)
     {
         try {
