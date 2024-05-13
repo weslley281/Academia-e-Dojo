@@ -4,7 +4,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../models/ClassModel.php';
     require_once __DIR__ . '/../config/db.php';
 
-// Instância do modelo ClassModel
+    // Instância do modelo ClassModel
     $classModel = new ClassModel($conn);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

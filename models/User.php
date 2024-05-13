@@ -139,6 +139,23 @@ class User
         }
     }
 
+    public function updateType(array $type, $id)
+    {
+        try {
+            $stmt = $this->conn->prepare(
+                'UPDATE users SET type = ? WHERE id = ?'
+            );
+
+            $stmt->bind_param('si', $type, $id);
+
+            $stmt->execute();
+            return true;
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return false;
+        }
+    }
+
     public function delete($id)
     {
         try {

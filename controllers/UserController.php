@@ -68,6 +68,19 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 }
                 break;
 
+            case 'updateType':
+                if ($id === null) {
+                    header("Location: ../index.php?page=classes&action=invalid");
+                    exit;
+                }
+
+                if ($user->updateType($_POST["type"], $id)) {
+                    header("Location: ../index.php?page=classes&action=saved");
+                } else {
+                    header("Location: ../index.php?page=classes&action=fail");
+                }
+                break;
+
             case 'delete': // Deleta um usuário pelo ID
                 if ($id === null) {
                     header("Location: ../index.php?page=users&action=invalid");
