@@ -12,7 +12,7 @@ class CreateTables
         phone VARCHAR(30),
         email VARCHAR(255),
         password VARCHAR(255) UNIQUE,
-        cpf VARCHAR(11) UNIQUE,
+        cpf VARCHAR(11) UNIQUE NULL,
         type ENUM('admin', 'instructor', 'student'),
         address VARCHAR(255),
         complement VARCHAR(255),

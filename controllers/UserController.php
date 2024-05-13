@@ -19,7 +19,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
         // Função para criar o array de dados do usuário, com tipo padrão como 'student'
         function getUserData($post)
         {
-            $password = generateRandomPassword(); // Gera uma senha aleatória
+            $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
             // Aplica a criptografia MD5 ao campo CPF
             $cpf = isset($post['cpf']) ? md5($post['cpf']) : null;

@@ -24,6 +24,7 @@ $action = $_GET['action'] ?? '';
 
 if (!$user->getByEmail("instituto@kenshydokan.org.br")) {
     $password = password_hash("admin@123", PASSWORD_DEFAULT);
+
     $data = [
         "name" => 'Kenshydokan',
         "phone" => '65981233996',
@@ -63,6 +64,7 @@ include_once './views/navbar.php';
     <script src="./libs/bootstrap/jquery.js"></script>
     <script src="./libs/bootstrap/popper.js"></script>
     <script src="./libs/bootstrap/bootstrap.js"></script>
+    <script src="./utils/maskCPF.js"></script>
 </head>
 
 <body>

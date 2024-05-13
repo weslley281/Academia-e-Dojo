@@ -11,6 +11,16 @@
             <input type="email" id="email" name="email" class="form-control" required>
         </div>
 
+        <div class="mb-3">
+            <label for="password" class="form-label"><strong>Senha:</strong></label>
+            <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="password2" class="form-label"><strong>Repita a Senha:</strong></label>
+            <input type="password" id="password2" name="password2" class="form-control" required>
+        </div>
+
         <div class="mb-3 form-group">
             <label for="phone" class="form-label"><strong>Telefone:</strong></label>
             <input type="text" id="phone" name="phone" class="form-control" required>
@@ -120,5 +130,4 @@
         </div>
     </form>
 </div>
-
-<script src="./utils/maskCPF.js"></script>
+<script src="./utils/validateFormPassword.js"></script>

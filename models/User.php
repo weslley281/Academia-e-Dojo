@@ -15,6 +15,7 @@ class User
 
     public function create(array $data)
     {
+        print_r($data);
         try {
             $stmt = $this->conn->prepare(
                 'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postalCode, maritalStatus, gender, birthDate, password, cpf, type)
