@@ -5,10 +5,10 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../config/db.php';
     require_once __DIR__ . '/../utils/generateRandomPassword.php';
 
-// Instância da classe User
+    // Instância da classe User
     $user = new User($conn);
 
-// Verifica o método HTTP
+    // Verifica o método HTTP
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Validação e Sanitização dos Dados
         $id = isset($_POST['id']) ? intval($_POST['id']) : null;
@@ -20,6 +20,9 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
         function getUserData($post)
         {
             $password = generateRandomPassword(); // Gera uma senha aleatória
+
+            // Aplica a criptografia MD5 ao campo CPF
+            $cpf = isset($post['cpf']) ? md5($post['cpf']) : null;
 
             return [
                 "name" => htmlspecialchars($post["name"] ?? ''),
@@ -36,6 +39,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 "gender" => htmlspecialchars($post["gender"] ?? ''),
                 "birthDate" => htmlspecialchars($post["birthDate"] ?? ''),
                 "password" => $password,
+                "cpf" => $cpf, // Adiciona o campo CPF criptografado
                 "type" => 'student', // Define o tipo padrão como 'student'
             ];
         }

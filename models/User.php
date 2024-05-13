@@ -17,12 +17,12 @@ class User
     {
         try {
             $stmt = $this->conn->prepare(
-                'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postalCode, maritalStatus, gender, birthDate, password, type)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+                'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postalCode, maritalStatus, gender, birthDate, password, cpf, type)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
             );
 
             $stmt->bind_param(
-                'sssssssssssssss',
+                'ssssssssssssssss',
                 $data['name'],
                 $data['phone'],
                 $data['email'],
@@ -37,12 +37,12 @@ class User
                 $data['gender'],
                 $data['birthDate'],
                 $data['password'],
+                $data['cpf'],
                 $data['type']
             );
 
             $stmt->execute();
             return true;
-
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return false;
@@ -54,7 +54,6 @@ class User
         try {
             $result = $this->conn->query('SELECT * FROM users');
             return $result->fetch_all(MYSQLI_ASSOC);
-
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return [];
@@ -84,7 +83,6 @@ class User
             $stmt->execute();
 
             return $stmt->get_result()->fetch_assoc();
-
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return null;
@@ -99,7 +97,6 @@ class User
             $stmt->execute();
 
             return $stmt->get_result()->fetch_assoc();
-
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return null;
@@ -110,11 +107,11 @@ class User
     {
         try {
             $stmt = $this->conn->prepare(
-                'UPDATE users SET name = ?, phone = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postalCode = ?, maritalStatus = ?, gender = ?, birthDate = ?, type = ? WHERE id = ?'
+                'UPDATE users SET name = ?, phone = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postalCode = ?, maritalStatus = ?, gender = ?, birthDate = ?, password = ?, cpf = ?, type = ? WHERE id = ?'
             );
 
             $stmt->bind_param(
-                'ssssssssssssssi',
+                'ssssssssssssssssi',
                 $data['name'],
                 $data['phone'],
                 $data['email'],
@@ -128,13 +125,14 @@ class User
                 $data['maritalStatus'],
                 $data['gender'],
                 $data['birthDate'],
+                $data['password'],
+                $data['cpf'],
                 $data['type'],
                 $id
             );
 
             $stmt->execute();
             return true;
-
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return false;
@@ -147,7 +145,6 @@ class User
             $stmt = $this->conn->prepare('DELETE FROM users WHERE id = ?');
             $stmt->bind_param('i', $id);
             return $stmt->execute();
-
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return false;

@@ -4,15 +4,15 @@ require_once __DIR__ . '/db.php';
 class CreateTables
 {
     public static function createUsersTable($conn)
-{
-    $sql = "
+    {
+        $sql = "
     CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255),
         phone VARCHAR(30),
         email VARCHAR(255),
-        password VARCHAR(255) UNIQUE NULL,
-        cpf VARCHAR(11) UNIQUE NULL,
+        password VARCHAR(255) UNIQUE,
+        cpf VARCHAR(11) UNIQUE,
         type ENUM('admin', 'instructor', 'student'),
         address VARCHAR(255),
         complement VARCHAR(255),
@@ -29,12 +29,12 @@ class CreateTables
     );
     ";
 
-    if ($conn->query($sql) === true) {
-        //echo "Tabela 'users' criada com sucesso.";
-    } else {
-        echo "Erro ao criar tabela 'users': " . $conn->error;
+        if ($conn->query($sql) === true) {
+            //echo "Tabela 'users' criada com sucesso.";
+        } else {
+            echo "Erro ao criar tabela 'users': " . $conn->error;
+        }
     }
-}
 
 
     public static function createMartialArtsTable($conn)
@@ -55,7 +55,7 @@ class CreateTables
             echo "Erro ao criar tabela 'users': " . $conn->error;
         }
     }
-    
+
     public static function createClassTable($conn)
     {
         $sql = "
