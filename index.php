@@ -56,6 +56,7 @@ include_once './views/navbar.php';
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <link rel="stylesheet" href="./libs/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <script src="./libs/bootstrap/jquery.js"></script>
     <script src="./libs/bootstrap/popper.js"></script>
@@ -65,120 +66,120 @@ include_once './views/navbar.php';
 <body>
     <div class="container">
         <?php
-// Usando switch para simplificar condicionais
-switch ($page) {
-    case 'dashboard':
-        include_once "./views/dashboard.php";
-        break;
+        // Usando switch para simplificar condicionais
+        switch ($page) {
+            case 'dashboard':
+                include_once "./views/dashboard.php";
+                break;
 
-    case 'login':
-        switch ($action) {
-            case 'success':
-                echo renderAlert('success', 'Sucesso!', 'Loguin Registrado com Sucesso. Você já pode navegar.');
-                echo "<script>";
-                echo "setTimeout(function() { window.location.href = './index.php?page=dashboard'; }, 5000);";
-                echo "</script>";
+            case 'login':
+                switch ($action) {
+                    case 'success':
+                        echo renderAlert('success', 'Sucesso!', 'Loguin Registrado com Sucesso. Você já pode navegar.');
+                        echo "<script>";
+                        echo "setTimeout(function() { window.location.href = './index.php?page=dashboard'; }, 5000);";
+                        echo "</script>";
+
+                        break;
+
+                    case 'fail':
+                        echo renderAlert('danger', 'Erro!', 'Erro ao fazer login: usuário ou senha incorreto.');
+                        include_once './views/login.php';
+                        break;
+                    default:
+                        include_once './views/login.php';
+                        break;
+                }
+                break;
+            case 'users':
+
+                if ($action === 'create') {
+                    include_once './views/user/create.php';
+                } else {
+                    switch ($action) {
+                        case 'success':
+                            echo renderAlert('success', 'Sucesso!', 'Usuário criado com sucesso.');
+                            break;
+
+                        case 'fail':
+                            echo renderAlert('danger', 'Erro!', 'Erro ao criar o usuário.');
+                            break;
+
+                        case 'saved':
+                            echo renderAlert('info', 'Sucesso!', 'Usuário editado com sucesso.');
+                            break;
+
+                        case 'deleted':
+                            echo renderAlert('warning', 'Sucesso!', 'Usuário deletado.');
+                            break;
+                    }
+                }
+
+                include_once './views/user/index.php';
 
                 break;
 
-            case 'fail':
-                echo renderAlert('danger', 'Erro!', 'Erro ao fazer login: usuário ou senha incorreto.');
-                include_once './views/login.php';
+            case 'martialArts':
+
+                if ($action === 'create') {
+                    include_once './views/martialArt/create.php';
+                } else {
+                    switch ($action) {
+                        case 'success':
+                            echo renderAlert('success', 'Sucesso!', 'Arte Marcial criada com sucesso.');
+                            break;
+
+                        case 'fail':
+                            echo renderAlert('danger', 'Erro!', 'Erro ao criar o Arte Marcial.');
+                            break;
+
+                        case 'saved':
+                            echo renderAlert('info', 'Sucesso!', 'Arte Marcial editada com sucesso.');
+                            break;
+
+                        case 'deleted':
+                            echo renderAlert('warning', 'Sucesso!', 'Arte Marcial deletada.');
+                            break;
+                    }
+                }
+
+                include_once './views/martialArt/index.php';
+
                 break;
+
+            case 'classes':
+
+                if ($action === 'create') {
+                    include_once './views/class/create.php';
+                } else {
+                    switch ($action) {
+                        case 'success':
+                            echo renderAlert('success', 'Sucesso!', 'Turma criada com sucesso.');
+                            break;
+
+                        case 'fail':
+                            echo renderAlert('danger', 'Erro!', 'Erro ao criar o turma.');
+                            break;
+
+                        case 'saved':
+                            echo renderAlert('info', 'Sucesso!', 'Turma editada com sucesso.');
+                            break;
+
+                        case 'deleted':
+                            echo renderAlert('warning', 'Sucesso!', 'Turma deletada.');
+                            break;
+                    }
+                }
+
+                include_once './views/class/index.php';
+
+                break;
+
             default:
-                include_once './views/login.php';
+                echo "<h2>Página não encontrada</h2>";
                 break;
         }
-        break;
-    case 'users':
-
-        if ($action === 'create') {
-            include_once './views/user/create.php';
-        } else {
-            switch ($action) {
-                case 'success':
-                    echo renderAlert('success', 'Sucesso!', 'Usuário criado com sucesso.');
-                    break;
-
-                case 'fail':
-                    echo renderAlert('danger', 'Erro!', 'Erro ao criar o usuário.');
-                    break;
-
-                case 'saved':
-                    echo renderAlert('info', 'Sucesso!', 'Usuário editado com sucesso.');
-                    break;
-
-                case 'deleted':
-                    echo renderAlert('warning', 'Sucesso!', 'Usuário deletado.');
-                    break;
-            }
-        }
-
-        include_once './views/user/index.php';
-
-        break;
-
-    case 'martialArts':
-
-        if ($action === 'create') {
-            include_once './views/martialArt/create.php';
-        } else {
-            switch ($action) {
-                case 'success':
-                    echo renderAlert('success', 'Sucesso!', 'Arte Marcial criada com sucesso.');
-                    break;
-
-                case 'fail':
-                    echo renderAlert('danger', 'Erro!', 'Erro ao criar o Arte Marcial.');
-                    break;
-
-                case 'saved':
-                    echo renderAlert('info', 'Sucesso!', 'Arte Marcial editada com sucesso.');
-                    break;
-
-                case 'deleted':
-                    echo renderAlert('warning', 'Sucesso!', 'Arte Marcial deletada.');
-                    break;
-            }
-        }
-
-        include_once './views/martialArt/index.php';
-
-        break;
-
-    case 'classes':
-
-        if ($action === 'create') {
-            include_once './views/class/create.php';
-        } else {
-            switch ($action) {
-                case 'success':
-                    echo renderAlert('success', 'Sucesso!', 'Turma criada com sucesso.');
-                    break;
-
-                case 'fail':
-                    echo renderAlert('danger', 'Erro!', 'Erro ao criar o turma.');
-                    break;
-
-                case 'saved':
-                    echo renderAlert('info', 'Sucesso!', 'Turma editada com sucesso.');
-                    break;
-
-                case 'deleted':
-                    echo renderAlert('warning', 'Sucesso!', 'Turma deletada.');
-                    break;
-            }
-        }
-
-        include_once './views/class/index.php';
-
-        break;
-
-    default:
-        echo "<h2>Página não encontrada</h2>";
-        break;
-}
-?>
+        ?>
     </div>
 </body>
 
