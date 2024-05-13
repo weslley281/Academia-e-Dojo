@@ -17,6 +17,11 @@
         </div>
 
         <div class="mb-3 form-group">
+            <label for="cpf" class="form-label"><strong>CPF:</strong></label>
+            <input type="text" id="cpf" name="cpf" class="form-control" required>
+        </div>
+
+        <div class="mb-3 form-group">
             <label for="address" class="form-label"><strong>Endereço:</strong></label>
             <input type="text" id="address" name="address" class="form-control" required>
         </div>
@@ -115,3 +120,5 @@
         </div>
     </form>
 </div>
+
+<script src="./utils/maskCPF.js"></script>
