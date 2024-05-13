@@ -125,19 +125,19 @@ switch ($page) {
         } else {
             switch ($action) {
                 case 'success':
-                    echo renderAlert('success', 'Sucesso!', 'Usuário criado com sucesso.');
+                    echo renderAlert('success', 'Sucesso!', 'Arte Marcial criada com sucesso.');
                     break;
 
                 case 'fail':
-                    echo renderAlert('danger', 'Erro!', 'Erro ao criar o usuário.');
+                    echo renderAlert('danger', 'Erro!', 'Erro ao criar o Arte Marcial.');
                     break;
 
                 case 'saved':
-                    echo renderAlert('info', 'Sucesso!', 'Usuário editado com sucesso.');
+                    echo renderAlert('info', 'Sucesso!', 'Arte Marcial editada com sucesso.');
                     break;
 
                 case 'deleted':
-                    echo renderAlert('warning', 'Sucesso!', 'Usuário deletado.');
+                    echo renderAlert('warning', 'Sucesso!', 'Arte Marcial deletada.');
                     break;
             }
         }
@@ -153,19 +153,19 @@ switch ($page) {
         } else {
             switch ($action) {
                 case 'success':
-                    echo renderAlert('success', 'Sucesso!', 'Usuário criado com sucesso.');
+                    echo renderAlert('success', 'Sucesso!', 'Turma criada com sucesso.');
                     break;
 
                 case 'fail':
-                    echo renderAlert('danger', 'Erro!', 'Erro ao criar o usuário.');
+                    echo renderAlert('danger', 'Erro!', 'Erro ao criar o turma.');
                     break;
 
                 case 'saved':
-                    echo renderAlert('info', 'Sucesso!', 'Usuário editado com sucesso.');
+                    echo renderAlert('info', 'Sucesso!', 'Turma editada com sucesso.');
                     break;
 
                 case 'deleted':
-                    echo renderAlert('warning', 'Sucesso!', 'Usuário deletado.');
+                    echo renderAlert('warning', 'Sucesso!', 'Turma deletada.');
                     break;
             }
         }

@@ -1,5 +1,5 @@
 <div class="container mt-5">
-    <h1>Criar Usuário</h1>
+    <h1>Criar Arte Marcial</h1>
     <form action="./controllers/MartialArtController.php?action=create" method="post" class="form-group">
         <div class="mb-3 form-group">
             <label for="name" class="form-label"><strong>Nome:</strong></label>
@@ -8,7 +8,7 @@
 
         <div class="mb-3">
             <label for="description" class="form-label"><strong>Descrição:</strong></label>
-            <textarea name="description" id="description" class="form-control" cols="30" rows="5" required></textarea>
+            <textarea name="description" id="description" class="form-control" cols="30" rows="5" maxlength="500" minlength="5" required></textarea>
         </div>
 
         <div class="row">

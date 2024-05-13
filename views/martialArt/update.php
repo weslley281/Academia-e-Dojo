@@ -9,7 +9,7 @@
 
         <div class="mb-3">
             <label for="description" class="form-label"><strong>Descrição:</strong></label>
-            <textarea name="description" id="description" class="form-control" cols="30" rows="5" required><?php echo $martialart["description"] ?></textarea>
+            <textarea name="description" id="description" class="form-control" cols="30" rows="5" maxlength="500" minlength="5" required><?php echo $martialart["description"] ?></textarea>
         </div>
 
         <div class="row">
