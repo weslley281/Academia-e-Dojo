@@ -56,7 +56,9 @@ include_once './views/navbar.php';
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <link rel="stylesheet" href="./libs/bootstrap/bootstrap.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="./libs/fontawesome-free-6.5.2-web/css/fontawesome.css" rel="stylesheet" />
+    <link href="./libs/fontawesome-free-6.5.2-web/css/brands.css" rel="stylesheet" />
+    <link href="./libs/fontawesome-free-6.5.2-web/css/solid.css" rel="stylesheet" />
 
     <script src="./libs/bootstrap/jquery.js"></script>
     <script src="./libs/bootstrap/popper.js"></script>

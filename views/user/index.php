@@ -35,13 +35,14 @@
                                                 <div class="col-sm-9">
                                                     <input type="hidden" name="id" value="<?= htmlspecialchars($user['id']) ?>">
                                                     <select name="type" class="form-control" id="type">
-                                                        <option value="<?= htmlspecialchars($user['type']) ?>"><?= htmlspecialchars($user['type']) ?></option>
+                                                        <option value="<?= htmlspecialchars($user['type']) ?>">Estudante</option>
+                                                        <option value="instructor">Instrutor</option>
                                                     </select>
 
                                                 </div>
-                                                <div class="col-sm-3"><button class="btn" type="submit">
-                                                        <p>&#x1F44D;</p>
-                                                    </button></div>
+                                                <div class="col-sm-3">
+                                                    <button class="btn btn-secondary" type="submit"><i class="fa-regular fa-floppy-disk"></i></button>
+                                                </div>
                                             </div>
                                         </form>
                                     <?php
