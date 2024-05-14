@@ -25,8 +25,8 @@
                         <td><?= htmlspecialchars($class['initialHour']) ?></td> <!-- Hora inicial -->
                         <td><?= htmlspecialchars($class['finalHour']) ?></td> <!-- Hora final -->
                         <td> <!-- Ações para edição e exclusão -->
-                            <a href="index.php?page=classes&action=update&id=<?= $class['id'] ?>" class="btn btn-info">Editar</a>
-                            <a href="index.php?page=classes&action=delete&id=<?= $class['id'] ?>" class="btn btn-danger">Excluir</a>
+                            <a href="index.php?page=classes&action=update&id=<?= $class['id'] ?>" class="btn btn-info"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a href="index.php?page=classes&action=delete&id=<?= $class['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
                         </td>
                         <?php
                         // Incluir a view de atualização se a ação for 'update' e o ID for correspondente

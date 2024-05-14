@@ -21,8 +21,8 @@
                         <td><?= htmlspecialchars($martialart['name']) ?></td>
                         <td><?= htmlspecialchars($description) ?></td>
                         <td>
-                            <a href="index.php?page=martialArts&action=update&id=<?= $martialart['id'] ?>" class="btn btn-info">Editar</a>
-                            <a href="index.php?page=martialArts&action=delete&id=<?= $martialart['id'] ?>" class="btn btn-danger">Delete</a>
+                            <a href="index.php?page=martialArts&action=update&id=<?= $martialart['id'] ?>" class="btn btn-info"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a href="index.php?page=martialArts&action=delete&id=<?= $martialart['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
                         </td>
                         <?php
                         if (isset($_GET["action"]) && $_GET["action"] == "update" && isset($_GET["id"]) && $_GET["id"] == $martialart['id']) {

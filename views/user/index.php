@@ -21,10 +21,10 @@
                         <td>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <a href="index.php?page=users&action=update&id=<?= $user['id'] ?>" class="btn btn-info">Editar</a>
+                                    <a href="index.php?page=users&action=update&id=<?= $user['id'] ?>" class="btn btn-info"><i class="fa-regular fa-pen-to-square"></i></a>
                                 </div>
                                 <div class="col-sm-3">
-                                    <a href="index.php?page=users&action=delete&id=<?= $user['id'] ?>" class="btn btn-danger">Delete</a>
+                                    <a href="index.php?page=users&action=delete&id=<?= $user['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
                                 </div>
                                 <div class="col-sm-6">
                                     <?php
