@@ -1,5 +1,5 @@
 <div class="container mt-5">
-    <h1>Editar Usuário</h1>
+    <h1>Editar Classe</h1>
     <form action="./controllers/MartialArtController.php?action=update" method="post" class="form-group">
         <input type="hidden" name="id" value="<?php echo $_GET["id"] ?>">
         <div class="mb-3 form-group">
