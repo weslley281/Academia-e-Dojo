@@ -77,4 +77,23 @@ class CreateTables
             echo "Erro ao criar tabela 'classes': " . $conn->error;
         }
     }
+
+    public static function createClassDaysTable($conn)
+    {
+        $sql = "
+        CREATE TABLE IF NOT EXISTS class_days (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            class_id INT,
+            day_of_week ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'),
+            FOREIGN KEY (class_id) REFERENCES classes(id)
+        );
+        
+        ";
+
+        if ($conn->query($sql) === true) {
+            //echo "Tabela 'classes' criada com sucesso.";
+        } else {
+            echo "Erro ao criar tabela 'classes': " . $conn->error;
+        }
+    }
 }

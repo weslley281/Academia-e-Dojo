@@ -1,5 +1,5 @@
 <div class="container mt-5">
-    <h1>Criar Classe</h1> <!-- Título da página -->
+    <h1>Criar Turma</h1> <!-- Título da página -->
     <form action="./controllers/ClassController.php?action=create" method="post" class="form-group"> <!-- Ação do formulário -->
         <div class="mb-3 form-group"> <!-- Campo para o nome da classe -->
             <label for="name" class="form-label"><strong>Nome:</strong></label>
@@ -14,17 +14,18 @@
         <div class="mb-3"> <!-- Campo para o ID da arte marcial associada -->
             <label for="idMartialArt" class="form-label"><strong>Arte Marcial:</strong></label>
             <select name="idMartialArt" class="form-control" id="idMartialArt">
-            <?php
-            $martialarts = $martialart->getAll();
+                <?php
+                $martialarts = $martialart->getAll();
 
-            if (isset($martialarts) && !empty($martialarts)) {
-                foreach ($martialarts as $martialart) {
-                    $description = truncate($martialart['description'], 50);
-            ?>
-                <option value="<?= htmlspecialchars($martialart['id']) ?>"><?= htmlspecialchars($martialart['name']) ?></option>
-            <?php
-                }}
-            ?>
+                if (isset($martialarts) && !empty($martialarts)) {
+                    foreach ($martialarts as $martialart) {
+                        $description = truncate($martialart['description'], 50);
+                ?>
+                        <option value="<?= htmlspecialchars($martialart['id']) ?>"><?= htmlspecialchars($martialart['name']) ?></option>
+                <?php
+                    }
+                }
+                ?>
             </select>
         </div>
 
@@ -36,9 +37,10 @@
             if (isset($users) && !empty($users)) {
                 foreach ($users as $user) {
             ?>
-                <option value="<?= htmlspecialchars($user['id']) ?>"><?= htmlspecialchars($user['name']) ?></option>
+                    <option value="<?= htmlspecialchars($user['id']) ?>"><?= htmlspecialchars($user['name']) ?></option>
             <?php
-                }}
+                }
+            }
             ?>
         </div>
 

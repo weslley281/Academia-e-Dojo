@@ -33,7 +33,6 @@ class ClassModel
 
             $stmt->execute();
             return true;
-
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return false;
@@ -45,7 +44,6 @@ class ClassModel
         try {
             $result = $this->conn->query('SELECT * FROM classes');
             return $result->fetch_all(MYSQLI_ASSOC);
-
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return [];
@@ -60,7 +58,6 @@ class ClassModel
             $stmt->execute();
 
             return $stmt->get_result()->fetch_assoc();
-
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return null;
@@ -87,7 +84,6 @@ class ClassModel
 
             $stmt->execute();
             return true;
-
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return false;
@@ -100,7 +96,54 @@ class ClassModel
             $stmt = $this->conn->prepare('DELETE FROM classes WHERE id = ?');
             $stmt->bind_param('i', $id);
             return $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return false;
+        }
+    }
 
+    public function createClassDays($classId, $daysOfWeek)
+    {
+        try {
+            foreach ($daysOfWeek as $day) {
+                $stmt = $this->conn->prepare(
+                    'INSERT INTO class_days (class_id, day_of_week) VALUES (?, ?)'
+                );
+                $stmt->bind_param('is', $classId, $day);
+                $stmt->execute();
+            }
+            return true;
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return false;
+        }
+    }
+
+    public function getClassDays($classId)
+    {
+        try {
+            $stmt = $this->conn->prepare('SELECT day_of_week FROM class_days WHERE class_id = ?');
+            $stmt->bind_param('i', $classId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $daysOfWeek = [];
+            while ($row = $result->fetch_assoc()) {
+                $daysOfWeek[] = $row['day_of_week'];
+            }
+            return $daysOfWeek;
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return [];
+        }
+    }
+
+    public function deleteClassDays($classId)
+    {
+        try {
+            $stmt = $this->conn->prepare('DELETE FROM class_days WHERE class_id = ?');
+            $stmt->bind_param('i', $classId);
+            $stmt->execute();
+            return true;
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return false;
