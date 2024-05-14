@@ -22,7 +22,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
             $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
             // Aplica a criptografia MD5 ao campo CPF
-            $cpf = isset($post['cpf']) ? md5($post['cpf']) : null;
+            //$cpf = isset($post['cpf']) ? md5($post['cpf']) : null;
 
             return [
                 "name" => htmlspecialchars($post["name"] ?? ''),
@@ -39,19 +39,28 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 "gender" => htmlspecialchars($post["gender"] ?? ''),
                 "birthDate" => htmlspecialchars($post["birthDate"] ?? ''),
                 "password" => $password,
-                "cpf" => $cpf, // Adiciona o campo CPF criptografado
                 "type" => 'student', // Define o tipo padrão como 'student'
+                "cpf" => htmlspecialchars($post["cpf"] ?? ''), // Adiciona o campo CPF criptografado
             ];
         }
 
         // Executa ações conforme o parâmetro 'action'
         switch ($action) {
             case 'create': // Cria um novo usuário
-                $data = getUserData($_POST);
-                if ($user->create($data)) {
-                    header("Location: ../index.php?page=users&action=success");
+                if ($_POST["password"] == $_POST["password2"]) {
+
+                    $data = getUserData($_POST);
+                    if ($user->create($data)) {
+                        header("Location: ../index.php?page=users&action=success");
+                    } else {
+                        echo $user->create($data);
+                        //header("Location: ../index.php?page=users&action=fail");
+                    }
                 } else {
-                    header("Location: ../index.php?page=users&action=fail");
+                    echo "<center><strong><h1>As duas senhas diferem uma da outra</h1></strong></center>";
+                    echo "<script>";
+                    //echo "setTimeout(function() { window.location.href = '../index.php?page=users&action=fail'; }, 3000);";
+                    echo "</script>";
                 }
                 break;
 

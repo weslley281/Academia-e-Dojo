@@ -130,4 +130,3 @@
         </div>
     </form>
 </div>
-<script src="./utils/validateFormPassword.js"></script>

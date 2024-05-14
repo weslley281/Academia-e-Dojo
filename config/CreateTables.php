@@ -9,10 +9,10 @@ class CreateTables
     CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255),
-        phone VARCHAR(30),
+        phone VARCHAR(100),
         email VARCHAR(255),
         password VARCHAR(255) UNIQUE,
-        cpf VARCHAR(11) UNIQUE NULL,
+        cpf VARCHAR(50) UNIQUE NULL,
         type ENUM('admin', 'instructor', 'student'),
         address VARCHAR(255),
         complement VARCHAR(255),
@@ -35,7 +35,6 @@ class CreateTables
             echo "Erro ao criar tabela 'users': " . $conn->error;
         }
     }
-
 
     public static function createMartialArtsTable($conn)
     {
