@@ -1,3 +1,10 @@
+<?php
+$type_user = [
+    "admin" => "Administrador",
+    "student" => "Aluno",
+    "instructor" => "Professor"
+]
+?>
 <div class="container mt-5">
     <h1>Lista de Usuário</h1>
     <a href="index.php?page=users&action=create" class="btn btn-success mb-3">Criar novo Usuário</a>
@@ -30,13 +37,33 @@
                                     <?php
                                     if (isset($_SESSION["type"]) && $_SESSION["type"] == "admin") {
                                     ?>
-                                        <form action="./controllers/UserController.php" method="POST">
+                                        <form action="./controllers/UserController.php?action=updateType" method="post">
+
                                             <div class="row">
                                                 <div class="col-sm-9">
                                                     <input type="hidden" name="id" value="<?= htmlspecialchars($user['id']) ?>">
                                                     <select name="type" class="form-control" id="type">
-                                                        <option value="<?= htmlspecialchars($user['type']) ?>">Estudante</option>
-                                                        <option value="instructor">Instrutor</option>
+                                                        <option value="<?= htmlspecialchars($user['type']) ?>"><?= htmlspecialchars($type_user[$user["type"]]) ?></option>
+                                                        <?php
+                                                        switch ($user["type"]) {
+                                                            case 'instructor':
+                                                        ?>
+                                                                <option value="student">Aluno</option>
+                                                            <?php
+                                                                break;
+                                                            case 'student':
+                                                            ?>
+                                                                <option value="instructor">Professor</option>
+                                                            <?php
+                                                                break;
+                                                            default:
+                                                            ?>
+                                                                <option value="student">Aluno</option>
+                                                                <option value="instructor">Professor</option>
+                                                        <?php
+                                                                break;
+                                                        }
+                                                        ?>
                                                     </select>
 
                                                 </div>

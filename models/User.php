@@ -160,7 +160,7 @@ class User
         }
     }
 
-    public function updateType(array $type, $id)
+    public function updateType($type, $id)
     {
         try {
             $stmt = $this->conn->prepare(

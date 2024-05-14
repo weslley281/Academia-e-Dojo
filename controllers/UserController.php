@@ -77,16 +77,16 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 }
                 break;
 
-            case 'updateType':
+            case 'updatetype':
                 if ($id === null) {
-                    header("Location: ../index.php?page=classes&action=invalid");
+                    header("Location: ../index.php?page=users&action=invalid");
                     exit;
                 }
 
                 if ($user->updateType($_POST["type"], $id)) {
-                    header("Location: ../index.php?page=classes&action=saved");
+                    header("Location: ../index.php?page=users&action=saved");
                 } else {
-                    header("Location: ../index.php?page=classes&action=fail");
+                    header("Location: ../index.php?page=users&action=fail");
                 }
                 break;
 
@@ -103,7 +103,9 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 break;
 
             default: // Se nenhuma ação for definida
+                echo "<center><strong><h1>Ação incorreta</h1></strong></center>";
                 header("Location: ../index.php?page=users&action=unknown");
+                echo $_GET['action'];
                 break;
         }
     }
