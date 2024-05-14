@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <h1>Lista de Classes</h1>
     <a href="index.php?page=classes&action=create" class="btn btn-success mb-3">Criar nova Classe</a> <!-- Botão para criar nova classe -->
-    <table class="table table-striped"> <!-- Tabela para exibir as classes -->
+    <table id="minhaTabela" class="table table-striped"> <!-- Tabela para exibir as classes -->
         <thead>
             <tr>
                 <th>Nome</th>

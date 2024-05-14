@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <h1>Users List</h1>
     <a href="index.php?page=users&action=create" class="btn btn-success mb-3">Criar novo Usuário</a>
-    <table class="table table-striped">
+    <table id="minhaTabela" class="table table-striped">
         <thead>
             <tr>
                 <th>Nome</th>
