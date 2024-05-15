@@ -36,9 +36,9 @@
                 $users = $user->getAllInstructors();
 
                 if (isset($users) && !empty($users)) {
-                    foreach ($users as $user) {
+                    foreach ($users as $instructor) {
                 ?>
-                        <option value="<?= htmlspecialchars($user['id']) ?>"><?= htmlspecialchars($user['name']) ?></option>
+                        <option value="<?= htmlspecialchars($user['id']) ?>"><?= htmlspecialchars($instructor['name']) ?></option>
                 <?php
                     }
                 }
@@ -66,3 +66,13 @@
         </div>
     </form>
 </div>
+
+<script src="./libs/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea#description',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+        language: 'pt_BR',
+    });
+</script>

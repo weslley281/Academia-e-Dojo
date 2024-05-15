@@ -18,6 +18,7 @@ $class = new ClassModel($conn);
 $createTable->createUsersTable($conn);
 $createTable->createMartialArtsTable($conn);
 $createTable->createClassTable($conn);
+$createTable->createClassDaysTable($conn);
 
 $page = $_GET['page'] ?? 'dashboard';
 $action = $_GET['action'] ?? '';
@@ -79,13 +80,7 @@ include_once './views/navbar.php';
     <link href="./libs/fontawesome-free-6.5.2-web/css/brands.css" rel="stylesheet" />
     <link href="./libs/fontawesome-free-6.5.2-web/css/solid.css" rel="stylesheet" />
     <link rel="stylesheet" href="./libs/DataTables/datatables.css">
-
-    <script src="./libs/bootstrap/jquery.js"></script>
-    <script src="./libs/bootstrap/popper.js"></script>
-    <script src="./libs/bootstrap/bootstrap.js"></script>
-    <script src="./utils/maskCPF.js"></script>
-    <script src="./libs/DataTables/datatables.js"></script>
-    <script src="./libs/tinymce/tinymce.min.js"></script>
+    <link rel="icon" href="./images/logo-kenshydokan.png" type="image/jpg">
 </head>
 
 <body>
@@ -207,6 +202,12 @@ include_once './views/navbar.php';
         ?>
     </div>
 
+    <script src="./libs/bootstrap/jquery.js"></script>
+    <script src="./libs/bootstrap/popper.js"></script>
+    <script src="./libs/bootstrap/bootstrap.js"></script>
+    <script src="./utils/maskCPF.js"></script>
+    <script src="./libs/DataTables/datatables.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             $('#minhaTabela').DataTable({
@@ -216,15 +217,6 @@ include_once './views/navbar.php';
                 "pageLength": 10, // Define o número de registros por página
                 "searching": true // Habilita a pesquisa
             });
-        });
-    </script>
-
-    <script>
-        tinymce.init({
-            selector: 'textarea',
-            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-            language: 'pt_BR',
         });
     </script>
 </body>
