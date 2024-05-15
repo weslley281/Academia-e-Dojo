@@ -98,6 +98,7 @@ class User
 
     public function getById($id)
     {
+        echo $id;
         try {
             $stmt = $this->conn->prepare('SELECT * FROM users WHERE id = ?');
             $stmt->bind_param('i', $id);

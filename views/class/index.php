@@ -17,7 +17,9 @@
 
             if (isset($classes) && !empty($classes)) { // Verifica se há classes para exibir
                 foreach ($classes as $class) {
-                    @$get_user = $user->getById($class['idInstructor']);
+                    echo $class['idInstructor'];
+                    $get_user = $user->getById($class['idInstructor']);
+                    print_r($get_user);
             ?>
                     <tr>
                         <td><?= htmlspecialchars($class['name']) ?></td> <!-- Nome da classe -->
