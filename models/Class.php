@@ -102,6 +102,19 @@ class ClassModel
         }
     }
 
+    public function countAll()
+    {
+        try {
+            $result = $this->conn->query('SELECT COUNT(*) as total FROM classes');
+            $row = $result->fetch_assoc();
+
+            return $row['total'];
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return 0;
+        }
+    }
+
     public function createClassDays($classId, $daysOfWeek)
     {
         try {

@@ -51,7 +51,7 @@ class MartialArt
             return []; // Retorna um array vazio em caso de erro
         }
     }
-     
+
 
     // Método para obter um usuário por ID
     public function getById($id)
@@ -95,11 +95,23 @@ class MartialArt
         try {
             $stmt = $this->conn->prepare('DELETE FROM martialArts WHERE id = ?');
             $stmt->bind_param('i', $id);
-            return $stmt->execute(); // Retorna true se a exclusão for bem-sucedida
-
+            return $stmt->execute();
         } catch (mysqli_sql_exception $e) {
-            error_log($e->getMessage(), 3, __DIR__ . '/errors.log'); // Log de erro
-            return false; // Retorna falso em caso de erro
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return false;
+        }
+    }
+
+    public function countAll()
+    {
+        try {
+            $result = $this->conn->query('SELECT COUNT(*) as total FROM martialArts');
+            $row = $result->fetch_assoc();
+
+            return $row['total'];
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return 0;
         }
     }
 }

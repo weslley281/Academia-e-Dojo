@@ -4,10 +4,10 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../models/MartialArt.php';
     require_once __DIR__ . '/../config/db.php';
 
-// Instância da classe MartialArt
+    // Instância da classe MartialArt
     $martialArt = new MartialArt($conn);
 
-// Verifica o método HTTP
+    // Verifica o método HTTP
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Validação e Sanitização dos Dados
         $id = isset($_POST['id']) ? intval($_POST['id']) : null;
@@ -40,7 +40,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                     exit;
                 }
                 $data = getMartialArtData($_POST);
-                if ($martialart->update($data, $id)) {
+                if ($martialArt->update($data, $id)) {
                     header("Location: ../index.php?page=martialArts&action=saved");
                 } else {
                     header("Location: ../index.php?page=martialArts&action=fail");
@@ -52,7 +52,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                     header("Location: ../index.php?page=martialArts&action=invalid");
                     exit;
                 }
-                if ($martialart->delete($id)) {
+                if ($martialArt->delete($id)) {
                     header("Location: ../index.php?page=martialArts&action=deleted");
                 } else {
                     header("Location: ../index.php?page=martialArts&action=fail");

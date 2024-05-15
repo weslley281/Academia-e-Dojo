@@ -189,4 +189,43 @@ class User
             return false;
         }
     }
+
+    public function countAll()
+    {
+        try {
+            $result = $this->conn->query('SELECT COUNT(*) as total FROM users');
+            $row = $result->fetch_assoc();
+
+            return $row['total'];
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return 0;
+        }
+    }
+
+    public function countAllStudents()
+    {
+        try {
+            $result = $this->conn->query("SELECT COUNT(*) as total FROM users WHERE type = 'student'");
+            $row = $result->fetch_assoc();
+
+            return $row['total'];
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return 0;
+        }
+    }
+
+    public function countAllInstructors()
+    {
+        try {
+            $result = $this->conn->query("SELECT COUNT(*) as total FROM users WHERE type = 'instructor'");
+            $row = $result->fetch_assoc();
+
+            return $row['total'];
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return 0;
+        }
+    }
 }

@@ -5,7 +5,7 @@
                 <img class="card-img-top" src="./images/alunos.jpg" alt="Imagem de capa do card">
                 <div class="card-body">
                     <h5 class="card-title">Alunos</h5>
-                    <p class="card-text">Alunos ativos <strong>0</strong>.</p>
+                    <p class="card-text">Alunos ativos <strong><?= $user->countAllStudents() ?></strong>.</p>
                     <a href="index.php?page=users&query=students" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
                 </div>
             </div>
@@ -15,7 +15,7 @@
                 <img class="card-img-top" src="./images/instrutores.jpg" alt="Imagem de capa do card">
                 <div class="card-body">
                     <h5 class="card-title">Instrutores</h5>
-                    <p class="card-text">Instrutores ativos <strong>0</strong>.</p>
+                    <p class="card-text">Instrutores ativos <strong><?= $user->countAllInstructors() ?></strong>.</p>
                     <a href="index.php?page=users&query=instructors" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <img class="card-img-top" src="./images/turmas.jpg" alt="Imagem de capa do card">
                 <div class="card-body">
                     <h5 class="card-title">Turmas</h5>
-                    <p class="card-text">Turmas ativas <strong>0</strong>.</p>
+                    <p class="card-text">Turmas ativas <strong><?= $class->countAll() ?></strong>.</p>
                     <a href="index.php?page=classes" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
                 </div>
             </div>
