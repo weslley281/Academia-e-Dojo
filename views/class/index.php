@@ -5,7 +5,7 @@
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Descrição</th>
+                <th>Professor</th>
                 <th>Hora Inicial</th>
                 <th>Hora Final</th>
                 <th>Ações</th>
@@ -17,11 +17,11 @@
 
             if (isset($classes) && !empty($classes)) { // Verifica se há classes para exibir
                 foreach ($classes as $class) {
-                    $description = htmlspecialchars(truncate($class['description'], 50)); // Trunca e escapa a descrição para segurança
+                    @$get_user = $user->getById($class['idInstructor']);
             ?>
                     <tr>
                         <td><?= htmlspecialchars($class['name']) ?></td> <!-- Nome da classe -->
-                        <td><?= $description ?></td> <!-- Descrição truncada -->
+                        <td><?= htmlspecialchars($get_user["name"]) ?></td> <!-- Descrição truncada -->
                         <td><?= htmlspecialchars($class['initialHour']) ?></td> <!-- Hora inicial -->
                         <td><?= htmlspecialchars($class['finalHour']) ?></td> <!-- Hora final -->
                         <td> <!-- Ações para edição e exclusão -->

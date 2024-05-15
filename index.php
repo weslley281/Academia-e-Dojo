@@ -69,7 +69,7 @@ include_once './views/navbar.php';
     <meta name="author" content="Weslley Henrique Vieira Ferraz" />
     <meta name="owner" content="Federação de Karate de Contato do Estado de Mato Grosso" />
     <meta name="copyright" content="Weslley Henrique Vieira Ferraz" />
-    <meta name="keywords" content="kenshydokan, kyokushin, federação, karate, carate, karatê, caratê, de contato, full, contact, luta, aula, aulas, Karatê, kata, kumite, mato grosso, cuiaba, varzea grande, weslley ferraz, weslley, ferraz, judo, judô, kodokan, jiu, jiu jitsu, muay thai, muay boran, kickboxing">
+    <meta name="keywords" content="sistema, web, desktop, mobile, gerenciamento, kenshydokan, kyokushin, federação, karate, carate, karatê, caratê, de contato, full, contact, luta, aula, aulas, Karatê, kata, kumite, mato grosso, cuiaba, varzea grande, weslley ferraz, weslley, ferraz, judo, judô, kodokan, jiu, jiu jitsu, muay thai, muay boran, kickboxing">
     <meta name="description" content="Somos uma federação, criada com o intuito de divulgar o karate kenshydokan e outras artes marciais.">
     <meta http-equiv="refresh" content="3600">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -85,17 +85,7 @@ include_once './views/navbar.php';
     <script src="./libs/bootstrap/bootstrap.js"></script>
     <script src="./utils/maskCPF.js"></script>
     <script src="./libs/DataTables/datatables.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#minhaTabela').DataTable({
-                "order": [
-                    [0, "asc"]
-                ], // Ordena a primeira coluna em ordem crescente
-                "pageLength": 10, // Define o número de registros por página
-                "searching": true // Habilita a pesquisa
-            });
-        });
-    </script>
+    <script src="./libs/tinymce/tinymce.min.js"></script>
 </head>
 
 <body>
@@ -216,6 +206,27 @@ include_once './views/navbar.php';
         }
         ?>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#minhaTabela').DataTable({
+                "order": [
+                    [0, "asc"]
+                ], // Ordena a primeira coluna em ordem crescente
+                "pageLength": 10, // Define o número de registros por página
+                "searching": true // Habilita a pesquisa
+            });
+        });
+    </script>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            language: 'pt_BR',
+        });
+    </script>
 </body>
 
 </html>
