@@ -14,7 +14,7 @@
 
         <div class="row">
             <div class="col"><button type="submit" class="mb-3 btn btn-secondary float-left">Salvar</button></div>
-            <div class="col"><a href="./index.php?page=martialArts" class="btn btn-light float-right">Cancelar</a></div>
+            <div class="col"><a href="./index.php?page=martial_arts" class="btn btn-light float-right">Cancelar</a></div>
         </div>
 
 

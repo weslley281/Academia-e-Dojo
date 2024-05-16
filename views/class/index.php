@@ -18,14 +18,14 @@
 
             if (isset($classes) && !empty($classes)) { // Verifica se há classes para exibir
                 foreach ($classes as $class) {
-                    //echo $class['idInstructor'];
+
                     $get_user = $user->getById($class['idInstructor']);
-                    //print_r($get_user);
+                    $valorFormatado = number_format((float)$class['value'], 2, ',', '.');
             ?>
                     <tr>
                         <td><?= htmlspecialchars($class['name']) ?></td> <!-- Nome da classe -->
                         <td><?= htmlspecialchars($get_user["name"]) ?></td> <!-- Descrição truncada -->
-                        <td><?= htmlspecialchars($class['value']) ?></td> <!-- Hora inicial -->
+                        <td>R$ <?= htmlspecialchars($valorFormatado) ?></td> <!-- Hora inicial -->
                         <td><?= htmlspecialchars($class['initialHour']) ?></td> <!-- Hora inicial -->
                         <td><?= htmlspecialchars($class['finalHour']) ?></td> <!-- Hora final -->
                         <td> <!-- Ações para edição e exclusão -->

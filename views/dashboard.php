@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Financeiro</h5>
                     <p class="card-text">Mensalidade Atrazada <strong>0</strong>.</p>
-                    <a href="index.php?page=finances" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
+                    <a href="index.php?page=financial" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
                 </div>
             </div>
         </div>

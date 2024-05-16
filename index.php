@@ -27,7 +27,7 @@ $titles = [
     'dashboard' => 'Painel de Controle',
     'login' => 'Login',
     'users' => 'Usuários',
-    'martialArts' => 'Artes Marciais',
+    'martial_arts' => 'Artes Marciais',
     'classes' => 'Turmas',
     'financial' => 'Financeiro'
 ];
@@ -98,7 +98,7 @@ include_once './views/navbar.php';
                     case 'success':
                         echo renderAlert('success', 'Sucesso!', 'Loguin Registrado com Sucesso. Você já pode navegar.');
                         echo "<script>";
-                        echo "setTimeout(function() { window.location.href = './index.php?page=dashboard'; }, 5000);";
+                        echo "setTimeout(function() { window.location.href = './index.php?page=dashboard'; }, 3000);";
                         echo "</script>";
 
                         break;
@@ -140,7 +140,7 @@ include_once './views/navbar.php';
 
                 break;
 
-            case 'martialArts':
+            case 'martial_arts':
 
                 if ($action === 'create') {
                     include_once './views/martialArt/create.php';

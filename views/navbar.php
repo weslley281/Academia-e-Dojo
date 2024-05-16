@@ -19,9 +19,9 @@
                     <i class="fa-solid fa-pen-ruler"></i> Aulas
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="index.php?page=martialArts">Artes Marciais</a>
-                    <a class="dropdown-item" href="index.php?page=classes">Criar Turmas</a>
-                    <a class="dropdown-item" href="#">Agendamento de Aulas</a>
+                    <a class="dropdown-item" href="index.php?page=martial_arts">Artes Marciais</a>
+                    <a class="dropdown-item" href="index.php?page=classes">Turmas</a>
+                    <a class="dropdown-item" href="index.php?page=private_class">Aulas Particulares</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Algo mais aqui</a>
                 </div>

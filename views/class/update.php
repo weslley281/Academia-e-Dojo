@@ -5,6 +5,7 @@ $get_instructor = $user->getById($class["idInstructor"]);
 <div class="container mt-5">
     <h1>Editar Turma</h1>
     <form action="./controllers/ClassController.php?action=update" method="post"> <!-- Ação do formulário -->
+        <input type="hidden" name="id" value="<?php echo $_GET["id"] ?>">
         <div class="form-group form-group"> <!-- Campo para o nome da classe -->
             <label for="name" class="form-label"><strong>Nome:</strong></label>
             <input type="text" id="name" name="name" class="form-control" value="<?= htmlspecialchars($class['name']); ?>" required>
