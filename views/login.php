@@ -1,3 +1,10 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">App Gerenciamento de Dojos</h1>
+    <p class="lead">O poder do controle em suas mãos: organização além do tatame, controle além das técnicas.</p>
+  </div>
+</div>
+
 <form class="mt-5" action="./utils/authentication.php" method="POST">
   <div class="form-group">
     <label for="email">Endereço de email</label>

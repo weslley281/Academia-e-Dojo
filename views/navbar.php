@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.php">Dashboard</a>
+    <a class="navbar-brand" href="index.php"><?php echo $page_title; ?></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alterna navegação">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -26,6 +26,11 @@
                     <a class="dropdown-item" href="#">Algo mais aqui</a>
                 </div>
             </li>
+            <?php if (isset($_SESSION["user_id"])) { ?>
+                <li class="nav-item">
+                    <a class="nav-link text-danger" href="./utils/go_out.php"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
+                </li>
+            <?php } ?>
         </ul>
     </div>
 </nav>

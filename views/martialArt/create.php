@@ -13,17 +13,7 @@
 
         <div class="row">
             <div class="col"><button type="submit" class="mb-3 btn btn-success float-left">Criar</button></div>
-            <div class="col"><a href="./index.php?page=martialArts" class="btn btn-light float-right">Cancelar</a></div>
+            <div class="col"><a href="./index.php?page=martial_arts" class="btn btn-light float-right">Cancelar</a></div>
         </div>
     </form>
 </div>
-
-<script src="./libs/tinymce/tinymce.min.js"></script>
-<script>
-    tinymce.init({
-        selector: 'textarea#description',
-        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-        language: 'pt_BR',
-    });
-</script>

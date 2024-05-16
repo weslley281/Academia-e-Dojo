@@ -13,7 +13,8 @@
 
         <div class="form-group"> <!-- Campo para a descrição da classe -->
             <label for="value" class="form-label"><strong>Valor:</strong></label>
-            <input type="text" id="value" name="value" class="form-control" required>
+            <input type="text" id="value" name="value" class="form-control" value="99.99" oninput="formatarNumero(this)" required>
+            <small>Insira valores separados por pontos, exemplo <strong>"2.99"</strong></small>
         </div>
 
         <div class="form-group"> <!-- Campo para o ID da arte marcial associada -->
@@ -43,7 +44,7 @@
                 if (isset($users) && !empty($users)) {
                     foreach ($users as $instructor) {
                 ?>
-                        <option value="<?= htmlspecialchars($user['id']) ?>"><?= htmlspecialchars($instructor['name']) ?></option>
+                        <option value="<?= htmlspecialchars($instructor['id']) ?>"><?= htmlspecialchars($instructor['name']) ?></option>
                 <?php
                     }
                 }
@@ -71,13 +72,3 @@
         </div>
     </form>
 </div>
-
-<script src="./libs/tinymce/tinymce.min.js"></script>
-<script>
-    tinymce.init({
-        selector: 'textarea#description',
-        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-        language: 'pt_BR',
-    });
-</script>

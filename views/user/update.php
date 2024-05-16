@@ -14,7 +14,7 @@
 
         <div class="mb-3 form-group">
             <label for="phone" class="form-label"><strong>Telefone:</strong></label>
-            <input type="text" id="phone" name="phone" class="form-control" value="<?php echo $user["phone"] ?>" required>
+            <input type="number" id="phone" name="phone" class="form-control" value="<?php echo $user["phone"] ?>" required>
         </div>
 
         <div class="mb-3 form-group">
@@ -37,41 +37,41 @@
             <select class="form-control" class="form-select" id="state" name="state" required>
                 <option value="">Selecione um estado</option>
                 <?php
-$states = array(
-    'AC' => 'Acre',
-    'AL' => 'Alagoas',
-    'AP' => 'Amapá',
-    'AM' => 'Amazonas',
-    'BA' => 'Bahia',
-    'CE' => 'Ceará',
-    'DF' => 'Distrito Federal',
-    'ES' => 'Espírito Santo',
-    'GO' => 'Goiás',
-    'MA' => 'Maranhão',
-    'MT' => 'Mato Grosso',
-    'MS' => 'Mato Grosso do Sul',
-    'MG' => 'Minas Gerais',
-    'PA' => 'Pará',
-    'PB' => 'Paraíba',
-    'PR' => 'Paraná',
-    'PE' => 'Pernambuco',
-    'PI' => 'Piauí',
-    'RJ' => 'Rio de Janeiro',
-    'RN' => 'Rio Grande do Norte',
-    'RS' => 'Rio Grande do Sul',
-    'RO' => 'Rondônia',
-    'RR' => 'Roraima',
-    'SC' => 'Santa Catarina',
-    'SP' => 'São Paulo',
-    'SE' => 'Sergipe',
-    'TO' => 'Tocantins',
-);
+                $states = array(
+                    'AC' => 'Acre',
+                    'AL' => 'Alagoas',
+                    'AP' => 'Amapá',
+                    'AM' => 'Amazonas',
+                    'BA' => 'Bahia',
+                    'CE' => 'Ceará',
+                    'DF' => 'Distrito Federal',
+                    'ES' => 'Espírito Santo',
+                    'GO' => 'Goiás',
+                    'MA' => 'Maranhão',
+                    'MT' => 'Mato Grosso',
+                    'MS' => 'Mato Grosso do Sul',
+                    'MG' => 'Minas Gerais',
+                    'PA' => 'Pará',
+                    'PB' => 'Paraíba',
+                    'PR' => 'Paraná',
+                    'PE' => 'Pernambuco',
+                    'PI' => 'Piauí',
+                    'RJ' => 'Rio de Janeiro',
+                    'RN' => 'Rio Grande do Norte',
+                    'RS' => 'Rio Grande do Sul',
+                    'RO' => 'Rondônia',
+                    'RR' => 'Roraima',
+                    'SC' => 'Santa Catarina',
+                    'SP' => 'São Paulo',
+                    'SE' => 'Sergipe',
+                    'TO' => 'Tocantins',
+                );
 
-foreach ($states as $code => $name) {
-    $selected = ($user['state'] === $code) ? 'selected' : '';
-    echo "<option value=\"$code\" $selected>$name</option>";
-}
-?>
+                foreach ($states as $code => $name) {
+                    $selected = ($user['state'] === $code) ? 'selected' : '';
+                    echo "<option value=\"$code\" $selected>$name</option>";
+                }
+                ?>
             </select>
         </div>
 
@@ -94,18 +94,18 @@ foreach ($states as $code => $name) {
             <label for="maritalStatus" class="form-label"><strong>Estado Civil:</strong></label>
             <select class="form-control" name="maritalStatus" id="maritalStatus" required>
                 <?php
-$marital_statuses = [
-    'single' => 'Solteiro',
-    'married' => 'Casado',
-    'divorced' => 'Divorciado',
-    'widower' => 'Viúvo',
-];
+                $marital_statuses = [
+                    'single' => 'Solteiro',
+                    'married' => 'Casado',
+                    'divorced' => 'Divorciado',
+                    'widower' => 'Viúvo',
+                ];
 
-foreach ($marital_statuses as $status => $label) {
-    $selected = ($user['maritalStatus'] === $status) ? 'selected' : '';
-    echo "<option value=\"$status\" $selected>$label</option>";
-}
-?>
+                foreach ($marital_statuses as $status => $label) {
+                    $selected = ($user['maritalStatus'] === $status) ? 'selected' : '';
+                    echo "<option value=\"$status\" $selected>$label</option>";
+                }
+                ?>
             </select>
         </div>
 
@@ -113,23 +113,23 @@ foreach ($marital_statuses as $status => $label) {
             <label for="gender" class="form-label"><strong>Gênero:</strong></label>
             <select class="form-control" name="gender" id="gender" required>
                 <?php
-$genders = [
-    'masculine' => 'Masculino',
-    'feminine' => 'Feminino',
-    'non-binary' => 'Não-Binário',
-    'gender-fluid' => 'Gênero-Fluido',
-    'transgender' => 'Transgênero',
-    'agender' => 'Agênero',
-    'two-spirit' => 'Dois Espíritos',
-    'other' => 'Outro',
-    'null' => 'Prefiro não dizer',
-];
+                $genders = [
+                    'masculine' => 'Masculino',
+                    'feminine' => 'Feminino',
+                    'non-binary' => 'Não-Binário',
+                    'gender-fluid' => 'Gênero-Fluido',
+                    'transgender' => 'Transgênero',
+                    'agender' => 'Agênero',
+                    'two-spirit' => 'Dois Espíritos',
+                    'other' => 'Outro',
+                    'null' => 'Prefiro não dizer',
+                ];
 
-foreach ($genders as $gender => $label) {
-    $selected = ($user['gender'] === $gender) ? 'selected' : '';
-    echo "<option value=\"$gender\" $selected>$label</option>";
-}
-?>
+                foreach ($genders as $gender => $label) {
+                    $selected = ($user['gender'] === $gender) ? 'selected' : '';
+                    echo "<option value=\"$gender\" $selected>$label</option>";
+                }
+                ?>
             </select>
         </div>
 

@@ -15,27 +15,6 @@ class User
 
     public function create(array $data)
     {
-        $name = $data['name'];
-        $phone = $data['phone'];
-        $email = $data['email'];
-        $address = $data['address'];
-        $complement = $data['complement'];
-        $country = $data['country'];
-        $state = $data['state'];
-        $city = $data['city'];
-        $neighborhood = $data['neighborhood'];
-        $postalCode = $data['postalCode'];
-        $maritalStatus = $data['maritalStatus'];
-        $gender = $data['gender'];
-        $birthDate = $data['birthDate'];
-        $password = $data['password'];
-        $cpf = $data['cpf'];
-        $type = $data['type'];
-
-        //print_r($data);
-        echo "INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postalCode, maritalStatus, gender, birthDate, password, cpf, type)
-        VALUES ($name, $phone, $email, $address, $complement, $country, $state, $city, $neighborhood, $postalCode, $maritalStatus, $gender, $birthDate, $password, $cpf, $type)";
-
         try {
             $stmt = $this->conn->prepare(
                 'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postalCode, maritalStatus, gender, birthDate, password, cpf, type)
@@ -98,7 +77,6 @@ class User
 
     public function getById($id)
     {
-        echo $id;
         try {
             $stmt = $this->conn->prepare('SELECT * FROM users WHERE id = ?');
             $stmt->bind_param('i', $id);
