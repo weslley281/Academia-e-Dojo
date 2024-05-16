@@ -18,6 +18,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 "idInstructor" => intval($post["idInstructor"] ?? 0),
                 "name" => htmlspecialchars($post["name"] ?? ''),
                 "description" => htmlspecialchars($post["description"] ?? ''),
+                "value" => htmlspecialchars($post["value"] ?? ''),
                 "initialHour" => htmlspecialchars($post["initialHour"] ?? ''),
                 "finalHour" => htmlspecialchars($post["finalHour"] ?? ''),
             ];

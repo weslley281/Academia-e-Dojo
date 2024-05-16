@@ -64,6 +64,7 @@ class CreateTables
             idInstructor INT,
             name VARCHAR(255) UNIQUE,
             description VARCHAR(500),
+            value DECIMAL(10, 2),
             initialHour TIME,
             finalHour TIME,
             editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

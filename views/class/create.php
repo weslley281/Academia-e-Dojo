@@ -11,6 +11,11 @@
             <textarea name="description" id="description" class="form-control" cols="30" rows="5" required></textarea>
         </div>
 
+        <div class="form-group"> <!-- Campo para a descrição da classe -->
+            <label for="value" class="form-label"><strong>Valor:</strong></label>
+            <input type="text" id="value" name="value" class="form-control" required>
+        </div>
+
         <div class="form-group"> <!-- Campo para o ID da arte marcial associada -->
             <label for="idMartialArt" class="form-label"><strong>Arte Marcial:</strong></label>
             <select name="idMartialArt" class="form-control" id="idMartialArt">

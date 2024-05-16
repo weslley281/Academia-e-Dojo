@@ -6,6 +6,7 @@
             <tr>
                 <th>Nome</th>
                 <th>Professor</th>
+                <th>Valor</th>
                 <th>Hora Inicial</th>
                 <th>Hora Final</th>
                 <th>Ações</th>
@@ -24,6 +25,7 @@
                     <tr>
                         <td><?= htmlspecialchars($class['name']) ?></td> <!-- Nome da classe -->
                         <td><?= htmlspecialchars($get_user["name"]) ?></td> <!-- Descrição truncada -->
+                        <td><?= htmlspecialchars($class['value']) ?></td> <!-- Hora inicial -->
                         <td><?= htmlspecialchars($class['initialHour']) ?></td> <!-- Hora inicial -->
                         <td><?= htmlspecialchars($class['finalHour']) ?></td> <!-- Hora final -->
                         <td> <!-- Ações para edição e exclusão -->

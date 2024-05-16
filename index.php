@@ -28,7 +28,8 @@ $titles = [
     'login' => 'Login',
     'users' => 'Usuários',
     'martialArts' => 'Artes Marciais',
-    'classes' => 'Turmas'
+    'classes' => 'Turmas',
+    'financial' => 'Financeiro'
 ];
 
 $page_title = isset($titles[$page]) ? $titles[$page] : 'Página não encontrada';
@@ -193,6 +194,10 @@ include_once './views/navbar.php';
 
                 include_once './views/class/index.php';
 
+                break;
+
+            case "financial":
+                include_once './views/financial/index.php';
                 break;
 
             default:

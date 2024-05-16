@@ -17,16 +17,17 @@ class ClassModel
     {
         try {
             $stmt = $this->conn->prepare(
-                'INSERT INTO classes (idMartialArt, idInstructor, name, description, initialHour, finalHour)
-                 VALUES (?, ?, ?, ?, ?, ?)'
+                'INSERT INTO classes (idMartialArt, idInstructor, name, description, value, initialHour, finalHour)
+                 VALUES (?, ?, ?, ?, ?, ?, ?)'
             );
 
             $stmt->bind_param(
-                'iissss',
+                'iisssss',
                 $data['idMartialArt'],
                 $data['idInstructor'],
                 $data['name'],
                 $data['description'],
+                $data['value'],
                 $data['initialHour'],
                 $data['finalHour']
             );
@@ -68,15 +69,16 @@ class ClassModel
     {
         try {
             $stmt = $this->conn->prepare(
-                'UPDATE classes SET idMartialArt = ?, idInstructor = ?, name = ?, description = ?, initialHour = ?, finalHour = ? WHERE id = ?'
+                'UPDATE classes SET idMartialArt = ?, idInstructor = ?, name = ?, description = ?, value = ?, initialHour = ?, finalHour = ? WHERE id = ?'
             );
 
             $stmt->bind_param(
-                'iissssi',
+                'iisssssi',
                 $data['idMartialArt'],
                 $data['idInstructor'],
                 $data['name'],
                 $data['description'],
+                $data['value'],
                 $data['initialHour'],
                 $data['finalHour'],
                 $id
