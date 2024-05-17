@@ -19,9 +19,9 @@ $createTable->createUsersTable($conn);
 $createTable->createMartialArtsTable($conn);
 $createTable->createClassTable($conn);
 $createTable->createClassDaysTable($conn);
-$createTable->createSalesTable($conn);
 $createTable->createCashierTable($conn);
 $createTable->createMethodPaymentTable($conn);
+$createTable->createSalesTable($conn);
 $createTable->createPaymentsTable($conn);
 $createTable->createSalesItemTable($conn);
 
