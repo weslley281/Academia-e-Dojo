@@ -97,4 +97,27 @@ class CreateTables
             echo "Erro ao criar tabela 'classes': " . $conn->error;
         }
     }
+
+    public static function createClassSalesTable($conn)
+    {
+        $sql = "
+        CREATE TABLE IF NOT EXISTS sales (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            userId INT NOT NULL,
+            studentId INT NOT NULL,
+            total DECIMAL(10, 2) NOT NULL,
+            paymentMethod VARCHAR(50) NOT NULL,
+            status VARCHAR(50) NOT NULL,
+            saleDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            FOREIGN KEY (userId) REFERENCES users(id)
+        );
+
+        ";
+
+        if ($conn->query($sql) === true) {
+            //echo "Tabela 'classes' criada com sucesso.";
+        } else {
+            echo "Erro ao criar tabela 'classes': " . $conn->error;
+        }
+    }
 }
