@@ -68,7 +68,9 @@ class CreateTables
             initialHour TIME,
             finalHour TIME,
             editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (idMartialArt) REFERENCES martialArts(id),
+            FOREIGN KEY (idInstructor) REFERENCES users(id)
         );
         ";
 
@@ -98,26 +100,114 @@ class CreateTables
         }
     }
 
-    public static function createClassSalesTable($conn)
+    public static function createMethodPaymentTable($conn)
     {
         $sql = "
-        CREATE TABLE IF NOT EXISTS sales (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            userId INT NOT NULL,
-            studentId INT NOT NULL,
-            total DECIMAL(10, 2) NOT NULL,
-            paymentMethod VARCHAR(50) NOT NULL,
-            status VARCHAR(50) NOT NULL,
-            saleDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            FOREIGN KEY (userId) REFERENCES users(id)
-        );
-
+            CREATE TABLE IF NOT EXISTS method_payment (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(255),
+                processingFee DECIMAL(10, 2) DEFAULT 0,
+                editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
         ";
 
         if ($conn->query($sql) === true) {
-            //echo "Tabela 'classes' criada com sucesso.";
+            //echo "Tabela 'method_payment' criada com sucesso.";
         } else {
-            echo "Erro ao criar tabela 'classes': " . $conn->error;
+            echo "Erro ao criar tabela 'method_payment': " . $conn->error;
+        }
+    }
+
+    public static function createCashierTable($conn)
+    {
+        $sql = "
+            CREATE TABLE IF NOT EXISTS cashier (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT NOT NULL,
+                cash DECIMAL(10, 2) DEFAULT 0,
+                credit DECIMAL(10, 2) DEFAULT 0,
+                debit DECIMAL(10, 2) DEFAULT 0,
+                deposit DECIMAL(10, 2) DEFAULT 0,
+                openedBy INT,
+                closedBy INT,
+                open TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                close TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id),
+                FOREIGN KEY (openedBy) REFERENCES users(id),
+                FOREIGN KEY (closedBy) REFERENCES users(id)
+            );
+        ";
+
+        if ($conn->query($sql) === true) {
+            //echo "Tabela 'cashier' criada com sucesso.";
+        } else {
+            echo "Erro ao criar tabela 'cashier': " . $conn->error;
+        }
+    }
+
+    public static function createSalesTable($conn)
+    {
+        $sql = "
+            CREATE TABLE IF NOT EXISTS sales_records (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                cashierId INT NOT NULL,
+                user_id INT NOT NULL,
+                student_id INT NOT NULL,
+                class_id INT NOT NULL,
+                total DECIMAL(10, 2) NOT NULL,
+                paymentMethodId INT NOT NULL,
+                status VARCHAR(50) NOT NULL,
+                saleDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id),
+                FOREIGN KEY (student_id) REFERENCES users(id),
+                FOREIGN KEY (class_id) REFERENCES classes(id),
+                FOREIGN KEY (paymentMethodId) REFERENCES method_payment(id)
+            );
+        ";
+
+        if ($conn->query($sql) === true) {
+            //echo "Tabela 'sales_records' criada com sucesso.";
+        } else {
+            echo "Erro ao criar tabela 'sales_records': " . $conn->error;
+        }
+    }
+
+    public static function createSalesItemTable($conn)
+    {
+        $sql = "
+            CREATE TABLE IF NOT EXISTS sales_item (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                sale_id INT NOT NULL,
+                class_id INT NOT NULL,
+                FOREIGN KEY (sale_id) REFERENCES sales_records(id),
+                FOREIGN KEY (class_id) REFERENCES classes(id)
+            );
+        ";
+
+        if ($conn->query($sql) === true) {
+            //echo "Tabela 'sales_item' criada com sucesso.";
+        } else {
+            echo "Erro ao criar tabela 'sales_item': " . $conn->error;
+        }
+    }
+
+    public static function createPaymentsTable($conn)
+    {
+        $sql = "
+            CREATE TABLE IF NOT EXISTS payments (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                sale_id INT NOT NULL,
+                amount DECIMAL(10, 2) NOT NULL,
+                paymentDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (sale_id) REFERENCES sales_records(id)
+            );
+        ";
+
+        if ($conn->query($sql) === true) {
+            //echo "Tabela 'payments' criada com sucesso.";
+        } else {
+            echo "Erro ao criar tabela 'payments': " . $conn->error;
         }
     }
 }
