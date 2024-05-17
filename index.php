@@ -20,6 +20,10 @@ $createTable->createMartialArtsTable($conn);
 $createTable->createClassTable($conn);
 $createTable->createClassDaysTable($conn);
 $createTable->createSalesTable($conn);
+$createTable->createCashierTable($conn);
+$createTable->createMethodPaymentTable($conn);
+$createTable->createPaymentsTable($conn);
+$createTable->createSalesItemTable($conn);
 
 $page = $_GET['page'] ?? 'dashboard';
 $action = $_GET['action'] ?? '';
