@@ -1,6 +1,6 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">App Gerenciamento de Dojos</h1>
+    <h1 class="display-4">Controle de Dojos</h1>
     <p class="lead">O poder do controle em suas mãos: organização além do tatame, controle além das técnicas.</p>
   </div>
 </div>
@@ -14,5 +14,5 @@
     <label for="password">Senha</label>
     <input type="password" class="form-control" id="password" name="password" placeholder="Senha">
   </div>
-  <button type="submit" class="btn btn-primary">Enviar</button>
+  <button type="submit" class="btn btn-primary">Entrar</button>
 </form>
