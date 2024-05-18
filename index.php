@@ -63,31 +63,9 @@ if (!$user->getByEmail("instituto@kenshydokan.org.br")) {
 
     $user->create($data);
 }
+
+require_once "./header.php";
 ?>
-
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="Weslley Henrique Vieira Ferraz" />
-    <meta name="owner" content="Federação de Karate de Contato do Estado de Mato Grosso" />
-    <meta name="copyright" content="Weslley Henrique Vieira Ferraz" />
-    <meta name="keywords" content="sistema, web, desktop, mobile, gerenciamento, kenshydokan, kyokushin, federação, karate, carate, karatê, caratê, de contato, full, contact, luta, aula, aulas, Karatê, kata, kumite, mato grosso, cuiaba, varzea grande, weslley ferraz, weslley, ferraz, judo, judô, kodokan, jiu, jiu jitsu, muay thai, muay boran, kickboxing">
-    <meta name="description" content="Somos uma federação, criada com o intuito de divulgar o karate kenshydokan e outras artes marciais.">
-    <meta http-equiv="refresh" content="3600">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title><?php echo $page_title; ?></title>
-
-    <link rel="stylesheet" href="./libs/bootstrap/bootstrap.css">
-    <link rel="stylesheet" href="./css/styles.css">
-    <link href="./libs/fontawesome-free-6.5.2-web/css/fontawesome.css" rel="stylesheet" />
-    <link href="./libs/fontawesome-free-6.5.2-web/css/brands.css" rel="stylesheet" />
-    <link href="./libs/fontawesome-free-6.5.2-web/css/solid.css" rel="stylesheet" />
-    <link rel="stylesheet" href="./libs/DataTables/datatables.css">
-    <link rel="icon" href="./images/logo-kenshydokan.png" type="image/jpg">
-</head>
 
 <body>
     <?php include_once './views/navbar.php'; ?>
@@ -213,44 +191,8 @@ if (!$user->getByEmail("instituto@kenshydokan.org.br")) {
         }
         ?>
     </div>
+    <?php require_once "./footer.php" ?>
 
-    <script src="./libs/bootstrap/jquery.js"></script>
-    <script src="./libs/bootstrap/popper.js"></script>
-    <script src="./libs/bootstrap/bootstrap.js"></script>
-    <script src="./utils/maskCPF.js"></script>
-    <script src="./libs/DataTables/datatables.js"></script>
-    <script src="./libs/tinymce/tinymce.min.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#minhaTabela').DataTable({
-                "order": [
-                    [0, "asc"]
-                ], // Ordena a primeira coluna em ordem crescente
-                "pageLength": 10, // Define o número de registros por página
-                "searching": true // Habilita a pesquisa
-            });
-        });
-    </script>
-
-    <script>
-        function formatarNumero(input) {
-            if (input.id === "value") {
-                // Remove caracteres que não são números, pontos ou a primeira ocorrência de ponto após a primeira posição
-                input.value = input.value.replace(/[^\d.]/g, '').replace(/^(\d*\.)(.*)\./g, '$1$2');
-            }
-        }
-    </script>
-
-
-    <script>
-        tinymce.init({
-            selector: 'textarea#description',
-            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-            language: 'pt_BR',
-        });
-    </script>
 </body>
 
 </html>
