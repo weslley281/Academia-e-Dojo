@@ -120,13 +120,13 @@ class ClassModel
     public function createClassDays($classId, $daysOfWeek)
     {
         try {
-            foreach ($daysOfWeek as $day) {
-                $stmt = $this->conn->prepare(
-                    'INSERT INTO class_days (class_id, day_of_week) VALUES (?, ?)'
-                );
-                $stmt->bind_param('is', $classId, $day);
-                $stmt->execute();
-            }
+
+            $stmt = $this->conn->prepare(
+                'INSERT INTO class_days (class_id, day_of_week) VALUES (?, ?)'
+            );
+            $stmt->bind_param('is', $classId, $daysOfWeek);
+            $stmt->execute();
+
             return true;
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
