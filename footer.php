@@ -1,10 +1,12 @@
-<footer class="container-fluid bg-dark">
-    <p class="m-0 text-center text-white mt-2 mb-2">Copyright &copy; Weslley Henrique Vieira Ferraz <?php echo date("Y"); ?></p>
-    <p class="m-0 text-white">© Instituto de Artes Marciais e Defesa Pessoal Kenshydokan <?php echo date("Y"); ?>. Todos os direitos reservados.</p>
-    <p class="m-0"><button onclick="moveTo('policies')" type="button" class="btn btn-outline-light">Políticas e Privacidade</button> | <button onclick="moveTo('terms')" type="button" class="btn btn-outline-light">Termos e Condições</button></p>
+<footer class="my-2 container-fluid bg-dark">
+
+    <p class="my-2 text-white">© Instituto de Artes Marciais e Defesa Pessoal Kenshydokan <?php echo date("Y"); ?>. Todos os direitos reservados.</p>
+    <p class="m-0"><button onclick="moveTo('policies')" type="button" class="btn btn-outline-light my-2">Políticas e Privacidade</button> | <button onclick="moveTo('terms')" type="button" class="btn btn-outline-light my-2">Termos e Condições</button></p>
     <hr class="bg-light">
-    <p class="m-0 text-white">Desenvolvido por Weslley Henrique Vieira Ferraz<br>
+    <p class="text-white">Desenvolvido por Weslley Henrique Vieira Ferraz<br>
         Tenha um site ou app incrivel como esse faça um orçamento sem compromisso <a href="https://engenheirosoftwareweslley.com.br" target="_blank">clicando aqui</a></p>
+
+    <p class="my-2 text-center text-white mt-2 mb-2">Copyright &copy; Weslley Henrique Vieira Ferraz <?php echo date("Y"); ?></p>
 </footer>
 <script src="./libs/bootstrap/jquery.js"></script>
 <script src="./libs/bootstrap/popper.js"></script>
