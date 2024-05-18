@@ -25,7 +25,8 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                     header("Location: ../index.php?page=classes&action=update&id=$id");
                     exit;
                 }
-                if ($classModel->deleteClassDays($id)) {
+                if ($classModel->deleteClassDays($id, $_POST["day_of_week"])) {
+                    var_dump($id, $_POST["day_of_week"]);
                     header("Location: ../index.php?page=classes&action=update&id=$id");
                 } else {
                     header("Location: ../index.php?page=classes&action=update&id=$id");

@@ -152,11 +152,11 @@ class ClassModel
         }
     }
 
-    public function deleteClassDays($classId)
+    public function deleteClassDays($classId, $day_of_week)
     {
         try {
-            $stmt = $this->conn->prepare('DELETE FROM class_days WHERE class_id = ?');
-            $stmt->bind_param('i', $classId);
+            $stmt = $this->conn->prepare('DELETE FROM class_days WHERE class_id = ? AND day_of_week = ?');
+            $stmt->bind_param('is', $classId, $day_of_week);
             $stmt->execute();
             return true;
         } catch (mysqli_sql_exception $e) {
