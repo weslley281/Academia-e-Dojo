@@ -16,9 +16,9 @@ class Cashier
     public function create(array $data)
     {
         try {
-            $stmt = $this->conn->prepare('INSERT INTO cashier (user_id, cash, credit, debit, deposit, openedBy, closedBy) VALUES (?, ?, ?, ?, ?, ?, ?)');
+            $stmt = $this->conn->prepare('INSERT INTO cashier (user_id, cash, credit, debit, deposit, openedBy) VALUES (?, ?, ?, ?, ?, ?)');
 
-            $stmt->bind_param('idddddi', $data['user_id'], $data['cash'], $data['credit'], $data['debit'], $data['deposit'], $data['openedBy'], $data['closedBy']);
+            $stmt->bind_param('iddddi', $data['user_id'], $data['cash'], $data['credit'], $data['debit'], $data['deposit'], $data['openedBy']);
 
             $stmt->execute();
             return true;
@@ -45,9 +45,9 @@ class Cashier
     public function update(array $data, $id)
     {
         try {
-            $stmt = $this->conn->prepare('UPDATE cashier SET user_id = ?, cash = ?, credit = ?, debit = ?, deposit = ?, openedBy = ?, closedBy = ? WHERE id = ?');
+            $stmt = $this->conn->prepare('UPDATE cashier SET user_id = ?, cash = ?, credit = ?, debit = ?, deposit = ?, closedBy = ? WHERE id = ?');
 
-            $stmt->bind_param('idddddii', $data['user_id'], $data['cash'], $data['credit'], $data['debit'], $data['deposit'], $data['openedBy'], $data['closedBy'], $id);
+            $stmt->bind_param('idddddi', $data['user_id'], $data['cash'], $data['credit'], $data['debit'], $data['deposit'], $data['closedBy'], $id);
 
             $stmt->execute();
             return true;
@@ -91,6 +91,23 @@ class Cashier
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return 0;
+        }
+    }
+
+    // Método para verificar se já existe um caixa com o status "open"
+    public function isOpen()
+    {
+        try {
+            $stmt = $this->conn->prepare('SELECT COUNT(*) as openCount FROM cashier WHERE status = "open"');
+            if ($stmt === false) {
+                throw new Exception("Falha na preparação da consulta SQL: " . $this->conn->error);
+            }
+            $stmt->execute();
+            $result = $stmt->get_result()->fetch_assoc();
+            return $result['openCount'] > 0;
+        } catch (Exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return false;
         }
     }
 }

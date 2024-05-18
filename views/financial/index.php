@@ -1,6 +1,26 @@
 <div class="container mt-5">
     <h1>Vendas</h1>
 
+    <?php
+    switch ($action) {
+        case 'success':
+            echo renderAlert('success', 'Sucesso!', 'Caixa aberto com sucesso com sucesso.');
+            break;
+
+        case 'fail':
+            echo renderAlert('danger', 'Erro!', 'Erro ao abrir caixa.');
+            break;
+
+        case 'closed':
+            echo renderAlert('info', 'Sucesso!', 'Caixa fechado com sucesso.');
+            break;
+
+        case 'is_opened':
+            echo renderAlert('warning', 'Erro!', 'Já existe um caixa aberto.');
+            break;
+    }
+    ?>
+
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#abrir_caixa">
         <i class="fa-regular fa-face-grin-beam"></i> Abrir Caixa
     </button>
@@ -46,8 +66,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post">
-                        <input type="submit" value="<?=$_SESSION["user_id"]?>">
+                    <form action="./controllers/CashierController.php?action=create" method="post">
+                        <input type="hidden" name="status" value="open">
                         <div class="form-group">
                             <label for="cash">Saldo inicial Dinheiro</label>
                             <input type="text" id="cash" name="cash" class="form-control" oninput="formatarNumero(this)" value="0" required>
@@ -65,8 +85,8 @@
                             <label for="deposit">Saldo inicial Depósiti</label>
                             <input type="text" id="deposit" name="deposit" class="form-control" oninput="formatarNumero(this)" value="0" required readonly>
                         </div>
-                        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary">Salvar mudanças</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar mudanças</button>
                     </form>
                 </div>
             </div>

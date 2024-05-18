@@ -132,7 +132,7 @@ class CreateTables
                 openedBy INT,
                 closedBy INT,
                 open TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                close TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                close TIMESTAMP,
                 FOREIGN KEY (user_id) REFERENCES users(id),
                 FOREIGN KEY (openedBy) REFERENCES users(id),
                 FOREIGN KEY (closedBy) REFERENCES users(id)
