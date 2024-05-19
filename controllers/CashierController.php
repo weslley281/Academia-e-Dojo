@@ -10,7 +10,8 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     // Verifica o método HTTP
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Validação e Sanitização dos Dados
-        $id = $_SESSION["user_id"];
+        $id = isset($_POST['id']) ? intval($_POST['id']) : null;
+        var_dump($id);
 
         // Verifica a ação a ser executada
         $action = isset($_GET['action']) ? strtolower($_GET['action']) : '';
@@ -25,6 +26,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 "debit" => htmlspecialchars($post["debit"] ?? ''),
                 "deposit" => htmlspecialchars($post["deposit"] ?? ''),
                 "openedBy" => $_SESSION["user_id"],
+                "closedBy" => $_SESSION["user_id"],
                 "status" => htmlspecialchars($post["status"] ?? ''),
             ];
         }
@@ -48,14 +50,14 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
 
             case 'update':
                 if ($id === null) {
-                    header("Location: ../index.php?page=financial&action=invalid");
+                    header("Location: ../index.php?page=financial&action=invalid2");
                     exit;
                 }
                 $data = getCashierData($_POST);
                 if ($cashier->update($data, $id)) {
-                    header("Location: ../index.php?page=financial&action=saved");
+                    header("Location: ../index.php?page=financial&action=closed");
                 } else {
-                    header("Location: ../index.php?page=financial&action=fail");
+                    header("Location: ../index.php?page=financial&action=fail2");
                 }
                 break;
 

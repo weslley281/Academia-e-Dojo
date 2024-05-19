@@ -18,6 +18,14 @@ switch ($action) {
     case 'is_opened':
         echo renderAlert('warning', 'Erro!', 'Já existe um caixa aberto.');
         break;
+
+    case 'fail2':
+        echo renderAlert('danger', 'Erro!', 'Erro ao fechar caixa.');
+        break;
+
+    case 'closed':
+        echo renderAlert('info', 'Sucesso!', 'Caixa fechado com sucesso.');
+        break;
 }
 ?>
 
@@ -103,11 +111,13 @@ switch ($action) {
                     </button>
                 </div>
                 <div class="modal-body">
+                    <?php if ($cashier->isOpen()) {?>
                     <form action="./controllers/CashierController.php?action=update" method="post">
                         <?php
 $cashier_open = $cashier->getCashierOpenByIdUser($_SESSION["user_id"]);
-?>
-                        <input type="hidden" name="status" value="closed">
+    ?>
+                        <input type="hidden" name="id" value="<?=htmlspecialchars($cashier_open['id'])?>">
+                        <input type="hidden" name="status" value="close">
                         <div class="form-group">
                             <label for="cash">Saldo Dinheiro</label>
                             <input type="text" id="cash" name="cash" class="form-control" value="<?=htmlspecialchars($cashier_open['cash'])?>" readonly required>
@@ -127,6 +137,9 @@ $cashier_open = $cashier->getCashierOpenByIdUser($_SESSION["user_id"]);
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                         <button type="submit" class="btn btn-danger">Salvar mudanças</button>
                     </form>
+                    <?php } else {?>
+                        <p class="text-cente"><strong>Não há caixa aberto para ser fechado</strong></p>
+                    <?php }?>
                 </div>
             </div>
         </div>

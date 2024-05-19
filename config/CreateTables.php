@@ -133,7 +133,7 @@ class CreateTables
                 closedBy INT,
                 status ENUM('open', 'close'),
                 open TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                close TIMESTAMP,
+                close TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 FOREIGN KEY (user_id) REFERENCES users(id),
                 FOREIGN KEY (openedBy) REFERENCES users(id),
                 FOREIGN KEY (closedBy) REFERENCES users(id)

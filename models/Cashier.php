@@ -59,9 +59,11 @@ class Cashier
     public function update(array $data, $id)
     {
         try {
-            $stmt = $this->conn->prepare('UPDATE cashier SET user_id = ?, cash = ?, credit = ?, debit = ?, deposit = ?, closedBy = ?, , status = ? WHERE id = ?');
+            var_dump($data);
+            var_dump($id);
+            $stmt = $this->conn->prepare('UPDATE cashier SET user_id = ?, cash = ?, credit = ?, debit = ?, deposit = ?, closedBy = ?, status = ? WHERE id = ?');
 
-            $stmt->bind_param('idddddis', $data['user_id'], $data['cash'], $data['credit'], $data['debit'], $data['deposit'], $data['closedBy'], $data['status'], $id);
+            $stmt->bind_param('iddddisi', $data['user_id'], $data['cash'], $data['credit'], $data['debit'], $data['deposit'], $data['closedBy'], $data['status'], $id);
 
             $stmt->execute();
             return true;
