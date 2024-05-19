@@ -37,6 +37,14 @@ switch ($action) {
         <i class="fa-regular fa-face-sad-tear"></i> Fechar Caixa
     </button>
 
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#fechar_caixa">
+        <i class="fa-regular fa-face-sad-tear"></i> Sangria
+    </button>
+
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#fechar_caixa">
+        <i class="fa-regular fa-face-sad-tear"></i> Suprimento
+    </button>
+
     <div class="container">
         <div class="row mt-5">
             <div class="col-12 col-sm-6 col-md-4 col-lg-4 my-2">

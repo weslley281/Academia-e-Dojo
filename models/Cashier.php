@@ -126,4 +126,31 @@ class Cashier
             return false;
         }
     }
+
+    public function cashDrop($method, $user_id, $amount)
+    {
+        try {
+            $stmt = $this->conn->prepare('UPDATE cashier SET ? = ? - ? WHERE user_id = ? AND status = "open"');
+            $stmt->bind_param('ssdi', $method, $method, $amount, $user_id);
+            $stmt->execute();
+            return true;
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return false;
+        }
+    }
+
+    public function cashSupply($user_id, $amount)
+    {
+        try {
+            $stmt = $this->conn->prepare('UPDATE cashier SET cash = cash + ? WHERE user_id = ? AND status = "open"');
+            $stmt->bind_param('di', $amount, $user_id);
+            $stmt->execute();
+            return true;
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return false;
+        }
+    }
+
 }

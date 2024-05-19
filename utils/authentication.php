@@ -37,10 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         } else {
             echo "PAREI AQUI 01";
-            //header("Location: ../index.php?page=login&action=fail");
+            header("Location: ../index.php?page=login&action=fail");
         }
     } else {
         echo "PAREI AQUI 02";
-        //header("Location: ../index.php?page=login&action=fail");
+        header("Location: ../index.php?page=login&action=fail");
     }
 }

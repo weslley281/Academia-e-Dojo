@@ -73,6 +73,32 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 }
                 break;
 
+            case 'cash_drop':
+                if ($id === null) {
+                    header("Location: ../index.php?page=financial&action=invalid2");
+                    exit;
+                }
+
+                if ($cashier->cashDrop($_POST["method"], $_SESSION["user_id"], $_POST["amount"])) {
+                    header("Location: ../index.php?page=financial&action=closed");
+                } else {
+                    header("Location: ../index.php?page=financial&action=fail2");
+                }
+                break;
+
+            case 'cash_supply':
+                if ($id === null) {
+                    header("Location: ../index.php?page=financial&action=invalid2");
+                    exit;
+                }
+                $data = getCashierData($_POST);
+                if ($cashier->update($data, $id)) {
+                    header("Location: ../index.php?page=financial&action=closed");
+                } else {
+                    header("Location: ../index.php?page=financial&action=fail2");
+                }
+                break;
+
             default:
                 header("Location: ../index.php?page=financial&action=unknown");
                 break;
