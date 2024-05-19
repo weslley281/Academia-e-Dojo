@@ -109,6 +109,43 @@ switch ($action) {
         </div>
     </div>
 
+    <div class="modal fade" id="sangria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Você tem certeza que deseja abrir o Caixa?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="./controllers/CashierController.php?action=create" method="post">
+                        <input type="hidden" name="method" value="cash_drop">
+                        <div class="form-group">
+                            <label for="cash">Valor</label>
+                            <input type="text" id="cash" name="cash" class="form-control" oninput="formatarNumero(this)" value="0" required>
+                            <small>Insira valores separados por pontos, exemplo <strong>"2.99"</strong></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="credit ">Saldo inicial Crédito</label>
+                            <input type="text" id="credit" name="credit" class="form-control" oninput="formatarNumero(this)" value="0" required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="debit">Saldo inicial Débito</label>
+                            <input type="text" id="debit" name="debit" class="form-control" oninput="formatarNumero(this)" value="0" required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="deposit">Saldo inicial Depósiti</label>
+                            <input type="text" id="deposit" name="deposit" class="form-control" oninput="formatarNumero(this)" value="0" required readonly>
+                        </div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="fechar_caixa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
