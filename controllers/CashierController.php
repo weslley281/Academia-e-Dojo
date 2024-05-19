@@ -32,6 +32,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
         switch ($action) {
             case 'create':
                 $data = getCashierData($_POST);
+                var_dump($data);
 
                 if (!$cashier->isOpen()) {
                     if ($cashier->create($data)) {

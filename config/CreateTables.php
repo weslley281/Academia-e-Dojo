@@ -131,6 +131,7 @@ class CreateTables
                 deposit DECIMAL(10, 2) DEFAULT 0,
                 openedBy INT,
                 closedBy INT,
+                status ENUM('open', 'close'),
                 open TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 close TIMESTAMP,
                 FOREIGN KEY (user_id) REFERENCES users(id),

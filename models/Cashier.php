@@ -16,9 +16,9 @@ class Cashier
     public function create(array $data)
     {
         try {
-            $stmt = $this->conn->prepare('INSERT INTO cashier (user_id, cash, credit, debit, deposit, openedBy) VALUES (?, ?, ?, ?, ?, ?)');
+            $stmt = $this->conn->prepare('INSERT INTO cashier (user_id, cash, credit, debit, deposit, openedBy, status) VALUES (?, ?, ?, ?, ?, ?, ?)');
 
-            $stmt->bind_param('iddddi', $data['user_id'], $data['cash'], $data['credit'], $data['debit'], $data['deposit'], $data['openedBy']);
+            $stmt->bind_param('iddddis', $data['user_id'], $data['cash'], $data['credit'], $data['debit'], $data['deposit'], $data['openedBy'], $data['status']);
 
             $stmt->execute();
             return true;
@@ -42,12 +42,26 @@ class Cashier
         }
     }
 
+    public function getCashierOpenByIdUser($user_id)
+    {
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM cashier WHERE status = 'open' AND user_id = ?");
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();
+
+            return $stmt->get_result()->fetch_assoc();
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return null;
+        }
+    }
+
     public function update(array $data, $id)
     {
         try {
-            $stmt = $this->conn->prepare('UPDATE cashier SET user_id = ?, cash = ?, credit = ?, debit = ?, deposit = ?, closedBy = ? WHERE id = ?');
+            $stmt = $this->conn->prepare('UPDATE cashier SET user_id = ?, cash = ?, credit = ?, debit = ?, deposit = ?, closedBy = ?, , status = ? WHERE id = ?');
 
-            $stmt->bind_param('idddddi', $data['user_id'], $data['cash'], $data['credit'], $data['debit'], $data['deposit'], $data['closedBy'], $id);
+            $stmt->bind_param('idddddis', $data['user_id'], $data['cash'], $data['credit'], $data['debit'], $data['deposit'], $data['closedBy'], $data['status'], $id);
 
             $stmt->execute();
             return true;

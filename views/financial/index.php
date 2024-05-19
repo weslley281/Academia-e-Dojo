@@ -2,24 +2,24 @@
     <h1>Vendas</h1>
 
     <?php
-    switch ($action) {
-        case 'success':
-            echo renderAlert('success', 'Sucesso!', 'Caixa aberto com sucesso com sucesso.');
-            break;
+switch ($action) {
+    case 'success':
+        echo renderAlert('success', 'Sucesso!', 'Caixa aberto com sucesso com sucesso.');
+        break;
 
-        case 'fail':
-            echo renderAlert('danger', 'Erro!', 'Erro ao abrir caixa.');
-            break;
+    case 'fail':
+        echo renderAlert('danger', 'Erro!', 'Erro ao abrir caixa.');
+        break;
 
-        case 'closed':
-            echo renderAlert('info', 'Sucesso!', 'Caixa fechado com sucesso.');
-            break;
+    case 'closed':
+        echo renderAlert('info', 'Sucesso!', 'Caixa fechado com sucesso.');
+        break;
 
-        case 'is_opened':
-            echo renderAlert('warning', 'Erro!', 'Já existe um caixa aberto.');
-            break;
-    }
-    ?>
+    case 'is_opened':
+        echo renderAlert('warning', 'Erro!', 'Já existe um caixa aberto.');
+        break;
+}
+?>
 
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#abrir_caixa">
         <i class="fa-regular fa-face-grin-beam"></i> Abrir Caixa
@@ -87,6 +87,45 @@
                         </div>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                         <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="fechar_caixa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Você tem certeza que deseja fechar o Caixa?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="./controllers/CashierController.php?action=update" method="post">
+                        <?php
+$cashier_open = $cashier->getCashierOpenByIdUser($_SESSION["user_id"]);
+?>
+                        <input type="hidden" name="status" value="closed">
+                        <div class="form-group">
+                            <label for="cash">Saldo Dinheiro</label>
+                            <input type="text" id="cash" name="cash" class="form-control" value="<?=htmlspecialchars($cashier_open['cash'])?>" readonly required>
+                        </div>
+                        <div class="form-group">
+                            <label for="credit ">Saldo Crédito</label>
+                            <input type="text" id="credit" name="credit" class="form-control" value="<?=htmlspecialchars($cashier_open['credit'])?>" required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="debit">Saldo Débito</label>
+                            <input type="text" id="debit" name="debit" class="form-control" value="<?=htmlspecialchars($cashier_open['debit'])?>" required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="deposit">Saldo Depósiti</label>
+                            <input type="text" id="deposit" name="deposit" class="form-control" value="<?=htmlspecialchars($cashier_open['deposit'])?>" required readonly>
+                        </div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-danger">Salvar mudanças</button>
                     </form>
                 </div>
             </div>
