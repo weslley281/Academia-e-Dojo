@@ -1,4 +1,4 @@
-<h1 class="text-center">Checkout de Caixa</h1>
+<h1 class="text-center">Checkout</h1>
 
 <div class="row mt-5">
     <!-- Produtos -->
@@ -11,25 +11,29 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Produto</th>
-                            <th>Quantidade</th>
+                            <th>Turma</th>
+                            <th>Professor</th>
                             <th>Preço Unitário</th>
-                            <th>Total</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        <tr>
-                            <td>Produto 1</td>
-                            <td>2</td>
-                            <td>R$ 50,00</td>
-                            <td>R$ 100,00</td>
-                        </tr>
-                        <tr>
-                            <td>Produto 2</td>
-                            <td>1</td>
-                            <td>R$ 80,00</td>
-                            <td>R$ 80,00</td>
-                        </tr>
+                        <?php
+                        $classes = $class->getAll(); // Obtém todas as classes do modelo
+
+                        if (isset($classes) && !empty($classes)) { // Verifica se há classes para exibir
+                            foreach ($classes as $class_item) {
+
+                                $get_user = $user->getById($class_item['idInstructor']);
+                                $valorFormatado = number_format((float) $class_item['value'], 2, ',', '.');
+                        ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($class_item['name']) ?></td>
+                                    <td><?= htmlspecialchars($get_user["name"]) ?></td>
+                                    <td>R$ <?= htmlspecialchars($valorFormatado) ?></td>
+                                </tr>
+                        <?php }
+                        } ?>
                     </tbody>
                 </table>
             </div>
