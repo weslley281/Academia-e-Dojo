@@ -20,4 +20,5 @@
     <link href="./libs/fontawesome-free-6.5.2-web/css/solid.css" rel="stylesheet" />
     <link rel="stylesheet" href="./libs/DataTables/datatables.css">
     <link rel="icon" href="./images/logo-kenshydokan.png" type="image/jpg">
+    <link rel="stylesheet" href="./libs/select2/css/select2.css">
 </head>

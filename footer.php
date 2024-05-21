@@ -14,6 +14,13 @@
 <script src="./utils/maskCPF.js"></script>
 <script src="./libs/DataTables/datatables.js"></script>
 <script src="./libs/tinymce/tinymce.min.js"></script>
+<script src="./libs/select2/js/select2.js"></script>
+
+<script>
+    $(document).ready(function() {
+    $('.select_basic2').select2();
+});
+</script>
 
 <script type="text/javascript">
     $(document).ready(function() {
