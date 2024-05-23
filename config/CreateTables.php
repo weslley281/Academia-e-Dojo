@@ -154,12 +154,12 @@ class CreateTables
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 cashier_id INT NOT NULL,
                 user_id INT NOT NULL,
-                student_id INT NOT NULL,
-                amount_paid DECIMAL(10, 2) NOT NULL,
-                change_sale DECIMAL(10, 2) NOT NULL,
-                total DECIMAL(10, 2) NOT NULL,
-                paymentMethodId INT NOT NULL,
-                status VARCHAR(50) NOT NULL,
+                student_id INT NULL,
+                amount_paid DECIMAL(10, 2) NULL,
+                change_sale DECIMAL(10, 2) NULL,
+                total DECIMAL(10, 2) NULL,
+                paymentMethodId INT NULL,
+                status ENUM('in_process', 'processed', 'canceled'),
                 saleDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 FOREIGN KEY (cashier_id) REFERENCES cashier(id),
                 FOREIGN KEY (user_id) REFERENCES users(id),
@@ -191,25 +191,6 @@ class CreateTables
             //echo "Tabela 'sales_item' criada com sucesso.";
         } else {
             echo "Erro ao criar tabela 'sales_item': " . $conn->error;
-        }
-    }
-
-    public static function createPaymentsTable($conn)
-    {
-        $sql = "
-            CREATE TABLE IF NOT EXISTS payments (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                sale_id INT NOT NULL,
-                amount DECIMAL(10, 2) NOT NULL,
-                paymentDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (sale_id) REFERENCES sales_records(id)
-            );
-        ";
-
-        if ($conn->query($sql) === true) {
-            //echo "Tabela 'payments' criada com sucesso.";
-        } else {
-            echo "Erro ao criar tabela 'payments': " . $conn->error;
         }
     }
 }

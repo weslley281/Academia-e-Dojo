@@ -1,3 +1,23 @@
+<?php
+$cashier_open = $cashier->getCashierOpenByIdUser($_SESSION["user_id"]);
+
+if (!$salesRecord->countUserSalesByStatus($_SESSION["user_id"], "in_process")) {
+
+    $data = [
+        "cashier_id" => $cashier_open["id"],
+        "user_id" => $_SESSION["user_id"],
+        "student_id" => null,
+        "amount_paid" => 0,
+        "change_sale" => 0,
+        "total" => 0,
+        "paymentMethodId" => null,
+        "status" => "in_process",
+        "status" => htmlspecialchars('in_process' ?? ''),
+    ];
+    print_r($data);
+    $salesRecord->create($data);
+}
+?>
 <h1 class="text-center">Checkout</h1>
 
 <div class="row mt-5">

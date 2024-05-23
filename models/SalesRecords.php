@@ -16,17 +16,36 @@ class SalesRecord
     public function create(array $data)
     {
         try {
-            $stmt = $this->conn->prepare('INSERT INTO sales_records (cashierId, user_id, student_id, class_id, total, paymentMethodId, status) VALUES (?, ?, ?, ?, ?, ?, ?)');
+            echo "<br>também fui chamado";
+            $stmt = $this->conn->prepare('INSERT INTO sales_records (cashier_id, user_id, student_id, amount_paid, change_sale, total, paymentMethodId, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
 
-            $stmt->bind_param('iiiddis', $data['cashierId'], $data['user_id'], $data['student_id'], $data['class_id'], $data['total'], $data['paymentMethodId'], $data['status']);
+            if ($stmt === false) {
+                throw new mysqli_sql_exception('Erro ao preparar a instrução: ' . $this->conn->error);
+            }
+
+            $stmt->bind_param(
+                'iiidddis',
+                $data['cashier_id'],
+                $data['user_id'],
+                $data['student_id'],
+                $data['amount_paid'],
+                $data['change_sale'],
+                $data['total'],
+                $data['paymentMethodId'],
+                $data['status']
+            );
 
             $stmt->execute();
+            $stmt->close();
+
             return true;
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return false;
         }
     }
+
+
 
     public function getById($id)
     {
@@ -92,20 +111,33 @@ class SalesRecord
         }
     }
 
-    public function isCreated($user_id)
+    public function countUserSales($userId): int
     {
         try {
-            $stmt = $this->conn->prepare('SELECT COUNT(*) as openCount FROM sales_records WHERE status = "open"');
-            if ($stmt === false) {
-                throw new Exception("Falha na preparação da consulta SQL: " . $this->conn->error);
-            }
-            $stmt->bind_param('i', $user_id);
+            $stmt = $this->conn->prepare('SELECT COUNT(*) as total FROM sales_records WHERE user_id = ?');
+            $stmt->bind_param('i', $userId);
             $stmt->execute();
-            $result = $stmt->get_result()->fetch_assoc();
-            return $result['openCount'] > 0;
-        } catch (Exception $e) {
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            return $row['total'];
+        } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
-            return false;
+            return 0;
+        }
+    }
+
+    public function countUserSalesByStatus($userId, $status): int
+    {
+        try {
+            $stmt = $this->conn->prepare("SELECT COUNT(*) as total FROM sales_records WHERE user_id = ? AND status = ?");
+            $stmt->bind_param('is', $userId, $status);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            return $row['total'];
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return 0;
         }
     }
 }
