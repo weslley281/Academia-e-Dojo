@@ -152,17 +152,18 @@ class CreateTables
         $sql = "
             CREATE TABLE IF NOT EXISTS sales_records (
                 id INT AUTO_INCREMENT PRIMARY KEY,
-                cashierId INT NOT NULL,
+                cashier_id INT NOT NULL,
                 user_id INT NOT NULL,
                 student_id INT NOT NULL,
-                class_id INT NOT NULL,
+                amount_paid DECIMAL(10, 2) NOT NULL,
+                change_sale DECIMAL(10, 2) NOT NULL,
                 total DECIMAL(10, 2) NOT NULL,
                 paymentMethodId INT NOT NULL,
                 status VARCHAR(50) NOT NULL,
                 saleDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                FOREIGN KEY (cashier_id) REFERENCES cashier(id),
                 FOREIGN KEY (user_id) REFERENCES users(id),
                 FOREIGN KEY (student_id) REFERENCES users(id),
-                FOREIGN KEY (class_id) REFERENCES classes(id),
                 FOREIGN KEY (paymentMethodId) REFERENCES method_payment(id)
             );
         ";
