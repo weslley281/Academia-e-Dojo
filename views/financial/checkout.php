@@ -8,25 +8,33 @@
                 <h3>Produtos</h3>
             </div>
             <div class="card-body">
-                <form action="./controllers/sell&action=regiter_product" method="post">
+                <form action="./controllers/SalesItemController.php?action=create" method="post">
                     <div class="form-group">
                         <label for="select_product">Selecionar Produto</label>
-                        <select class="form-control" name="select_product" id="select_product">
-                        <?php
-                        $classes = $class->getAll(); // Obtém todas as classes do modelo
+                        <div class="row">
+                            <div class="col-11">
+                                <select class="form-control select_basic2" name="select_product" id="select_product">
+                                    <?php
+                                    $classes = $class->getAll(); // Obtém todas as classes do modelo
 
-                        if (isset($classes) && !empty($classes)) { // Verifica se há classes para exibir
-                            foreach ($classes as $class_item) {
+                                    if (isset($classes) && !empty($classes)) { // Verifica se há classes para exibir
+                                        foreach ($classes as $class_item) {
 
-                                $get_user = $user->getById($class_item['idInstructor']);
-                                $valorFormatado = number_format((float) $class_item['value'], 2, ',', '.');
-                        ?>
-                        <option value="<?= htmlspecialchars($class_item['id']) ?>">
-                            <?= htmlspecialchars($class_item['name']) . " R$ " . $valorFormatado ?>
-                        </option>
-                        <?php }
-                        } ?>
-                        </select>
+                                            $get_user = $user->getById($class_item['idInstructor']);
+                                            $valorFormatado = number_format((float) $class_item['value'], 2, ',', '.');
+                                    ?>
+                                            <option value="<?= htmlspecialchars($class_item['id']) ?>">
+                                                <?= htmlspecialchars($class_item['name']) . " R$ " . $valorFormatado ?>
+                                            </option>
+                                    <?php }
+                                    } ?>
+                                </select>
+                            </div>
+                            <div class="col-1">
+                                <button class="btn btn-secondary" type="submit"><i class="fa-solid fa-cart-arrow-down"></i></button>
+                            </div>
+                        </div>
+
                     </div>
                 </form>
                 <table class="table table-bordered">

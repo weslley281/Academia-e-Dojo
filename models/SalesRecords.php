@@ -91,4 +91,21 @@ class SalesRecord
             return 0;
         }
     }
+
+    public function isCreated($user_id)
+    {
+        try {
+            $stmt = $this->conn->prepare('SELECT COUNT(*) as openCount FROM sales_records WHERE status = "open"');
+            if ($stmt === false) {
+                throw new Exception("Falha na preparação da consulta SQL: " . $this->conn->error);
+            }
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();
+            $result = $stmt->get_result()->fetch_assoc();
+            return $result['openCount'] > 0;
+        } catch (Exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return false;
+        }
+    }
 }

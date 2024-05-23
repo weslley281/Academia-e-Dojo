@@ -18,7 +18,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
         {
             return [
                 "sale_id" => htmlspecialchars($post["sale_id"] ?? ''),
-                "class_id" => htmlspecialchars($post["class_id"] ?? ''),
+                "class_id" => htmlspecialchars($post["select_product"] ?? ''),
             ];
         }
 
