@@ -106,38 +106,39 @@ $sale_data = $salesRecord->getSaleInProcessByIdUser($_SESSION["user_id"]);
                 <h3>Informações do Cliente</h3>
             </div>
             <div class="card-body">
-                <form>
-                    <div class="form-group">
-                        <label for="client">Cliente</label>
-                        <select class="form-control select_basic2" name="client" id="client">
-                            <?php
-                            $users = $user->getAll();
+                <form action="controllers/" method="post"></form>
+                <div class="form-group">
+                    <label for="client">Cliente</label>
+                    <select class="form-control select_basic2" name="client" id="client">
+                        <?php
+                        $users = $user->getAll();
 
-                            if (isset($users) && !empty($users)) {
-                                foreach ($users as $item) {
-                            ?>
-                                    <option value="<?= htmlspecialchars($item['id']) ?>">
-                                        <?= htmlspecialchars($item['id']) . ": " . $item['name'] ?>
-                                    </option>
-                            <?php }
-                            } ?>
-                        </select>
+                        if (isset($users) && !empty($users)) {
+                            foreach ($users as $item) {
+                        ?>
+                                <option value="<?= htmlspecialchars($item['id']) ?>">
+                                    <?= htmlspecialchars($item['id']) . ": " . $item['name'] ?>
+                                </option>
+                        <?php }
+                        } ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Selecionar o Cliente</button>
+                </div>
 
-                        <button type="submit">Selecionar o Cliente</button>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nomeCliente">Nome</label>
-                        <input type="text" class="form-control" id="nomeCliente" placeholder="Nome do Cliente">
-                    </div>
-                    <div class="form-group">
-                        <label for="emailCliente">Email</label>
-                        <input type="email" class="form-control" id="emailCliente" placeholder="Email do Cliente">
-                    </div>
-                    <div class="form-group">
-                        <label for="telefoneCliente">Telefone</label>
-                        <input type="tel" class="form-control" id="telefoneCliente" placeholder="Telefone do Cliente">
-                    </div>
+                <div class="form-group">
+                    <label for="nomeCliente">Nome</label>
+                    <input type="text" class="form-control" id="nomeCliente" placeholder="Nome do Cliente">
+                </div>
+                <div class="form-group">
+                    <label for="emailCliente">Email</label>
+                    <input type="email" class="form-control" id="emailCliente" placeholder="Email do Cliente">
+                </div>
+                <div class="form-group">
+                    <label for="telefoneCliente">Telefone</label>
+                    <input type="tel" class="form-control" id="telefoneCliente" placeholder="Telefone do Cliente">
+                </div>
                 </form>
             </div>
         </div>
