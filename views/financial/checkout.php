@@ -108,6 +108,25 @@ $sale_data = $salesRecord->getSaleInProcessByIdUser($_SESSION["user_id"]);
             <div class="card-body">
                 <form>
                     <div class="form-group">
+                        <label for="client">Cliente</label>
+                        <select class="form-control select_basic2" name="client" id="client">
+                            <?php
+                            $users = $user->getAll();
+
+                            if (isset($users) && !empty($users)) {
+                                foreach ($users as $item) {
+                            ?>
+                                    <option value="<?= htmlspecialchars($item['id']) ?>">
+                                        <?= htmlspecialchars($item['id']) . ": " . $item['name'] ?>
+                                    </option>
+                            <?php }
+                            } ?>
+                        </select>
+
+                        <button type="submit">Selecionar o Cliente</button>
+                    </div>
+
+                    <div class="form-group">
                         <label for="nomeCliente">Nome</label>
                         <input type="text" class="form-control" id="nomeCliente" placeholder="Nome do Cliente">
                     </div>
