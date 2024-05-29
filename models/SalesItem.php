@@ -15,6 +15,7 @@ class SalesItem
 
     public function create(array $data)
     {
+        var_dump($data);
         try {
             $stmt = $this->conn->prepare('INSERT INTO sales_item (sale_id, class_id) VALUES (?, ?)');
 

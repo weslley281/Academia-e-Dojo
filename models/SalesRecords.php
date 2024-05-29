@@ -61,6 +61,20 @@ class SalesRecord
         }
     }
 
+    public function getSaleInProcessByIdUser($user_id)
+    {
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM sales_records WHERE status = 'in_process' AND user_id = ?");
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();
+
+            return $stmt->get_result()->fetch_assoc();
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return null;
+        }
+    }
+
     public function update(array $data, $id)
     {
         try {

@@ -14,9 +14,11 @@ if (!$salesRecord->countUserSalesByStatus($_SESSION["user_id"], "in_process")) {
         "status" => "in_process",
         "status" => htmlspecialchars('in_process' ?? ''),
     ];
-    print_r($data);
+
     $salesRecord->create($data);
 }
+
+$sale_data = $salesRecord->getSaleInProcessByIdUser($_SESSION["user_id"]);
 ?>
 <h1 class="text-center">Checkout</h1>
 
@@ -33,6 +35,7 @@ if (!$salesRecord->countUserSalesByStatus($_SESSION["user_id"], "in_process")) {
                         <label for="select_product">Selecionar Produto</label>
                         <div class="row">
                             <div class="col-11">
+                                <input type="hidden" name="sale_id" value="<?= htmlspecialchars($sale_data["id"])  ?>">
                                 <select class="form-control select_basic2" name="select_product" id="select_product">
                                     <?php
                                     $classes = $class->getAll(); // Obtém todas as classes do modelo
@@ -68,11 +71,11 @@ if (!$salesRecord->countUserSalesByStatus($_SESSION["user_id"], "in_process")) {
 
                     <tbody>
                         <?php
-                        $classes = $class->getAll(); // Obtém todas as classes do modelo
+                        $salesItems = $salesItem->getAll(); // Obtém todas as classes do modelo
 
-                        if (isset($classes) && !empty($classes)) { // Verifica se há classes para exibir
-                            foreach ($classes as $class_item) {
-
+                        if (isset($salesItems) && !empty($salesItems)) { // Verifica se há classes para exibir
+                            foreach ($salesItems as $item) {
+                                $class_item = $class->getById($item["class_id"]);
                                 $get_user = $user->getById($class_item['idInstructor']);
                                 $valorFormatado = number_format((float) $class_item['value'], 2, ',', '.');
                         ?>
