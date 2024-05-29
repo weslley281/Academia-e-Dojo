@@ -66,6 +66,7 @@ $sale_data = $salesRecord->getSaleInProcessByIdUser($_SESSION["user_id"]);
                             <th>Turma</th>
                             <th>Professor</th>
                             <th>Preço Unitário</th>
+                            <th></th>
                         </tr>
                     </thead>
 
@@ -83,6 +84,12 @@ $sale_data = $salesRecord->getSaleInProcessByIdUser($_SESSION["user_id"]);
                                     <td><?= htmlspecialchars($class_item['name']) ?></td>
                                     <td><?= htmlspecialchars($get_user["name"]) ?></td>
                                     <td>R$ <?= htmlspecialchars($valorFormatado) ?></td>
+                                    <td>
+                                        <form action="controllers/SalesItemController.php?action=delete" method="post">
+                                            <input type="hidden" name="id" value="<?= htmlspecialchars($item["id"]) ?>">
+                                            <button type="submit" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
+                                        </form>
+                                    </td>
                                 </tr>
                         <?php }
                         } ?>

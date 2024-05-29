@@ -9,7 +9,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
 
     // Verifica o método HTTP
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+        $id = isset($_POST['id']) ? intval($_POST['id']) : null;
         // Verifica a ação a ser executada
         $action = isset($_GET['action']) ? strtolower($_GET['action']) : '';
 
