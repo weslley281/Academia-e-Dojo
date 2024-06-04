@@ -90,6 +90,21 @@ class SalesRecord
         }
     }
 
+    public function updateClient(int $client, int $id)
+    {
+        try {
+            $stmt = $this->conn->prepare('UPDATE sales_records SET student_id = ? WHERE id = ?');
+
+            $stmt->bind_param('ii', $client, $id);
+
+            $stmt->execute();
+            return true;
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return false;
+        }
+    }
+
     public function delete($id)
     {
         try {

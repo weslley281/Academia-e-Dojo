@@ -107,8 +107,9 @@ $sale_data = $salesRecord->getSaleInProcessByIdUser($_SESSION["user_id"]);
                 <h3>Informações do Cliente</h3>
             </div>
             <div class="card-body">
-                <form action="controllers/" method="post"></form>
+                <form action="controllers/SalesRecordController.php?action=update_client" method="post">
                 <div class="form-group">
+                    <input type="hidden" name="id" value="<?= htmlspecialchars($sale_data["id"]) ?>">
                     <label for="client">Cliente</label>
                     <select class="form-control select_basic2" name="client" id="client">
                         <?php
@@ -127,7 +128,7 @@ $sale_data = $salesRecord->getSaleInProcessByIdUser($_SESSION["user_id"]);
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Selecionar o Cliente</button>
                 </div>
-
+                </form>
                 <div class="form-group">
                     <label for="nomeCliente">Nome</label>
                     <input type="text" class="form-control" id="nomeCliente" placeholder="Nome do Cliente">

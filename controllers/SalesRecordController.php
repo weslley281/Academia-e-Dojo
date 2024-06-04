@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
-    require_once __DIR__ . '/../models/SalesRecord.php';
+    require_once __DIR__ . '/../models/SalesRecords.php';
     require_once __DIR__ . '/../config/db.php';
 
     // Instância da classe SalesRecord
@@ -28,39 +28,53 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
             case 'create':
                 $data = getSalesRecordData($_POST);
                 if ($salesRecord->create($data)) {
-                    header("Location: ../index.php?page=martial_arts&action=success");
+                    header("Location: ../index.php?page=financial&action=sell");
                 } else {
-                    header("Location: ../index.php?page=martial_arts&action=fail");
+                    header("Location: ../index.php?page=financial&action=sell");
                 }
                 break;
 
             case 'update':
                 if ($id === null) {
-                    header("Location: ../index.php?page=martial_arts&action=invalid");
+                    header("Location: ../index.php?page=financial&action=sell");
                     exit;
                 }
                 $data = getSalesRecordData($_POST);
                 if ($salesRecord->update($data, $id)) {
-                    header("Location: ../index.php?page=martial_arts&action=saved");
+                    header("Location: ../index.php?page=financial&action=sell");
                 } else {
-                    header("Location: ../index.php?page=martial_arts&action=fail");
+                    header("Location: ../index.php?page=financial&action=sell");
+                }
+                break;
+            
+            case 'update_client':
+                if ($id === null) {
+                    header("Location: ../index.php?page=financial&action=sell");
+                    exit;
+                }
+
+                $data = getSalesRecordData($_POST);
+                if ($salesRecord->updateClient($_POST["client"], $id)) {
+                    header("Location: ../index.php?page=financial&action=sell");
+                } else {
+                    header("Location: ../index.php?page=financial&action=sell");
                 }
                 break;
 
             case 'delete':
                 if ($id === null) {
-                    header("Location: ../index.php?page=martial_arts&action=invalid");
+                    header("Location: ../index.php?page=financial&action=sell");
                     exit;
                 }
                 if ($salesRecord->delete($id)) {
-                    header("Location: ../index.php?page=martial_arts&action=deleted");
+                    header("Location: ../index.php?page=financial&action=sell");
                 } else {
-                    header("Location: ../index.php?page=martial_arts&action=fail");
+                    header("Location: ../index.php?page=financial&action=sell");
                 }
                 break;
 
             default:
-                header("Location: ../index.php?page=martial_arts&action=unknown");
+                header("Location: ../index.php?page=financial&action=sell");
                 break;
         }
     }
