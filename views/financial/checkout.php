@@ -14,9 +14,15 @@ if (!$salesRecord->countUserSalesByStatus($_SESSION["user_id"], "in_process")) {
         "status" => "in_process",
         "status" => htmlspecialchars('in_process' ?? ''),
     ];
+<<<<<<< HEAD
     var_dump($data);
+=======
+
+>>>>>>> d09f2a0f235e8165ca37c51f8bb148ac43eaab1b
     $salesRecord->create($data);
 }
+
+$sale_data = $salesRecord->getSaleInProcessByIdUser($_SESSION["user_id"]);
 ?>
 <h1 class="text-center">Checkout</h1>
 
@@ -33,6 +39,7 @@ if (!$salesRecord->countUserSalesByStatus($_SESSION["user_id"], "in_process")) {
                         <label for="select_product">Selecionar Produto</label>
                         <div class="row">
                             <div class="col-11">
+                                <input type="hidden" name="sale_id" value="<?= htmlspecialchars($sale_data["id"])  ?>">
                                 <select class="form-control select_basic2" name="select_product" id="select_product">
                                     <?php
                                     $classes = $class->getAll(); // Obtém todas as classes do modelo
@@ -63,16 +70,17 @@ if (!$salesRecord->countUserSalesByStatus($_SESSION["user_id"], "in_process")) {
                             <th>Turma</th>
                             <th>Professor</th>
                             <th>Preço Unitário</th>
+                            <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
                         <?php
-                        $classes = $class->getAll(); // Obtém todas as classes do modelo
+                        $salesItems = $salesItem->getAll(); // Obtém todas as classes do modelo
 
-                        if (isset($classes) && !empty($classes)) { // Verifica se há classes para exibir
-                            foreach ($classes as $class_item) {
-
+                        if (isset($salesItems) && !empty($salesItems)) { // Verifica se há classes para exibir
+                            foreach ($salesItems as $item) {
+                                $class_item = $class->getById($item["class_id"]);
                                 $get_user = $user->getById($class_item['idInstructor']);
                                 $valorFormatado = number_format((float) $class_item['value'], 2, ',', '.');
                         ?>
@@ -80,6 +88,12 @@ if (!$salesRecord->countUserSalesByStatus($_SESSION["user_id"], "in_process")) {
                                     <td><?= htmlspecialchars($class_item['name']) ?></td>
                                     <td><?= htmlspecialchars($get_user["name"]) ?></td>
                                     <td>R$ <?= htmlspecialchars($valorFormatado) ?></td>
+                                    <td>
+                                        <form action="controllers/SalesItemController.php?action=delete" method="post">
+                                            <input type="hidden" name="id" value="<?= htmlspecialchars($item["id"]) ?>">
+                                            <button type="submit" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
+                                        </form>
+                                    </td>
                                 </tr>
                         <?php }
                         } ?>
@@ -96,19 +110,39 @@ if (!$salesRecord->countUserSalesByStatus($_SESSION["user_id"], "in_process")) {
                 <h3>Informações do Cliente</h3>
             </div>
             <div class="card-body">
-                <form>
-                    <div class="form-group">
-                        <label for="nomeCliente">Nome</label>
-                        <input type="text" class="form-control" id="nomeCliente" placeholder="Nome do Cliente">
-                    </div>
-                    <div class="form-group">
-                        <label for="emailCliente">Email</label>
-                        <input type="email" class="form-control" id="emailCliente" placeholder="Email do Cliente">
-                    </div>
-                    <div class="form-group">
-                        <label for="telefoneCliente">Telefone</label>
-                        <input type="tel" class="form-control" id="telefoneCliente" placeholder="Telefone do Cliente">
-                    </div>
+                <form action="controllers/" method="post"></form>
+                <div class="form-group">
+                    <label for="client">Cliente</label>
+                    <select class="form-control select_basic2" name="client" id="client">
+                        <?php
+                        $users = $user->getAll();
+
+                        if (isset($users) && !empty($users)) {
+                            foreach ($users as $item) {
+                        ?>
+                                <option value="<?= htmlspecialchars($item['id']) ?>">
+                                    <?= htmlspecialchars($item['id']) . ": " . $item['name'] ?>
+                                </option>
+                        <?php }
+                        } ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Selecionar o Cliente</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="nomeCliente">Nome</label>
+                    <input type="text" class="form-control" id="nomeCliente" placeholder="Nome do Cliente">
+                </div>
+                <div class="form-group">
+                    <label for="emailCliente">Email</label>
+                    <input type="email" class="form-control" id="emailCliente" placeholder="Email do Cliente">
+                </div>
+                <div class="form-group">
+                    <label for="telefoneCliente">Telefone</label>
+                    <input type="tel" class="form-control" id="telefoneCliente" placeholder="Telefone do Cliente">
+                </div>
                 </form>
             </div>
         </div>
