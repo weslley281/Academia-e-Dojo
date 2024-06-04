@@ -14,7 +14,7 @@ if (!$salesRecord->countUserSalesByStatus($_SESSION["user_id"], "in_process")) {
         "status" => "in_process",
         "status" => htmlspecialchars('in_process' ?? ''),
     ];
-    print_r($data);
+    var_dump($data);
     $salesRecord->create($data);
 }
 ?>
