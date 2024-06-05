@@ -44,7 +44,6 @@ $user_data = $user->getById($sale_data["student_id"]);
 
                                     if (isset($classes) && !empty($classes)) { // Verifica se há classes para exibir
                                         foreach ($classes as $class_item) {
-
                                             $get_user = $user->getById($class_item['idInstructor']);
                                             $valorFormatado = number_format((float) $class_item['value'], 2, ',', '.');
                                     ?>
@@ -77,8 +76,10 @@ $user_data = $user->getById($sale_data["student_id"]);
                         $salesItems = $salesItem->getAll(); // Obtém todas as classes do modelo
 
                         if (isset($salesItems) && !empty($salesItems)) { // Verifica se há classes para exibir
+                            $sub_total = 0;
                             foreach ($salesItems as $item) {
                                 $class_item = $class->getById($item["class_id"]);
+                                $sub_total += $class_item['value'];
                                 $get_user = $user->getById($class_item['idInstructor']);
                                 $valorFormatado = number_format((float) $class_item['value'], 2, ',', '.');
                         ?>
@@ -195,8 +196,17 @@ $user_data = $user->getById($sale_data["student_id"]);
             <div class="card-header">
                 <h3>Resumo do Pedido</h3>
             </div>
+            <form class="container" action="" method="post">
+                <div class="form-group">
+                    <label for="discount">Desconto:</label>
+                    <input type="number" id="discount" name="discount" value="0" class="form-control">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-secondary" type="submit">Efetuar Desconto</button>
+                </div>
+            </form>
             <div class="card-body">
-                <p>Subtotal: R$ 180,00</p>
+                <p>Subtotal: R$ <?= htmlspecialchars(number_format((float) $sub_total, 2, ',', '.')) ?></p>
                 <p>Desconto: R$ 0,00</p>
                 <p>Total: R$ 180,00</p>
                 <button class="btn btn-success btn-lg btn-block">Finalizar Compra</button>
