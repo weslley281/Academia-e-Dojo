@@ -227,10 +227,14 @@ $user_data = $user->getById($sale_data["student_id"]);
                     <div class="form-group">
                         <label for="metodoPagamento">Método de Pagamento</label>
                         <select class="form-control" id="metodoPagamento">
-                            <option>Cartão de Crédito</option>
-                            <option>Cartão de Débito</option>
-                            <option>Dinheiro</option>
-                            <option>PIX</option>
+
+                        <?php
+                        $methodPayments = $methodPayment->getAll();
+                        if (isset($methodPayments) && !empty($methodPayments)) {
+                            foreach ($methodPayments as $item) {
+                        ?>
+                            <option><?= htmlspecialchars($item["name"]) ?></option>
+                        <?php }} ?>
                         </select>
                     </div>
                     <div class="form-group">

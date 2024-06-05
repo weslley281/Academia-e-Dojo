@@ -13,6 +13,7 @@ require_once './models/Class.php';
 require_once './models/Cashier.php';
 require_once './models/SalesRecords.php';
 require_once './models/SalesItem.php';
+require_once './models/MethodPayment.php';
 
 $createTable = new CreateTables;
 $user = new User($conn);
@@ -21,6 +22,7 @@ $class = new ClassModel($conn);
 $cashier = new Cashier($conn);
 $salesRecord = new SalesRecord($conn);
 $salesItem = new SalesItem($conn);
+$methodPayment = new MethodPayment($conn);
 
 $createTable->createUsersTable($conn);
 $createTable->createMartialArtsTable($conn);
