@@ -155,6 +155,7 @@ class CreateTables
                 cashier_id INT NOT NULL,
                 user_id INT NOT NULL,
                 student_id INT NULL,
+                discount DECIMAL(10, 2) NULL,
                 amount_paid DECIMAL(10, 2) NULL,
                 change_sale DECIMAL(10, 2) NULL,
                 total DECIMAL(10, 2) NULL,

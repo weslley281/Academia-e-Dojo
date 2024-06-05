@@ -196,7 +196,8 @@ $user_data = $user->getById($sale_data["student_id"]);
             <div class="card-header">
                 <h3>Resumo do Pedido</h3>
             </div>
-            <form class="container" action="" method="post">
+            <form class="container" action="controllers/SalesRecordController.php?action=discount" method="post">
+                <input type="hidden" name="id" value="<?= htmlspecialchars($sale_data["id"]) ?>">
                 <div class="form-group">
                     <label for="discount">Desconto:</label>
                     <input type="number" id="discount" name="discount" value="0" class="form-control">
@@ -206,9 +207,10 @@ $user_data = $user->getById($sale_data["student_id"]);
                 </div>
             </form>
             <div class="card-body">
+                <?php $total = $sub_total - $sale_data["discount"] ?>
                 <p>Subtotal: R$ <?= htmlspecialchars(number_format((float) $sub_total, 2, ',', '.')) ?></p>
-                <p>Desconto: R$ 0,00</p>
-                <p>Total: R$ 180,00</p>
+                <p>Desconto: R$ <?= htmlspecialchars(number_format((float) $sale_data["discount"], 2, ',', '.')) ?></p>
+                <p>Total: R$ <?= htmlspecialchars(number_format((float) $total, 2, ',', '.')) ?></p>
                 <button class="btn btn-success btn-lg btn-block">Finalizar Compra</button>
             </div>
         </div>

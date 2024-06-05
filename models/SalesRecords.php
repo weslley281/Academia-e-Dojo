@@ -105,6 +105,21 @@ class SalesRecord
         }
     }
 
+    public function updateDiscount(int $discount, int $id)
+    {
+        try {
+            $stmt = $this->conn->prepare('UPDATE sales_records SET discount = ? WHERE id = ?');
+
+            $stmt->bind_param('di', $discount, $id);
+
+            $stmt->execute();
+            return true;
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return false;
+        }
+    }
+
     public function delete($id)
     {
         try {

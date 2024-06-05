@@ -53,7 +53,6 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                     exit;
                 }
 
-                $data = getSalesRecordData($_POST);
                 if ($salesRecord->updateClient($_POST["client"], $id)) {
                     header("Location: ../index.php?page=financial&action=sell");
                 } else {
@@ -73,8 +72,21 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 }
                 break;
 
+            case 'discount':
+                if ($id === null) {
+                    header("Location: ../index.php?page=financial&action=sell");
+                    exit;
+                }
+
+                if ($salesRecord->updateDiscount($_POST["discount"], $id)) {
+                    header("Location: ../index.php?page=financial&action=sell");
+                } else {
+                    header("Location: ../index.php?page=financial&action=sell");
+                }
+                break;
+                
             default:
-                header("Location: ../index.php?page=financial&action=sell");
+                //header("Location: ../index.php?page=financial&action=sell");
                 break;
         }
     }
