@@ -21,12 +21,18 @@ if (!$salesRecord->countUserSalesByStatus($_SESSION["user_id"], "in_process")) {
 
 $sale_data = $salesRecord->getSaleInProcessByIdUser($_SESSION["user_id"]);
 $user_data = $user->getById($sale_data["student_id"]);
+$methods = [
+    "cash" => "Dinheiro",
+    "credit" => "Crédito",
+    "debit" => "Débito",
+    "deposit" => "Depósito, Transferência ou PIX"
+]
 ?>
 <h1 class="text-center">Checkout</h1>
 
 <div class="row mt-5">
     <!-- Produtos -->
-    <div class="col-md-8 col-12">
+    <div class="col-md-12 col-12">
         <div class="card mt-4">
             <div class="card-header">
                 <h3>Produtos</h3>
@@ -98,6 +104,32 @@ $user_data = $user->getById($sale_data["student_id"]);
                         } ?>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resumo do Pedido -->
+    <div class="col-md-8 col-12">
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3>Resumo do Pedido</h3>
+            </div>
+            <form class="container" action="controllers/SalesRecordController.php?action=discount" method="post">
+                <input type="hidden" name="id" value="<?= htmlspecialchars($sale_data["id"]) ?>">
+                <div class="form-group">
+                    <label for="discount">Desconto:</label>
+                    <input type="number" id="discount" name="discount" value="0" class="form-control">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-secondary" type="submit">Efetuar Desconto</button>
+                </div>
+            </form>
+            <div class="card-body">
+                <?php $total = $sub_total - $sale_data["discount"] ?>
+                <p>Subtotal: R$ <?= htmlspecialchars(number_format((float) $sub_total, 2, ',', '.')) ?></p>
+                <p>Desconto: R$ <?= htmlspecialchars(number_format((float) $sale_data["discount"], 2, ',', '.')) ?></p>
+                <p>Total: R$ <?= htmlspecialchars(number_format((float) $total, 2, ',', '.')) ?></p>
+                <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#finalize_sale">Finalizar Compra</button>
             </div>
         </div>
     </div>
@@ -190,40 +222,26 @@ $user_data = $user->getById($sale_data["student_id"]);
         </div>
     </div>
 
-    <!-- Resumo do Pedido -->
-    <div class="col-md-8 col-12">
-        <div class="card mt-4">
-            <div class="card-header">
-                <h3>Resumo do Pedido</h3>
-            </div>
-            <form class="container" action="controllers/SalesRecordController.php?action=discount" method="post">
-                <input type="hidden" name="id" value="<?= htmlspecialchars($sale_data["id"]) ?>">
-                <div class="form-group">
-                    <label for="discount">Desconto:</label>
-                    <input type="number" id="discount" name="discount" value="0" class="form-control">
+    <!-- Modal -->
+    <div class="modal fade" id="finalize_sale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Forma de Pagamento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="form-group">
-                    <button class="btn btn-secondary" type="submit">Efetuar Desconto</button>
-                </div>
-            </form>
-            <div class="card-body">
-                <?php $total = $sub_total - $sale_data["discount"] ?>
-                <p>Subtotal: R$ <?= htmlspecialchars(number_format((float) $sub_total, 2, ',', '.')) ?></p>
-                <p>Desconto: R$ <?= htmlspecialchars(number_format((float) $sale_data["discount"], 2, ',', '.')) ?></p>
-                <p>Total: R$ <?= htmlspecialchars(number_format((float) $total, 2, ',', '.')) ?></p>
-                <button class="btn btn-success btn-lg btn-block">Finalizar Compra</button>
-            </div>
-        </div>
-    </div>
+                <div class="modal-body">
+                <form method="post" action="controllers/SalesRecordController.php?action=update">
+                    <input type="text" name="cashierId" value="<?= htmlspecialchars($sale_data['cashierId']) ?>">
+                    <input type="text" name="user_id" value="<?= htmlspecialchars($sale_data['user_id']) ?>">
+                    <input type="text" name="student_id" value="<?= htmlspecialchars($sale_data['student_id']) ?>">
+                    <input type="text" name="amount_paid" value="<?= htmlspecialchars($sale_data['amount_paid']) ?>">
+                    <input type="text" name="change_sale" value="<?= htmlspecialchars($sale_data['change_sale']) ?>">
+                    <input type="text" name="total" value="<?= htmlspecialchars($total) ?>">
+                    <input type="text" name="" value="<?= htmlspecialchars($sale_data['status']) ?>">
 
-    <!-- Opções de Pagamento -->
-    <div class="col-md-4 col-12">
-        <div class="card mt-4">
-            <div class="card-header">
-                <h3>Opções de Pagamento</h3>
-            </div>
-            <div class="card-body">
-                <form>
                     <div class="form-group">
                         <label for="metodoPagamento">Método de Pagamento</label>
                         <select class="form-control" id="metodoPagamento">
@@ -233,7 +251,7 @@ $user_data = $user->getById($sale_data["student_id"]);
                         if (isset($methodPayments) && !empty($methodPayments)) {
                             foreach ($methodPayments as $item) {
                         ?>
-                            <option><?= htmlspecialchars($item["name"]) ?></option>
+                            <option><?= htmlspecialchars($methods[$item["name"]]) ?></option>
                         <?php }} ?>
                         </select>
                     </div>
@@ -249,7 +267,13 @@ $user_data = $user->getById($sale_data["student_id"]);
                         <label for="codigoSeguranca">Código de Segurança</label>
                         <input type="text" class="form-control" id="codigoSeguranca" placeholder="CVC">
                     </div>
+
+                    <div class="form-group">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary">Salvar mudanças</button>
+                    </div>
                 </form>
+            </div>
             </div>
         </div>
     </div>
