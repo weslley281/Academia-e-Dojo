@@ -43,6 +43,28 @@ class SalesPaymentItem
         }
     }
 
+    public function getTotalAmountPaidBySaleId($sale_id)
+    {
+        try {
+            $stmt = $this->conn->prepare('SELECT SUM(amount_paid) as total FROM sales_payment_item WHERE sale_id = ?');
+            $stmt->bind_param('i', $sale_id);
+            $stmt->execute();
+
+            $result = $stmt->get_result()->fetch_assoc();
+            $total = $result['total'];
+
+            if ($total === null || $total == 0) {
+                return 0.0;
+            }
+
+            return (float)$total;
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return 0.0;
+        }
+    }
+
+
     public function update(array $data, $id)
     {
         try {
@@ -63,6 +85,18 @@ class SalesPaymentItem
         try {
             $stmt = $this->conn->prepare('DELETE FROM sales_payment_item WHERE id = ?');
             $stmt->bind_param('i', $id);
+            return $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return false;
+        }
+    }
+
+    public function clean($sale_id)
+    {
+        try {
+            $stmt = $this->conn->prepare('DELETE FROM sales_payment_item WHERE sale_id = ?');
+            $stmt->bind_param('i', $sale_id);
             return $stmt->execute();
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');

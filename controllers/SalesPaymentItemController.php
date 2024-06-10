@@ -58,6 +58,14 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 }
                 break;
 
+            case 'clean':
+                if ($salesPaymentItem->clean($_POST["sale_id"])) {
+                    header("Location: ../index.php?page=financial&action=sell&info=deleted");
+                } else {
+                    header("Location: ../index.php?page=financial&action=sell");
+                }
+                break;
+
             default:
                 header("Location: ../index.php?page=financial&action=sell&info==unknown");
                 break;

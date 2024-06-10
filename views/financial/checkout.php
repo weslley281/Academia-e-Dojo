@@ -21,6 +21,7 @@ if (!$salesRecord->countUserSalesByStatus($_SESSION["user_id"], "in_process")) {
 
 $sale_data = $salesRecord->getSaleInProcessByIdUser($_SESSION["user_id"]);
 $user_data = $user->getById($sale_data["student_id"]);
+$total_amount_paid = $salesPaymentItem->getTotalAmountPaidBySaleId($sale_data["id"]);
 
 $sub_total = 0;
 $methods = [
@@ -124,9 +125,18 @@ $methods = [
                 <div class="form-group">
                     <button class="btn btn-secondary" type="submit">Efetuar Desconto</button>
                 </div>
+
             </form>
+            <?php if ($total_amount_paid) { ?>
+                <form class="container" action="controllers/SalesPaymentItemController.php?action=clean" method="post">
+                    <input type="hidden" name="sale_id" value="<?= htmlspecialchars($sale_data["id"]) ?>">
+                    <div class="form-group">
+                        <button class="btn btn-danger" type="submit">Limpar Pagamentos</button>
+                    </div>
+                </form>
+            <?php } ?>
             <div class="card-body">
-                <?php $total = $sub_total - $sale_data["discount"] ?>
+                <?php $total = ($sub_total - $total_amount_paid) - $sale_data["discount"]; ?>
                 <p>Subtotal: R$ <?= htmlspecialchars(number_format((float) $sub_total, 2, ',', '.')) ?></p>
                 <p>Desconto: R$ <?= htmlspecialchars(number_format((float) $sale_data["discount"], 2, ',', '.')) ?></p>
                 <p>Total: R$ <?= htmlspecialchars(number_format((float) $total, 2, ',', '.')) ?></p>
@@ -248,44 +258,30 @@ $methods = [
                 </div>
                 <div class="modal-body">
                     <form method="post" action="controllers/SalesPaymentItemController.php?action=create">
-                        <input type="text" name="cashierId" value="<?= htmlspecialchars($sale_data['cashierId']) ?>">
-                        <input type="text" name="user_id" value="<?= htmlspecialchars($sale_data['user_id']) ?>">
-                        <input type="text" name="student_id" value="<?= htmlspecialchars($sale_data['student_id']) ?>">
-                        <input type="text" name="amount_paid" value="<?= htmlspecialchars($sale_data['amount_paid']) ?>">
-                        <input type="text" name="change_sale" value="<?= htmlspecialchars($sale_data['change_sale']) ?>">
-                        <input type="text" name="total" value="<?= htmlspecialchars($total) ?>">
-                        <input type="text" name="" value="<?= htmlspecialchars($sale_data['status']) ?>">
+                        <input type="hidden" name="sale_id" value="<?= htmlspecialchars($sale_data['id']) ?>">
 
                         <div class="form-group">
-                            <label for="metodoPagamento">Método de Pagamento</label>
-                            <select class="form-control" id="metodoPagamento">
+                            <label for="payment_method_id">Método de Pagamento</label>
+                            <select class="form-control" id="payment_method_id" name="payment_method_id">
 
                                 <?php
                                 $methodPayments = $methodPayment->getAll();
                                 if (isset($methodPayments) && !empty($methodPayments)) {
                                     foreach ($methodPayments as $item) {
                                 ?>
-                                        <option><?= htmlspecialchars($methods[$item["name"]]) ?></option>
+                                        <option value="<?= htmlspecialchars($item["id"]) ?>"><?= htmlspecialchars($methods[$item["name"]]) ?></option>
                                 <?php }
                                 } ?>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="numeroCartao">Número do Cartão</label>
-                            <input type="text" class="form-control" id="numeroCartao" placeholder="Número do Cartão">
-                        </div>
-                        <div class="form-group">
-                            <label for="validadeCartao">Validade</label>
-                            <input type="text" class="form-control" id="validadeCartao" placeholder="MM/AA">
-                        </div>
-                        <div class="form-group">
-                            <label for="codigoSeguranca">Código de Segurança</label>
-                            <input type="text" class="form-control" id="codigoSeguranca" placeholder="CVC">
+                            <label for="amount_paid">Quantidade</label>
+                            <input type="number" class="form-control" id="amount_paid" name="amount_paid" placeholder="0.00">
                         </div>
 
                         <div class="form-group">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="button" class="btn btn-primary">Salvar mudanças</button>
+                            <button type="submit" class=" btn btn-primary">Salvar mudanças</button>
                         </div>
                     </form>
                 </div>
