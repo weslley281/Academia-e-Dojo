@@ -159,13 +159,11 @@ class CreateTables
                 amount_paid DECIMAL(10, 2) NULL,
                 change_sale DECIMAL(10, 2) NULL,
                 total DECIMAL(10, 2) NULL,
-                paymentMethodId INT NULL,
                 status ENUM('in_process', 'processed', 'canceled'),
                 saleDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 FOREIGN KEY (cashier_id) REFERENCES cashier(id),
                 FOREIGN KEY (user_id) REFERENCES users(id),
-                FOREIGN KEY (student_id) REFERENCES users(id),
-                FOREIGN KEY (paymentMethodId) REFERENCES method_payment(id)
+                FOREIGN KEY (student_id) REFERENCES users(id)
             );
         ";
 
@@ -185,6 +183,26 @@ class CreateTables
                 class_id INT NOT NULL,
                 FOREIGN KEY (sale_id) REFERENCES sales_records(id),
                 FOREIGN KEY (class_id) REFERENCES classes(id)
+            );
+        ";
+
+        if ($conn->query($sql) === true) {
+            //echo "Tabela 'sales_item' criada com sucesso.";
+        } else {
+            echo "Erro ao criar tabela 'sales_item': " . $conn->error;
+        }
+    }
+
+    public static function createSalesPaymentItemTable($conn)
+    {
+        $sql = "
+            CREATE TABLE IF NOT EXISTS sales_payment_item (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                sale_id INT NOT NULL,
+                payment_method_id INT NOT NULL,
+                amount_paid DECIMAL(10, 2) NOT NULL,
+                FOREIGN KEY (sale_id) REFERENCES sales_records(id),
+                FOREIGN KEY (payment_method_id) REFERENCES method_payment(id)
             );
         ";
 

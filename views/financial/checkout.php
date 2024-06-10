@@ -130,6 +130,17 @@ $methods = [
                 <p>Desconto: R$ <?= htmlspecialchars(number_format((float) $sale_data["discount"], 2, ',', '.')) ?></p>
                 <p>Total: R$ <?= htmlspecialchars(number_format((float) $total, 2, ',', '.')) ?></p>
                 <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#finalize_sale">Finalizar Compra</button>
+
+                <!-- Finalizar Compra -->
+                <form method="post" action="controllers/SalesRecordController.php?action=update">
+                    <input type="hidden" name="cashierId" value="<?= htmlspecialchars($sale_data['cashierId']) ?>">
+                    <input type="hidden" name="user_id" value="<?= htmlspecialchars($sale_data['user_id']) ?>">
+                    <input type="hidden" name="student_id" value="<?= htmlspecialchars($sale_data['student_id']) ?>">
+                    <input type="hidden" name="amount_paid" value="<?= htmlspecialchars($sale_data['amount_paid']) ?>">
+                    <input type="hidden" name="change_sale" value="<?= htmlspecialchars($sale_data['change_sale']) ?>">
+                    <input type="hidden" name="total" value="<?= htmlspecialchars($total) ?>">
+                    <input type="hidden" name="" value="<?= htmlspecialchars($sale_data['status']) ?>">
+                </form>
             </div>
         </div>
     </div>
@@ -140,85 +151,87 @@ $methods = [
             <div class="card-header">
                 <h3>Informações do Cliente</h3>
             </div>
-            <?php if(!$sale_data["student_id"]){ ?>
-            <div class="card-body">
-                <form action="controllers/SalesRecordController.php?action=update_client" method="post">
-                <div class="form-group">
-                    <input type="hidden" name="id" value="<?= htmlspecialchars($sale_data["id"]) ?>">
-                    <label for="client">Cliente</label>
-                    <select class="form-control select_basic2" name="client" id="client">
-                        <?php
-                        $users = $user->getAll();
+            <?php if (!$sale_data["student_id"]) { ?>
+                <div class="card-body">
+                    <form action="controllers/SalesRecordController.php?action=update_client" method="post">
+                        <div class="form-group">
+                            <input type="hidden" name="id" value="<?= htmlspecialchars($sale_data["id"]) ?>">
+                            <label for="client">Cliente</label>
+                            <select class="form-control select_basic2" name="client" id="client">
+                                <?php
+                                $users = $user->getAll();
 
-                        if (isset($users) && !empty($users)) {
-                            foreach ($users as $item) {
-                        ?>
-                                <option value="<?= htmlspecialchars($item['id']) ?>">
-                                    <?= htmlspecialchars($item['id']) . ": " . $item['name'] ?>
-                                </option>
-                        <?php }
-                        } ?>
-                    </select>
+                                if (isset($users) && !empty($users)) {
+                                    foreach ($users as $item) {
+                                ?>
+                                        <option value="<?= htmlspecialchars($item['id']) ?>">
+                                            <?= htmlspecialchars($item['id']) . ": " . $item['name'] ?>
+                                        </option>
+                                <?php }
+                                } ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Selecionar o Cliente</button>
+                        </div>
+                    </form>
+                    <div class="form-group">
+                        <label for="nomeCliente">Nome</label>
+                        <input type="text" class="form-control" id="nomeCliente" placeholder="Nome do Cliente" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailCliente">Email</label>
+                        <input type="email" class="form-control" id="emailCliente" placeholder="Email do Cliente" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefoneCliente">Telefone</label>
+                        <input type="tel" class="form-control" id="telefoneCliente" placeholder="Telefone do Cliente" readonly>
+                    </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Selecionar o Cliente</button>
-                </div>
-                </form>
-                <div class="form-group">
-                    <label for="nomeCliente">Nome</label>
-                    <input type="text" class="form-control" id="nomeCliente" placeholder="Nome do Cliente" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="emailCliente">Email</label>
-                    <input type="email" class="form-control" id="emailCliente" placeholder="Email do Cliente" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="telefoneCliente">Telefone</label>
-                    <input type="tel" class="form-control" id="telefoneCliente" placeholder="Telefone do Cliente" readonly>
-                </div>
-                </form>
-            </div>
-            <?php } else{ ?>
-            <div class="card-body">
-                <form action="controllers/SalesRecordController.php?action=update_client" method="post">
-                <div class="form-group">
-                    
-                    <input type="hidden" name="id" value="<?= htmlspecialchars($sale_data["id"]) ?>">
-                    <label for="client">Cliente</label>
-                    <select class="form-control select_basic2" name="client" id="client">
-                        <option value=""><?= htmlspecialchars($sale_data["student_id"]) . ": " . $user_data["name"] ?></option>
-                        <?php
-                        $users = $user->getAll();
+            <?php } else { ?>
+                <div class="card-body">
+                    <form action="controllers/SalesRecordController.php?action=update_client" method="post">
+                        <div class="form-group">
 
-                        if (isset($users) && !empty($users)) {
-                            foreach ($users as $item) {
-                                if ($item["id"] != $sale_data["student_id"]) {
-                        ?>
-                                <option value="<?= htmlspecialchars($item['id']) ?>">
-                                    <?= htmlspecialchars($item['id']) . ": " . $item['name'] ?>
-                                </option>
-                        <?php }}} ?>
-                    </select>
+                            <input type="hidden" name="id" value="<?= htmlspecialchars($sale_data["id"]) ?>">
+                            <label for="client">Cliente</label>
+                            <select class="form-control select_basic2" name="client" id="client">
+                                <option value=""><?= htmlspecialchars($sale_data["student_id"]) . ": " . $user_data["name"] ?></option>
+                                <?php
+                                $users = $user->getAll();
+
+                                if (isset($users) && !empty($users)) {
+                                    foreach ($users as $item) {
+                                        if ($item["id"] != $sale_data["student_id"]) {
+                                ?>
+                                            <option value="<?= htmlspecialchars($item['id']) ?>">
+                                                <?= htmlspecialchars($item['id']) . ": " . $item['name'] ?>
+                                            </option>
+                                <?php }
+                                    }
+                                } ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Selecionar o Cliente</button>
+                        </div>
+                    </form>
+                    <div class="form-group">
+                        <label for="nomeCliente">Nome</label>
+                        <input type="text" class="form-control" id="nomeCliente" value="<?= htmlspecialchars($user_data['name']) ?>" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailCliente">Email</label>
+                        <input type="email" class="form-control" id="emailCliente" value="<?= htmlspecialchars($user_data['email']) ?>" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefoneCliente">Telefone</label>
+                        <input type="tel" class="form-control" id="telefoneCliente" value="<?= htmlspecialchars($user_data['phone']) ?>" readonly>
+                    </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Selecionar o Cliente</button>
-                </div>
-                </form>
-                <div class="form-group">
-                    <label for="nomeCliente">Nome</label>
-                    <input type="text" class="form-control" id="nomeCliente" value="<?= htmlspecialchars($user_data['name']) ?>" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="emailCliente">Email</label>
-                    <input type="email" class="form-control" id="emailCliente" value="<?= htmlspecialchars($user_data['email']) ?>" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="telefoneCliente">Telefone</label>
-                    <input type="tel" class="form-control" id="telefoneCliente" value="<?= htmlspecialchars($user_data['phone']) ?>" readonly>
-                </div>
-                </form>
-            </div>
-            <?php }?>
+            <?php } ?>
         </div>
     </div>
 
@@ -229,51 +242,52 @@ $methods = [
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Forma de Pagamento</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                    <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                <form method="post" action="controllers/SalesRecordController.php?action=update">
-                    <input type="text" name="cashierId" value="<?= htmlspecialchars($sale_data['cashierId']) ?>">
-                    <input type="text" name="user_id" value="<?= htmlspecialchars($sale_data['user_id']) ?>">
-                    <input type="text" name="student_id" value="<?= htmlspecialchars($sale_data['student_id']) ?>">
-                    <input type="text" name="amount_paid" value="<?= htmlspecialchars($sale_data['amount_paid']) ?>">
-                    <input type="text" name="change_sale" value="<?= htmlspecialchars($sale_data['change_sale']) ?>">
-                    <input type="text" name="total" value="<?= htmlspecialchars($total) ?>">
-                    <input type="text" name="" value="<?= htmlspecialchars($sale_data['status']) ?>">
+                    <form method="post" action="controllers/SalesRecordController.php?action=update">
+                        <input type="text" name="cashierId" value="<?= htmlspecialchars($sale_data['cashierId']) ?>">
+                        <input type="text" name="user_id" value="<?= htmlspecialchars($sale_data['user_id']) ?>">
+                        <input type="text" name="student_id" value="<?= htmlspecialchars($sale_data['student_id']) ?>">
+                        <input type="text" name="amount_paid" value="<?= htmlspecialchars($sale_data['amount_paid']) ?>">
+                        <input type="text" name="change_sale" value="<?= htmlspecialchars($sale_data['change_sale']) ?>">
+                        <input type="text" name="total" value="<?= htmlspecialchars($total) ?>">
+                        <input type="text" name="" value="<?= htmlspecialchars($sale_data['status']) ?>">
 
-                    <div class="form-group">
-                        <label for="metodoPagamento">Método de Pagamento</label>
-                        <select class="form-control" id="metodoPagamento">
+                        <div class="form-group">
+                            <label for="metodoPagamento">Método de Pagamento</label>
+                            <select class="form-control" id="metodoPagamento">
 
-                        <?php
-                        $methodPayments = $methodPayment->getAll();
-                        if (isset($methodPayments) && !empty($methodPayments)) {
-                            foreach ($methodPayments as $item) {
-                        ?>
-                            <option><?= htmlspecialchars($methods[$item["name"]]) ?></option>
-                        <?php }} ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="numeroCartao">Número do Cartão</label>
-                        <input type="text" class="form-control" id="numeroCartao" placeholder="Número do Cartão">
-                    </div>
-                    <div class="form-group">
-                        <label for="validadeCartao">Validade</label>
-                        <input type="text" class="form-control" id="validadeCartao" placeholder="MM/AA">
-                    </div>
-                    <div class="form-group">
-                        <label for="codigoSeguranca">Código de Segurança</label>
-                        <input type="text" class="form-control" id="codigoSeguranca" placeholder="CVC">
-                    </div>
+                                <?php
+                                $methodPayments = $methodPayment->getAll();
+                                if (isset($methodPayments) && !empty($methodPayments)) {
+                                    foreach ($methodPayments as $item) {
+                                ?>
+                                        <option><?= htmlspecialchars($methods[$item["name"]]) ?></option>
+                                <?php }
+                                } ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroCartao">Número do Cartão</label>
+                            <input type="text" class="form-control" id="numeroCartao" placeholder="Número do Cartão">
+                        </div>
+                        <div class="form-group">
+                            <label for="validadeCartao">Validade</label>
+                            <input type="text" class="form-control" id="validadeCartao" placeholder="MM/AA">
+                        </div>
+                        <div class="form-group">
+                            <label for="codigoSeguranca">Código de Segurança</label>
+                            <input type="text" class="form-control" id="codigoSeguranca" placeholder="CVC">
+                        </div>
 
-                    <div class="form-group">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary">Salvar mudanças</button>
-                    </div>
-                </form>
-            </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-primary">Salvar mudanças</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

@@ -14,6 +14,7 @@ require_once './models/Cashier.php';
 require_once './models/SalesRecords.php';
 require_once './models/SalesItem.php';
 require_once './models/MethodPayment.php';
+require_once './models/SalesPaymentItem.php';
 
 $createTable = new CreateTables;
 $user = new User($conn);
@@ -23,6 +24,7 @@ $cashier = new Cashier($conn);
 $salesRecord = new SalesRecord($conn);
 $salesItem = new SalesItem($conn);
 $methodPayment = new MethodPayment($conn);
+$salesPaymentItem = new SalesPaymentItem($conn);
 
 $createTable->createUsersTable($conn);
 $createTable->createMartialArtsTable($conn);
@@ -32,6 +34,7 @@ $createTable->createCashierTable($conn);
 $createTable->createMethodPaymentTable($conn);
 $createTable->createSalesTable($conn);
 $createTable->createSalesItemTable($conn);
+$createTable->createSalesPaymentItemTable($conn);
 
 $page = $_GET['page'] ?? 'dashboard';
 $action = $_GET['action'] ?? '';
