@@ -10,11 +10,9 @@ if (!$salesRecord->countUserSalesByStatus($_SESSION["user_id"], "in_process")) {
         "amount_paid" => 0,
         "change_sale" => 0,
         "total" => 0,
-        "paymentMethodId" => null,
-        "status" => "in_process",
-        "status" => htmlspecialchars('in_process' ?? ''),
+        "status" => htmlspecialchars('in_process'),
     ];
-    var_dump($data);
+    //var_dump($data);
 
     $salesRecord->create($data);
 }
@@ -24,6 +22,7 @@ $user_data = $user->getById($sale_data["student_id"]);
 $total_amount_paid = $salesPaymentItem->getTotalAmountPaidBySaleId($sale_data["id"]);
 
 $sub_total = 0;
+
 $methods = [
     "cash" => "Dinheiro",
     "credit" => "Crédito",
@@ -82,9 +81,9 @@ $methods = [
 
                     <tbody>
                         <?php
-                        $salesItems = $salesItem->getAll(); // Obtém todas as classes do modelo
+                        $salesItems = $salesItem->getBySaleId($sale_data["id"]);
 
-                        if (isset($salesItems) && !empty($salesItems)) { // Verifica se há classes para exibir
+                        if (isset($salesItems) && !empty($salesItems)) {
                             foreach ($salesItems as $item) {
                                 $class_item = $class->getById($item["class_id"]);
                                 $sub_total += $class_item['value'];
@@ -136,22 +135,39 @@ $methods = [
                 </form>
             <?php } ?>
             <div class="card-body">
-                <?php $total = ($sub_total - $total_amount_paid) - $sale_data["discount"]; ?>
+                <?php
+                $total = $sub_total - $sale_data["discount"];
+                $defit = $total_amount_paid - $total;
+                ?>
                 <p>Subtotal: R$ <?= htmlspecialchars(number_format((float) $sub_total, 2, ',', '.')) ?></p>
                 <p>Desconto: R$ <?= htmlspecialchars(number_format((float) $sale_data["discount"], 2, ',', '.')) ?></p>
                 <p>Total: R$ <?= htmlspecialchars(number_format((float) $total, 2, ',', '.')) ?></p>
-                <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#finalize_sale">Finalizar Compra</button>
+                <p>Pago: R$ <?= htmlspecialchars(number_format((float) $total_amount_paid, 2, ',', '.')) ?></p>
+                <?php
+                if ($total > $total_amount_paid) {
+                ?>
+                    <p>Falta: R$ <?= htmlspecialchars(number_format((float) $defit, 2, ',', '.')) ?></p>
+                <?php } else { ?>
+                    <p>Troco: R$ <?= htmlspecialchars(number_format((float) $defit, 2, ',', '.')) ?></p>
+                <?php } ?>
 
-                <!-- Finalizar Compra -->
-                <form method="post" action="controllers/SalesRecordController.php?action=update">
-                    <input type="hidden" name="cashier_id" value="<?= htmlspecialchars($sale_data['cashier_id']) ?>">
-                    <input type="hidden" name="user_id" value="<?= htmlspecialchars($sale_data['user_id']) ?>">
-                    <input type="hidden" name="student_id" value="<?= htmlspecialchars($sale_data['student_id']) ?>">
-                    <input type="hidden" name="amount_paid" value="<?= htmlspecialchars($sale_data['amount_paid']) ?>">
-                    <input type="hidden" name="change_sale" value="<?= htmlspecialchars($sale_data['change_sale']) ?>">
-                    <input type="hidden" name="total" value="<?= htmlspecialchars($total) ?>">
-                    <input type="hidden" name="" value="<?= htmlspecialchars($sale_data['status']) ?>">
-                </form>
+
+                <?php if ($total_amount_paid >= $sub_total) { ?>
+                    <!-- Finalizar Compra -->
+                    <form method="post" action="controllers/SalesRecordController.php?action=update">
+                        <input type="hidden" name="id" value="<?= htmlspecialchars($sale_data['id']) ?>">
+                        <input type="hidden" name="cashier_id" value="<?= htmlspecialchars($sale_data['cashier_id']) ?>">
+                        <input type="hidden" name="user_id" value="<?= htmlspecialchars($sale_data['user_id']) ?>">
+                        <input type="hidden" name="student_id" value="<?= htmlspecialchars($sale_data['student_id']) ?>">
+                        <input type="hidden" name="amount_paid" value="<?= htmlspecialchars($total_amount_paid) ?>">
+                        <input type="hidden" name="change_sale" value="<?= htmlspecialchars($defit) ?>">
+                        <input type="hidden" name="total" value="<?= htmlspecialchars($total) ?>">
+                        <input type="hidden" name="status" value="processed">
+                        <button type="submit" class="btn btn-success btn-lg btn-block">Finalizar Compra</button>
+                    </form>
+                <?php } else { ?>
+                    <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#finalize_sale">Finalizar Compra</button>
+                <?php } ?>
             </div>
         </div>
     </div>

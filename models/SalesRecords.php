@@ -76,11 +76,11 @@ class SalesRecord
 
     public function update(array $data, $id)
     {
-        //cashier_id, user_id, student_id, amount_paid, change_sale, total, paymentMethodId, status
+        var_dump($data);
         try {
-            $stmt = $this->conn->prepare('UPDATE sales_records SET cashierId = ?, user_id = ?, student_id = ?, amount_paid = ?, change_sale = ? total = ?, status = ? WHERE id = ?');
+            $stmt = $this->conn->prepare('UPDATE sales_records SET cashier_id = ?, user_id = ?, student_id = ?, discount = ?, amount_paid = ?, change_sale = ?, total = ?, status = ? WHERE id = ?');
 
-            $stmt->bind_param('iiiddsi', $data['cashierId'], $data['user_id'], $data['student_id'], $data['amount_paid'], $data['change_sale'], $data['total'], $data['status'], $id);
+            $stmt->bind_param('iiiddddsi', $data['cashier_id'], $data['user_id'], $data['student_id'], $data['discount'], $data['amount_paid'], $data['change_sale'], $data['total'], $data['status'], $id);
 
             $stmt->execute();
             return true;

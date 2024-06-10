@@ -19,8 +19,14 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
         function getSalesRecordData($post)
         {
             return [
-                "name" => htmlspecialchars($post["name"] ?? ''),
-                "description" => htmlspecialchars($post["description"] ?? ''),
+                "cashier_id" => htmlspecialchars($post["cashier_id"]),
+                "user_id" => $_SESSION["user_id"],
+                "student_id" => htmlspecialchars($post["student_id"]),
+                "discount" => htmlspecialchars($post["discount"] ?? 0),
+                "amount_paid" => htmlspecialchars($post["amount_paid"] ?? 0),
+                "change_sale" => htmlspecialchars($post["change_sale"] ?? 0),
+                "total" => htmlspecialchars($post["total"] ?? 0),
+                "status" => htmlspecialchars($post["status"]),
             ];
         }
 
