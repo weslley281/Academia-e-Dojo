@@ -2,7 +2,7 @@
 $cashier_open = $cashier->getCashierOpenByIdUser($_SESSION["user_id"]);
 
 if (!$salesRecord->countUserSalesByStatus($_SESSION["user_id"], "in_process")) {
-
+    echo "Eu executei";
     $data = [
         "cashier_id" => $cashier_open["id"],
         "user_id" => $_SESSION["user_id"],
@@ -14,19 +14,21 @@ if (!$salesRecord->countUserSalesByStatus($_SESSION["user_id"], "in_process")) {
         "status" => "in_process",
         "status" => htmlspecialchars('in_process' ?? ''),
     ];
-    //var_dump($data);
+    var_dump($data);
 
     $salesRecord->create($data);
 }
 
 $sale_data = $salesRecord->getSaleInProcessByIdUser($_SESSION["user_id"]);
 $user_data = $user->getById($sale_data["student_id"]);
+
+$sub_total = 0;
 $methods = [
     "cash" => "Dinheiro",
     "credit" => "Crédito",
     "debit" => "Débito",
     "deposit" => "Depósito, Transferência ou PIX"
-]
+];
 ?>
 <h1 class="text-center">Checkout</h1>
 
@@ -82,7 +84,6 @@ $methods = [
                         $salesItems = $salesItem->getAll(); // Obtém todas as classes do modelo
 
                         if (isset($salesItems) && !empty($salesItems)) { // Verifica se há classes para exibir
-                            $sub_total = 0;
                             foreach ($salesItems as $item) {
                                 $class_item = $class->getById($item["class_id"]);
                                 $sub_total += $class_item['value'];
@@ -133,7 +134,7 @@ $methods = [
 
                 <!-- Finalizar Compra -->
                 <form method="post" action="controllers/SalesRecordController.php?action=update">
-                    <input type="hidden" name="cashierId" value="<?= htmlspecialchars($sale_data['cashierId']) ?>">
+                    <input type="hidden" name="cashier_id" value="<?= htmlspecialchars($sale_data['cashier_id']) ?>">
                     <input type="hidden" name="user_id" value="<?= htmlspecialchars($sale_data['user_id']) ?>">
                     <input type="hidden" name="student_id" value="<?= htmlspecialchars($sale_data['student_id']) ?>">
                     <input type="hidden" name="amount_paid" value="<?= htmlspecialchars($sale_data['amount_paid']) ?>">
@@ -246,7 +247,7 @@ $methods = [
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="controllers/SalesRecordController.php?action=update">
+                    <form method="post" action="controllers/SalesPaymentItemController.php?action=create">
                         <input type="text" name="cashierId" value="<?= htmlspecialchars($sale_data['cashierId']) ?>">
                         <input type="text" name="user_id" value="<?= htmlspecialchars($sale_data['user_id']) ?>">
                         <input type="text" name="student_id" value="<?= htmlspecialchars($sale_data['student_id']) ?>">

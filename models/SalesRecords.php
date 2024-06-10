@@ -17,21 +17,20 @@ class SalesRecord
     {
         try {
             echo "<br>também fui chamado";
-            $stmt = $this->conn->prepare('INSERT INTO sales_records (cashier_id, user_id, student_id, amount_paid, change_sale, total, paymentMethodId, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+            $stmt = $this->conn->prepare('INSERT INTO sales_records (cashier_id, user_id, student_id, amount_paid, change_sale, total, status) VALUES (?, ?, ?, ?, ?, ?, ?)');
 
             if ($stmt === false) {
                 throw new mysqli_sql_exception('Erro ao preparar a instrução: ' . $this->conn->error);
             }
 
             $stmt->bind_param(
-                'iiidddis',
+                'iiiddds',
                 $data['cashier_id'],
                 $data['user_id'],
                 $data['student_id'],
                 $data['amount_paid'],
                 $data['change_sale'],
                 $data['total'],
-                $data['paymentMethodId'],
                 $data['status']
             );
 
@@ -79,9 +78,9 @@ class SalesRecord
     {
         //cashier_id, user_id, student_id, amount_paid, change_sale, total, paymentMethodId, status
         try {
-            $stmt = $this->conn->prepare('UPDATE sales_records SET cashierId = ?, user_id = ?, student_id = ?, amount_paid = ?, change_sale = ? total = ?, paymentMethodId = ?, status = ? WHERE id = ?');
+            $stmt = $this->conn->prepare('UPDATE sales_records SET cashierId = ?, user_id = ?, student_id = ?, amount_paid = ?, change_sale = ? total = ?, status = ? WHERE id = ?');
 
-            $stmt->bind_param('iiiddisi', $data['cashierId'], $data['user_id'], $data['student_id'], $data['amount_paid'], $data['change_sale'], $data['total'], $data['paymentMethodId'], $data['status'], $id);
+            $stmt->bind_param('iiiddsi', $data['cashierId'], $data['user_id'], $data['student_id'], $data['amount_paid'], $data['change_sale'], $data['total'], $data['status'], $id);
 
             $stmt->execute();
             return true;

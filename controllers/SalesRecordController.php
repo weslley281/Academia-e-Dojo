@@ -46,7 +46,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                     header("Location: ../index.php?page=financial&action=sell");
                 }
                 break;
-            
+
             case 'update_client':
                 if ($id === null) {
                     header("Location: ../index.php?page=financial&action=sell");
@@ -84,7 +84,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                     header("Location: ../index.php?page=financial&action=sell");
                 }
                 break;
-                
+
             default:
                 //header("Location: ../index.php?page=financial&action=sell");
                 break;
