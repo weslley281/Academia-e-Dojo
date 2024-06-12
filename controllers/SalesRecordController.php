@@ -2,10 +2,16 @@
 session_start();
 if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../models/SalesRecords.php';
+    require_once __DIR__ . '/../models/ExpirationItem.php';
+    require_once __DIR__ . '/../models/SalesItem.php';
     require_once __DIR__ . '/../config/db.php';
+    require_once __DIR__ . '/../models/Class.php';
 
     // Instância da classe SalesRecord
     $salesRecord = new SalesRecord($conn);
+    $expirationItem = new ExpirationItem($conn);
+    $saleItem = new SalesItem($conn);
+    $class = new ClassModel($conn);
 
     // Verifica o método HTTP
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -47,9 +53,31 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 }
                 $data = getSalesRecordData($_POST);
                 if ($salesRecord->update($data, $id)) {
-                    header("Location: ../index.php?page=financial&action=sell");
+                    $saleItens = $saleItem->getBySaleId($id);
+
+                    if (isset($saleItens) && !empty($saleItens)) { // Verifica se há classes para exibir
+                        foreach ($saleItens as $item) {
+
+                            var_dump($item);
+                            $classData = $class->getById($item["class_id"]);
+                            $expirationDate = 0;
+                            $newExpirationDate = new DateTime($expirationDate);
+                            $newExpirationDate->modify("+" . $classData["days"] . " days");
+
+
+                            $expirationItemData = [
+                                "student_id" => $data["student_id"],
+                                "class_id" => $item["id"],
+                                "expirationDate" => $newExpirationDate
+                            ];
+
+                            $expirationItem->create($expirationItemData);
+                        }
+                    }
+
+                    //header("Location: ../index.php?page=financial&action=sell");
                 } else {
-                    header("Location: ../index.php?page=financial&action=sell");
+                    //header("Location: ../index.php?page=financial&action=sell");
                 }
                 break;
 
