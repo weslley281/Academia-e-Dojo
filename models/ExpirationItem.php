@@ -17,9 +17,9 @@ class ExpirationItem
     {
         var_dump($data);
         try {
-            $stmt = $this->conn->prepare('INSERT INTO expiration (student_id, class_id) VALUES (?, ?)');
+            $stmt = $this->conn->prepare('INSERT INTO expiration (student_id, class_id, expirationDate) VALUES (?, ?, ?)');
 
-            $stmt->bind_param('ii', $data['student_id'], $data['class_id']);
+            $stmt->bind_param('iis', $data['student_id'], $data['class_id'], $data['expirationDate']);
 
             $stmt->execute();
             return true;
@@ -43,19 +43,33 @@ class ExpirationItem
         }
     }
 
-    public function getBySaleId($student_id)
+    public function getBySaleAndUserId(int $sale_id, int $student_id)
     {
-        try {
-            $stmt = $this->conn->prepare('SELECT * FROM expiration WHERE student_id = ?');
-            $stmt->bind_param('i', $student_id);
-            $stmt->execute();
+        // Validação básica de entrada
+        if ($sale_id <= 0 || $student_id <= 0) {
+            error_log("Invalid sale_id or student_id: sale_id=$sale_id, student_id=$student_id", 3, __DIR__ . '/errors.log');
+            return null;
+        }
 
-            return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        try {
+            $stmt = $this->conn->prepare('SELECT * FROM expiration WHERE sale_id = ? AND student_id = ?');
+
+            if ($stmt === false) {
+                throw new mysqli_sql_exception("Failed to prepare statement: " . $this->conn->error);
+            }
+
+            $stmt->bind_param('ii', $sale_id, $student_id);
+            $stmt->execute();
+            $result = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+
+            return $result;
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
-            return [];
+            return null;
         }
     }
+
 
     public function update(array $data, $id)
     {
