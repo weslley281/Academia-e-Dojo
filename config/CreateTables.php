@@ -213,4 +213,25 @@ class CreateTables
             echo "Erro ao criar tabela 'sales_item': " . $conn->error;
         }
     }
+
+    public static function createExpirationItemTable($conn)
+    {
+        $sql = "
+            CREATE TABLE IF NOT EXISTS expiration (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                student_id INT NOT NULL,
+                class_id INT NOT NULL,
+                createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                expirationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (student_id) REFERENCES users(id),
+                FOREIGN KEY (class_id) REFERENCES classes(id)
+            );
+        ";
+
+        if ($conn->query($sql) === true) {
+            //echo "Tabela 'sales_item' criada com sucesso.";
+        } else {
+            echo "Erro ao criar tabela 'sales_item': " . $conn->error;
+        }
+    }
 }
