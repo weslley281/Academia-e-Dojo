@@ -18,8 +18,8 @@
         </div>
 
         <div class="form-group"> <!-- Campo para o ID da arte marcial associada -->
-            <label for="idMartialArt" class="form-label"><strong>Arte Marcial:</strong></label>
-            <select name="idMartialArt" class="form-control" id="idMartialArt">
+            <label for="id_martial_art" class="form-label"><strong>Arte Marcial:</strong></label>
+            <select name="id_martial_art" class="form-control" id="id_martial_art">
                 <?php
                 $martialarts = $martialart->getAll();
 
@@ -60,6 +60,11 @@
         <div class="form-group"> <!-- Campo para a hora final da classe -->
             <label for="finalHour" class="form-label"><strong>Hora Final:</strong></label>
             <input type="time" id="finalHour" name="finalHour" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="days" class="form-label"><strong>Hora Final:</strong></label>
+            <input type="number" id="days" name="days" class="form-control" required>
         </div>
 
         <div class="form-group row"> <!-- Botões para submeter ou cancelar -->

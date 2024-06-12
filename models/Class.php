@@ -17,19 +17,20 @@ class ClassModel
     {
         try {
             $stmt = $this->conn->prepare(
-                'INSERT INTO classes (idMartialArt, idInstructor, name, description, value, initialHour, finalHour)
-                 VALUES (?, ?, ?, ?, ?, ?, ?)'
+                'INSERT INTO classes (id_martial_art, idInstructor, name, description, value, initialHour, finalHour, days)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
             );
 
             $stmt->bind_param(
-                'iisssss',
-                $data['idMartialArt'],
+                'iisssssi',
+                $data['id_martial_art'],
                 $data['idInstructor'],
                 $data['name'],
                 $data['description'],
                 $data['value'],
                 $data['initialHour'],
-                $data['finalHour']
+                $data['finalHour'],
+                $data['days']
             );
 
             $stmt->execute();
@@ -69,18 +70,19 @@ class ClassModel
     {
         try {
             $stmt = $this->conn->prepare(
-                'UPDATE classes SET idMartialArt = ?, idInstructor = ?, name = ?, description = ?, value = ?, initialHour = ?, finalHour = ? WHERE id = ?'
+                'UPDATE classes SET id_martial_art = ?, idInstructor = ?, name = ?, description = ?, value = ?, initialHour = ?, finalHour = ?, days = ? WHERE id = ?'
             );
 
             $stmt->bind_param(
-                'iisssssi',
-                $data['idMartialArt'],
+                'iisssssii',
+                $data['id_martial_art'],
                 $data['idInstructor'],
                 $data['name'],
                 $data['description'],
                 $data['value'],
                 $data['initialHour'],
                 $data['finalHour'],
+                $data['days'],
                 $id
             );
 

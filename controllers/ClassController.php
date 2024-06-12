@@ -21,6 +21,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 "value" => htmlspecialchars($post["value"] ?? ''),
                 "initialHour" => htmlspecialchars($post["initialHour"] ?? ''),
                 "finalHour" => htmlspecialchars($post["finalHour"] ?? ''),
+                "days" => htmlspecialchars($post["days"] ?? 0),
             ];
         }
 

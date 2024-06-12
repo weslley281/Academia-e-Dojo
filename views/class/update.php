@@ -1,5 +1,5 @@
 <?php
-$get_martialart = $martialart->getById($class_item["idMartialArt"]);
+$get_martialart = $martialart->getById($class_item["id_martial_art"]);
 $get_instructor = $user->getById($class_item["idInstructor"]);
 ?>
 <div class="container mt-5">
@@ -8,68 +8,73 @@ $get_instructor = $user->getById($class_item["idInstructor"]);
         <input type="hidden" name="id" value="<?php echo $_GET["id"] ?>">
         <div class="form-group form-group"> <!-- Campo para o nome da classe -->
             <label for="name" class="form-label"><strong>Nome:</strong></label>
-            <input type="text" id="name" name="name" class="form-control" value="<?=htmlspecialchars($class_item['name']);?>" required>
+            <input type="text" id="name" name="name" class="form-control" value="<?= htmlspecialchars($class_item['name']); ?>" required>
         </div>
 
         <div class="form-group"> <!-- Campo para a descrição da classe -->
             <label for="description" class="form-label"><strong>Descrição:</strong></label>
-            <textarea name="description" id="description" class="form-control" cols="30" rows="5" required><?=htmlspecialchars($class_item['description']);?></textarea>
+            <textarea name="description" id="description" class="form-control" cols="30" rows="5" required><?= htmlspecialchars($class_item['description']); ?></textarea>
         </div>
 
         <div class="form-group"> <!-- Campo para a descrição da classe -->
             <label for="value" class="form-label"><strong>Valor:</strong></label>
-            <input type="text" id="value" name="value" value="<?=htmlspecialchars($class_item['value']);?>" class="form-control" oninput="formatarNumero(this)" required>
+            <input type="text" id="value" name="value" value="<?= htmlspecialchars($class_item['value']); ?>" class="form-control" oninput="formatarNumero(this)" required>
             <small>Insira valores separados por pontos, exemplo <strong>"2.99"</strong></small>
         </div>
 
         <div class="form-group"> <!-- Campo para o ID da arte marcial associada -->
-            <label for="idMartialArt" class="form-label"><strong>Arte Marcial:</strong></label>
-            <select name="idMartialArt" class="form-control" id="idMartialArt">
-                <option value="<?=htmlspecialchars($get_martialart["id"]);?>"><?=htmlspecialchars($get_martialart["name"]);?></option>
+            <label for="id_martial_art" class="form-label"><strong>Arte Marcial:</strong></label>
+            <select name="id_martial_art" class="form-control" id="id_martial_art">
+                <option value="<?= htmlspecialchars($get_martialart["id"]); ?>"><?= htmlspecialchars($get_martialart["name"]); ?></option>
                 <?php
-$martialarts = $martialart->getAll();
+                $martialarts = $martialart->getAll();
 
-if (isset($martialarts) && !empty($martialarts)) {
-    foreach ($martialarts as $martialart) {
-        if ($martialart['name'] != $get_martialart["name"]) {
-            ?>
-                            <option value="<?=htmlspecialchars($martialart['id'])?>"><?=htmlspecialchars($martialart['name'])?></option>
+                if (isset($martialarts) && !empty($martialarts)) {
+                    foreach ($martialarts as $martialart) {
+                        if ($martialart['name'] != $get_martialart["name"]) {
+                ?>
+                            <option value="<?= htmlspecialchars($martialart['id']) ?>"><?= htmlspecialchars($martialart['name']) ?></option>
                 <?php
-}
-    }
-}
-?>
+                        }
+                    }
+                }
+                ?>
             </select>
         </div>
 
         <div class="form-group"> <!-- Campo para o ID do instrutor associado -->
             <label for="idInstructor" class="form-label"><strong>Instrutor:</strong></label>
             <select class="form-control" name="idInstructor" id="idInstructor">
-                <option value="<?=htmlspecialchars($get_instructor["id"]);?>"><?=htmlspecialchars($get_instructor["name"]);?></option>
+                <option value="<?= htmlspecialchars($get_instructor["id"]); ?>"><?= htmlspecialchars($get_instructor["name"]); ?></option>
                 <?php
-$users = $user->getAllInstructors();
+                $users = $user->getAllInstructors();
 
-if (isset($users) && !empty($users)) {
-    foreach ($users as $instructor) {
-        if ($instructor['name'] != $get_instructor["name"]) {
-            ?>
-                            <option value="<?=htmlspecialchars($instructor['id'])?>"><?=htmlspecialchars($instructor['name'])?></option>
+                if (isset($users) && !empty($users)) {
+                    foreach ($users as $instructor) {
+                        if ($instructor['name'] != $get_instructor["name"]) {
+                ?>
+                            <option value="<?= htmlspecialchars($instructor['id']) ?>"><?= htmlspecialchars($instructor['name']) ?></option>
                 <?php
-}
-    }
-}
-?>
+                        }
+                    }
+                }
+                ?>
             </select>
         </div>
 
         <div class="form-group"> <!-- Campo para a hora inicial da classe -->
             <label for="initialHour" class="form-label"><strong>Hora Inicial:</strong></label>
-            <input type="time" id="initialHour" name="initialHour" class="form-control" value="<?=htmlspecialchars($class_item['initialHour']);?>" required>
+            <input type="time" id="initialHour" name="initialHour" class="form-control" value="<?= htmlspecialchars($class_item['initialHour']); ?>" required>
         </div>
 
         <div class="form-group"> <!-- Campo para a hora final da classe -->
             <label for="finalHour" class="form-label"><strong>Hora Final:</strong></label>
-            <input type="time" id="finalHour" name="finalHour" class="form-control" value="<?=htmlspecialchars($class_item['finalHour']);?>" required>
+            <input type="time" id="finalHour" name="finalHour" class="form-control" value="<?= htmlspecialchars($class_item['finalHour']); ?>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="days" class="form-label"><strong>Hora Final:</strong></label>
+            <input type="number" id="days" name="days" class="form-control" value="<?= htmlspecialchars($class_item['days']); ?>" required>
         </div>
 
         <div class="form-group row"> <!-- Botões para submeter ou cancelar -->
@@ -109,33 +114,33 @@ if (isset($users) && !empty($users)) {
     <h3><strong>Dias de Aulas:</strong></h3>
     <ul class="list-group my-4">
         <?php
-$class_days = $class->getClassDays($_GET["id"]);
-if (isset($class_days) && !empty($class_days)) {
-    foreach ($class_days as $day_of_week) {
-        $days_item = [
-            "Monday" => "Segunda-Feira",
-            "Tuesday" => "Terça-Feira",
-            "Wednesday" => "Quarta-Feira",
-            "Thursday" => "Quinta-Feira",
-            "Friday" => "Sexta-Feira",
-            "Saturday" => "Sábado-Feira",
-            "Sunday" => "Domingo-Feira",
-        ]
+        $class_days = $class->getClassDays($_GET["id"]);
+        if (isset($class_days) && !empty($class_days)) {
+            foreach ($class_days as $day_of_week) {
+                $days_item = [
+                    "Monday" => "Segunda-Feira",
+                    "Tuesday" => "Terça-Feira",
+                    "Wednesday" => "Quarta-Feira",
+                    "Thursday" => "Quinta-Feira",
+                    "Friday" => "Sexta-Feira",
+                    "Saturday" => "Sábado-Feira",
+                    "Sunday" => "Domingo-Feira",
+                ]
         ?>
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-11"><?=$days_item[$day_of_week]?></div>
+                        <div class="col-11"><?= $days_item[$day_of_week] ?></div>
                         <div class="col-1">
                             <form action="./controllers/ClassDaysController.php?action=delete" method="post">
-                                <input type="hidden" name="id" value="<?=htmlspecialchars($_GET["id"])?>">
-                                <input type="hidden" name="day_of_week" value="<?=htmlspecialchars($day_of_week)?>">
+                                <input type="hidden" name="id" value="<?= htmlspecialchars($_GET["id"]) ?>">
+                                <input type="hidden" name="day_of_week" value="<?= htmlspecialchars($day_of_week) ?>">
                                 <button class="btn btn-danger" type="submit"><i class="fa-regular fa-trash-can"></i></button>
                             </form>
                         </div>
                     </div>
                 </li>
         <?php
-}
-}?>
+            }
+        } ?>
     </ul>
 </div>
