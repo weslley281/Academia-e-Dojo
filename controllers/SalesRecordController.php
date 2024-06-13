@@ -65,26 +65,38 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                             if ($expiration = $expirationItem->getBySaleAndUserId($item["sale_id"], $data["student_id"])) {
                                 $expirationDate = $expiration["expirationDate"];
                                 var_dump($expirationDate);
+
+                                $newExpirationDate = new DateTime($expirationDate);
+                                $newExpirationDate->modify("+" . $classData["days"] . " days");
+                                $expirationDate = $newExpirationDate->format('Y-m-d');
+
+                                $expirationItemData = [
+                                    "student_id" => $data["student_id"],
+                                    "class_id" => $item["class_id"],
+                                    "expirationDate" => $expirationDate
+                                ];
+
+                                $expirationItem->update($expirationItemData, $expiration["id"]);
                             } else {
                                 $expirationDate = Date("Y-m-d");
                                 var_dump($expirationDate);
+
+                                $newExpirationDate = new DateTime($expirationDate);
+                                $newExpirationDate->modify("+" . $classData["days"] . " days");
+                                $expirationDate = $newExpirationDate->format('Y-m-d');
+
+                                $expirationItemData = [
+                                    "student_id" => $data["student_id"],
+                                    "class_id" => $item["class_id"],
+                                    "expirationDate" => $expirationDate
+                                ];
+
+                                $expirationItem->create($expirationItemData);
                             }
-
-                            $newExpirationDate = new DateTime($expirationDate);
-                            $newExpirationDate->modify("+" . $classData["days"] . " days");
-                            $expirationDate = $newExpirationDate->format('Y-m-d');
-
-                            $expirationItemData = [
-                                "student_id" => $data["student_id"],
-                                "class_id" => $item["class_id"],
-                                "expirationDate" => $expirationDate
-                            ];
-
-                            $expirationItem->create($expirationItemData);
                         }
                     }
 
-                    //header("Location: ../index.php?page=financial&action=sell");
+                    header("Location: ../index.php?page=financial&action=sell");
                 } else {
                     //header("Location: ../index.php?page=financial&action=sell");
                 }

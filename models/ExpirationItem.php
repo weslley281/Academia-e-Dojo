@@ -71,7 +71,7 @@ class ExpirationItem
     }
 
 
-    public function update(array $data, $id)
+    public function update(array $data, int $id)
     {
         try {
             $stmt = $this->conn->prepare('UPDATE expiration SET student_id = ?, class_id = ? WHERE id = ?');
