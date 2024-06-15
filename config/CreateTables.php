@@ -61,7 +61,7 @@ class CreateTables
         CREATE TABLE IF NOT EXISTS classes (
             id INT AUTO_INCREMENT PRIMARY KEY,
             id_martial_art INT,
-            idInstructor INT,
+            id_instructor INT,
             name VARCHAR(255) UNIQUE,
             description TEXT(500),
             value DECIMAL(10, 2),
@@ -71,7 +71,7 @@ class CreateTables
             editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (id_martial_art) REFERENCES martialArts(id),
-            FOREIGN KEY (idInstructor) REFERENCES users(id)
+            FOREIGN KEY (id_instructor) REFERENCES users(id)
         );
         ";
 
