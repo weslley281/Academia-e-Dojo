@@ -14,8 +14,8 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
         function getClassData($post)
         {
             return [
-                "idMartialArt" => intval($post["idMartialArt"] ?? 0),
-                "idInstructor" => intval($post["idInstructor"] ?? 0),
+                "id_martial_art" => intval($post["id_martial_art"] ?? 0),
+                "id_instructor" => intval($post["id_instructor"] ?? 0),
                 "name" => htmlspecialchars($post["name"] ?? ''),
                 "description" => htmlspecialchars($post["description"] ?? ''),
                 "value" => htmlspecialchars($post["value"] ?? ''),

@@ -89,6 +89,8 @@ class CreateTables
             id INT AUTO_INCREMENT PRIMARY KEY,
             class_id INT,
             day_of_week ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'),
+            editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (class_id) REFERENCES classes(id)
         );
 
@@ -135,6 +137,8 @@ class CreateTables
                 status ENUM('open', 'close'),
                 open TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 close TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (user_id) REFERENCES users(id),
                 FOREIGN KEY (openedBy) REFERENCES users(id),
                 FOREIGN KEY (closedBy) REFERENCES users(id)
@@ -162,6 +166,8 @@ class CreateTables
                 total DECIMAL(10, 2) NULL,
                 status ENUM('in_process', 'processed', 'canceled'),
                 saleDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (cashier_id) REFERENCES cashier(id),
                 FOREIGN KEY (user_id) REFERENCES users(id),
                 FOREIGN KEY (student_id) REFERENCES users(id)
@@ -182,6 +188,8 @@ class CreateTables
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 sale_id INT NOT NULL,
                 class_id INT NOT NULL,
+                editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (sale_id) REFERENCES sales_records(id),
                 FOREIGN KEY (class_id) REFERENCES classes(id)
             );
@@ -202,6 +210,8 @@ class CreateTables
                 sale_id INT NOT NULL,
                 payment_method_id INT NOT NULL,
                 amount_paid DECIMAL(10, 2) NOT NULL,
+                editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (sale_id) REFERENCES sales_records(id),
                 FOREIGN KEY (payment_method_id) REFERENCES method_payment(id)
             );
@@ -221,8 +231,9 @@ class CreateTables
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 student_id INT NOT NULL,
                 class_id INT NOT NULL,
-                createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 expirationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (student_id) REFERENCES users(id),
                 FOREIGN KEY (class_id) REFERENCES classes(id)
             );

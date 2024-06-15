@@ -16,7 +16,7 @@
 
                                 if (isset($classes) && !empty($classes)) { // Verifica se há classes para exibir
                                     foreach ($classes as $class_item) {
-                                        $get_user = $user->getById($class_item['idInstructor']);
+                                        $get_user = $user->getById($class_item['id_instructor']);
                                         $valorFormatado = number_format((float) $class_item['value'], 2, ',', '.');
                                 ?>
                                         <option value="<?= htmlspecialchars($class_item['id']) ?>">
@@ -51,7 +51,7 @@
                         foreach ($salesItems as $item) {
                             $class_item = $class->getById($item["class_id"]);
                             $sub_total += $class_item['value'];
-                            $get_user = $user->getById($class_item['idInstructor']);
+                            $get_user = $user->getById($class_item['id_instructor']);
                             $valorFormatado = number_format((float) $class_item['value'], 2, ',', '.');
                     ?>
                             <tr>

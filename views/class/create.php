@@ -36,8 +36,8 @@
         </div>
 
         <div class="form-group"> <!-- Campo para o ID do instrutor associado -->
-            <label for="idInstructor" class="form-label"><strong>Instrutor:</strong></label>
-            <select class="form-control" name="idInstructor" id="idInstructor">
+            <label for="id_instructor" class="form-label"><strong>Instrutor:</strong></label>
+            <select class="form-control" name="id_instructor" id="id_instructor">
                 <?php
                 $users = $user->getAllInstructors();
 

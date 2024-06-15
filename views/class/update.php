@@ -1,6 +1,6 @@
 <?php
 $get_martialart = $martialart->getById($class_item["id_martial_art"]);
-$get_instructor = $user->getById($class_item["idInstructor"]);
+$get_instructor = $user->getById($class_item["id_instructor"]);
 ?>
 <div class="container mt-5">
     <h1>Editar Turma</h1>
@@ -43,8 +43,8 @@ $get_instructor = $user->getById($class_item["idInstructor"]);
         </div>
 
         <div class="form-group"> <!-- Campo para o ID do instrutor associado -->
-            <label for="idInstructor" class="form-label"><strong>Instrutor:</strong></label>
-            <select class="form-control" name="idInstructor" id="idInstructor">
+            <label for="id_instructor" class="form-label"><strong>Instrutor:</strong></label>
+            <select class="form-control" name="id_instructor" id="id_instructor">
                 <option value="<?= htmlspecialchars($get_instructor["id"]); ?>"><?= htmlspecialchars($get_instructor["name"]); ?></option>
                 <?php
                 $users = $user->getAllInstructors();

@@ -19,7 +19,7 @@
             if (isset($classes) && !empty($classes)) { // Verifica se há classes para exibir
                 foreach ($classes as $class_item) {
 
-                    $get_user = $user->getById($class_item['idInstructor']);
+                    $get_user = $user->getById($class_item['id_instructor']);
                     $valorFormatado = number_format((float) $class_item['value'], 2, ',', '.');
             ?>
                     <tr>
