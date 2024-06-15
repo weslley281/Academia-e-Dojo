@@ -64,11 +64,15 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
 
                             if ($expiration = $expirationItem->getBySaleAndUserId($item["sale_id"], $data["student_id"])) {
                                 $expirationDate = $expiration["expirationDate"];
-                                var_dump($expirationDate);
+                                $expirationDateObj = new DateTime($expirationDate);
+                                $currentDateObj = new DateTime();
 
-                                $newExpirationDate = new DateTime($expirationDate);
-                                $newExpirationDate->modify("+" . $classData["days"] . " days");
-                                $expirationDate = $newExpirationDate->format('Y-m-d');
+                                if ($expirationDateObj < $currentDateObj) {
+                                    $expirationDateObj = $currentDateObj;
+                                }
+
+                                $expirationDateObj->modify("+" . $classData["days"] . " days");
+                                $expirationDate = $expirationDateObj->format('Y-m-d');
 
                                 $expirationItemData = [
                                     "student_id" => $data["student_id"],
@@ -81,9 +85,9 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                                 $expirationDate = Date("Y-m-d");
                                 var_dump($expirationDate);
 
-                                $newExpirationDate = new DateTime($expirationDate);
-                                $newExpirationDate->modify("+" . $classData["days"] . " days");
-                                $expirationDate = $newExpirationDate->format('Y-m-d');
+                                $expirationDateObj = new DateTime($expirationDate);
+                                $expirationDateObj->modify("+" . $classData["days"] . " days");
+                                $expirationDate = $expirationDateObj->format('Y-m-d');
 
                                 $expirationItemData = [
                                     "student_id" => $data["student_id"],
@@ -96,7 +100,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                         }
                     }
 
-                    header("Location: ../index.php?page=financial&action=sell");
+                    //header("Location: ../index.php?page=financial&action=sell");
                 } else {
                     //header("Location: ../index.php?page=financial&action=sell");
                 }
