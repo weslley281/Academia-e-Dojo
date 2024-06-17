@@ -61,18 +61,23 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                             var_dump($item);
                             $classData = $class->getById($item["class_id"]);
 
-
-                            if ($expiration = $expirationItem->getBySaleAndUserId($item["sale_id"], $data["student_id"])) {
+                            echo var_dump($expiration = $expirationItem->getBySaleAndUserId($item["class_id"], $data["student_id"]));
+                            if ($expiration = $expirationItem->getBySaleAndUserId($item["class_id"], $data["student_id"])) {
                                 $expirationDate = $expiration["expirationDate"];
                                 $expirationDateObj = new DateTime($expirationDate);
                                 $currentDateObj = new DateTime();
 
+                                echo "<br>A data de exppiração do banco = $expirationDate é menor que a data atual?";
+                                var_dump($expirationDateObj < $currentDateObj, $expirationDateObj);
                                 if ($expirationDateObj < $currentDateObj) {
                                     $expirationDateObj = $currentDateObj;
+                                    echo "<br>É menor sim";
                                 }
 
                                 $expirationDateObj->modify("+" . $classData["days"] . " days");
                                 $expirationDate = $expirationDateObj->format('Y-m-d');
+                                echo "<br> nova data de expiração é?";
+                                var_dump($expirationDate);
 
                                 $expirationItemData = [
                                     "student_id" => $data["student_id"],
@@ -81,6 +86,8 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                                 ];
 
                                 $expirationItem->update($expirationItemData, $expiration["id"]);
+
+                                echo "<br>Fiz Update";
                             } else {
                                 $expirationDate = Date("Y-m-d");
                                 var_dump($expirationDate);
@@ -96,6 +103,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                                 ];
 
                                 $expirationItem->create($expirationItemData);
+                                echo "<br>Fiz Create";
                             }
                         }
                     }

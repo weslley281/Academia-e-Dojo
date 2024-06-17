@@ -43,22 +43,23 @@ class ExpirationItem
         }
     }
 
-    public function getBySaleAndUserId(int $sale_id, int $student_id)
+    public function getBySaleAndUserId(int $class_id, int $student_id)
     {
+        echo "SELECT * FROM expiration WHERE class_id = $class_id AND student_id = $student_id";
         // Validação básica de entrada
-        if ($sale_id <= 0 || $student_id <= 0) {
-            error_log("Invalid sale_id or student_id: sale_id=$sale_id, student_id=$student_id", 3, __DIR__ . '/errors.log');
+        if ($class_id <= 0 || $student_id <= 0) {
+            error_log("Invalid class_id or student_id: class_id=$class_id, student_id=$student_id", 3, __DIR__ . '/errors.log');
             return null;
         }
 
         try {
-            $stmt = $this->conn->prepare('SELECT * FROM expiration WHERE sale_id = ? AND student_id = ?');
+            $stmt = $this->conn->prepare('SELECT * FROM expiration WHERE class_id = ? AND student_id = ?');
 
             if ($stmt === false) {
                 throw new mysqli_sql_exception("Failed to prepare statement: " . $this->conn->error);
             }
 
-            $stmt->bind_param('ii', $sale_id, $student_id);
+            $stmt->bind_param('ii', $class_id, $student_id);
             $stmt->execute();
             $result = $stmt->get_result()->fetch_assoc();
             $stmt->close();
@@ -73,10 +74,12 @@ class ExpirationItem
 
     public function update(array $data, int $id)
     {
+        echo "A array enviada é: ";
+        var_dump($data);
         try {
-            $stmt = $this->conn->prepare('UPDATE expiration SET student_id = ?, class_id = ? WHERE id = ?');
+            $stmt = $this->conn->prepare('UPDATE expiration SET student_id = ?, class_id = ?, expirationDate = ? WHERE id = ?');
 
-            $stmt->bind_param('iii', $data['student_id'], $data['class_id'], $id);
+            $stmt->bind_param('iisi', $data['student_id'], $data['class_id'], $data['expirationDate'], $id);
 
             $stmt->execute();
             return true;

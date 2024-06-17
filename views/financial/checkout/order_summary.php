@@ -40,7 +40,7 @@
             <?php } ?>
 
 
-            <?php if ($total_amount_paid >= $sub_total) { ?>
+            <?php if ($total_amount_paid >= $sub_total && $sale_data["student_id"] != "" && $sale_data["student_id"] != null) { ?>
                 <!-- Finalizar Compra -->
                 <form method="post" action="controllers/SalesRecordController.php?action=update">
                     <input type="hidden" name="id" value="<?= htmlspecialchars($sale_data['id']) ?>">
