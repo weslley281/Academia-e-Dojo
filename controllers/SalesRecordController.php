@@ -121,7 +121,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 }
 
                 if ($salesRecord->updateClient($_POST["client"], $id)) {
-                    header("Location: ../index.php?page=financial&action=sell");
+                    header("Location: ../index.php?page=financial&action=sell#client");
                 } else {
                     header("Location: ../index.php?page=financial&action=sell");
                 }
