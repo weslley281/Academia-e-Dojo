@@ -184,4 +184,16 @@ class SalesRecord
             return 0;
         }
     }
+
+    public function getLastProcessedSale()
+    {
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM sales_records WHERE status = 'processed' ORDER BY id DESC LIMIT 1");
+            $stmt->execute();
+            return $stmt->get_result()->fetch_assoc();
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return null;
+        }
+    }
 }
