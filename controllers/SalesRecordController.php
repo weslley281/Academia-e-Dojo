@@ -108,9 +108,9 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                         }
                     }
 
-                    //header("Location: ../index.php?page=financial&action=sell");
+                    header("Location: ../views/financial/recibo.php");
                 } else {
-                    //header("Location: ../index.php?page=financial&action=sell");
+                    header("Location: ../index.php?page=financial&action=sell");
                 }
                 break;
 

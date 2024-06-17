@@ -28,10 +28,14 @@
     }
   </style>
   <script>
-    //Função para imprimir a página quando ela for carregada
-    // window.onload = function() {
-    //   window.print();
-    // };
+    // Função para imprimir a página quando ela for carregada
+    window.onload = function() {
+      window.print();
+      // Adiciona um atraso para garantir que a impressão termine antes do redirecionamento
+      setTimeout(function() {
+        window.location.href = '../../index.php?page=financial&action=sell'; // Substitua pela URL desejada
+      }, 10000); // 1000 milissegundos (1 segundo) de atraso
+    };
   </script>
 </head>
 
@@ -54,8 +58,10 @@ $methodPayment = new MethodPayment($conn);
 $salesPaymentItem = new SalesPaymentItem($conn);
 $expirationItem = new ExpirationItem($conn);
 
-$userData = $user->getById(1);
+$gymData = $user->getById(1);
 $salesData = $salesRecord->getLastProcessedSale();
+
+$studentData = $user->getById($salesData["student_id"]);
 
 $objDate = new DateTime($salesData["saleDate"]);
 $formattedDate = $objDate->format("d/m/Y H:i:s");
@@ -65,18 +71,19 @@ $formattedAmountPaid = number_format((float) $salesData["amount_paid"], 2, ',', 
 $formattedDiscount = number_format((float) $salesData["discount"], 2, ',', '.');
 $formattedChangeSale = number_format((float) $salesData["change_sale"], 2, ',', '.');
 
-var_dump($salesData);
+//var_dump($salesData);
 ?>
 
 <body>
   <div class="container">
     <div class="receipt">
       <div class="receipt-header">
-        <h1>Academia <?= htmlspecialchars($userData["name"]) ?></h1>
+        <h1>Academia <?= htmlspecialchars($gymData["name"]) ?></h1>
         <p><strong>Recibo de Compra</strong></p>
       </div>
       <div class="receipt-body">
-        <p><strong>Nome:</strong> Weslley Henrique Vieira Ferraz</p>
+        <p><strong>Nome:</strong> <?= htmlspecialchars($studentData["name"]) ?></p>
+        <p><strong>Email:</strong> <?= htmlspecialchars($studentData["email"]) ?></p>
         <p><strong>Data da Compra:</strong> <?= htmlspecialchars($formattedDate) ?></p>
         <?php
         $salestens = $salesItem->getBySaleId($salesData["id"]);
@@ -104,11 +111,11 @@ var_dump($salesData);
       <div class="receipt-footer">
         <p>Obrigado pela sua compra!</p>
         <p>
-          <?= htmlspecialchars($userData["address"]) ?> - <?= htmlspecialchars($userData["complement"]) ?>
+          <?= htmlspecialchars($gymData["address"]) ?> - <?= htmlspecialchars($gymData["complement"]) ?>
           <br>
-          <?= htmlspecialchars($userData["country"]) ?> - <?= htmlspecialchars($userData["state"]) ?> - <?= htmlspecialchars($userData["city"]) ?> - <?= htmlspecialchars($userData["neighborhood"]) ?> - <?= htmlspecialchars($userData["postalCode"]) ?>
+          <?= htmlspecialchars($gymData["country"]) ?> - <?= htmlspecialchars($gymData["state"]) ?> - <?= htmlspecialchars($gymData["city"]) ?> - <?= htmlspecialchars($gymData["neighborhood"]) ?> - <?= htmlspecialchars($gymData["postalCode"]) ?>
           <br>
-          Telefone: <?= htmlspecialchars($userData["phone"]) ?>
+          Telefone: <?= htmlspecialchars($gymData["phone"]) ?>
         </p>
       </div>
     </div>

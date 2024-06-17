@@ -16,7 +16,7 @@ class SalesRecord
     public function create(array $data)
     {
         try {
-            echo "<br>também fui chamado";
+            //echo "<br>também fui chamado";
             $stmt = $this->conn->prepare('INSERT INTO sales_records (cashier_id, user_id, student_id, amount_paid, change_sale, total, status) VALUES (?, ?, ?, ?, ?, ?, ?)');
 
             if ($stmt === false) {
