@@ -71,9 +71,22 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4 my-2">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="./images/relatorio.jpg" alt="Imagem de capa do card">
+                        <div class="card-body">
+                            <h5 class="card-title">Relatórios</h5>
+                            <p class="card-text">Registre suas dispesas</strong>.</p>
+                            <a href="index.php?page=financial&action=sales_report" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         <?php } elseif ($action == "sell") {
             include_once "checkout.php";
+        } elseif ($action == "sales_report") {
+            include_once "sales_report.php";
         } ?>
     </div>
 
