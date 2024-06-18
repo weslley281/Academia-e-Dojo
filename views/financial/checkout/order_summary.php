@@ -1,4 +1,4 @@
-<div class="col-md-8 col-12">
+<div id="order" class="col-md-8 col-12">
     <div class="card mt-4">
         <div class="card-header">
             <h3>Resumo do Pedido</h3>

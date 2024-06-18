@@ -1,4 +1,4 @@
-<div class="col-md-12 col-12">
+<div id="products" class="col-md-12 col-12">
     <div class="card mt-4">
         <div class="card-header">
             <h3>Produtos</h3>

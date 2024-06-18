@@ -26,7 +26,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
             case 'create':
                 $data = getSalesItemData($_POST);
                 if ($salesItem->create($data)) {
-                    header("Location: ../index.php?page=financial&action=sell");
+                    header("Location: ../index.php?page=financial&action=sell#products");
                 } else {
                     header("Location: ../index.php?page=financial&action=sell&info=error");
                 }
