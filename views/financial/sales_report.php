@@ -1,4 +1,5 @@
 <div id="report">
+    <a href="views/financial/print_report.php" class="btn btn-primary"><i class="fa-solid fa-print"></i> Imprimir Relatório</a>
     <table id="minhaTabela" class="table table-striped">
         <thead>
             <tr>
