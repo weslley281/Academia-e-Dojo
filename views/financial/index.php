@@ -78,15 +78,16 @@
                         <div class="card-body">
                             <h5 class="card-title">Relatórios</h5>
                             <p class="card-text">Registre suas dispesas</strong>.</p>
-                            <a href="index.php?page=financial&action=sales_report" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
+                            <a href="index.php?page=financial&action=sales_report#report" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
                         </div>
                     </div>
                 </div>
             </div>
-        <?php } elseif ($action == "sell") {
+        <?php if ($action == "sales_report") {
+                include_once "sales_report.php";
+            }
+        } elseif ($action == "sell") {
             include_once "checkout.php";
-        } elseif ($action == "sales_report") {
-            include_once "sales_report.php";
         } ?>
     </div>
 

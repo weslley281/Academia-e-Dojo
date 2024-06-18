@@ -1,36 +1,46 @@
-<table id="minhaTabela" class="table table-striped">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        $martialarts = $martialart->getAll();
+<div id="report">
+    <table id="minhaTabela" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Usuário</th>
+                <th>Estudante</th>
+                <th>Desconto</th>
+                <th>Pago</th>
+                <th>Troco</th>
+                <th>Total</th>
+                <th>Estatus</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $salesRecordDatas = $salesRecord->getAll();
 
-        if (isset($martialarts) && !empty($martialarts)) {
-            foreach ($martialarts as $martialart) {
-                $description = truncate($martialart['description'], 50);
-        ?>
-                <tr>
-                    <td><?= htmlspecialchars($martialart['name']) ?></td>
-                    <td><?= htmlspecialchars($description) ?></td>
-                    <td>
-                        <a href="index.php?page=martial_arts&action=update&id=<?= $martialart['id'] ?>" class="btn btn-info"><i class="fa-regular fa-pen-to-square"></i></a>
-                        <a href="index.php?page=martial_arts&action=delete&id=<?= $martialart['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
-                    </td>
-                    <?php
-                    if (isset($_GET["action"]) && $_GET["action"] == "update" && isset($_GET["id"]) && $_GET["id"] == $martialart['id']) {
-                        include_once "update.php";
-                    } elseif (isset($_GET["action"]) && $_GET["action"] == "delete" && isset($_GET["id"]) && $_GET["id"] == $martialart['id']) {
-                        include_once "delete.php";
-                    }
-                    ?>
-                </tr>
-        <?php }
-        }
-        ?>
-    </tbody>
-</table>
+            if (isset($salesRecordDatas) && !empty($salesRecordDatas)) {
+                foreach ($salesRecordDatas as $item) {
+                    if ($item['status'] != "in_process") {
+
+                        $userData = $user->getById($item['user_id']);
+                        $userName = explode(" ", $userData["name"]);
+
+                        $studentData = $user->getById($item['student_id']);
+                        $studentName = explode(" ", $studentData["name"]);
+            ?>
+                        <tr>
+                            <td><?= htmlspecialchars($item['cashier_id']) ?></td>
+                            <td><?= htmlspecialchars($userName[0]) ?></td>
+                            <td><?= htmlspecialchars($studentName[0]) ?></td>
+                            <td><?= htmlspecialchars($item['discount']) ?></td>
+                            <td><?= htmlspecialchars($item['amount_paid']) ?></td>
+                            <td><?= htmlspecialchars($item['change_sale']) ?></td>
+                            <td><?= htmlspecialchars($item['total']) ?></td>
+                            <td><?= htmlspecialchars($item['status']) ?></td>
+                            <td><?= htmlspecialchars($item['saleDate']) ?></td>
+                        </tr>
+            <?php }
+                }
+            } ?>
+        </tbody>
+    </table>
+</div>
