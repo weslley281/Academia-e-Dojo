@@ -18,8 +18,8 @@
 
 <script>
     $(document).ready(function() {
-    $('.select_basic2').select2();
-});
+        $('.select_basic2').select2();
+    });
 </script>
 
 <script type="text/javascript">
@@ -45,12 +45,12 @@
 
 
 <script>
-    tinymce.init({
-        selector: 'textarea#description',
-        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-        language: 'pt_BR',
-    });
+    // tinymce.init({
+    //     selector: 'textarea#description',
+    //     plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+    //     toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+    //     language: 'pt_BR',
+    // });
 </script>
 
 <script>
