@@ -15,11 +15,13 @@
 
                             if (isset($users) && !empty($users)) {
                                 foreach ($users as $item) {
+                                    if ($item["id"] != 1) {
                             ?>
-                                    <option value="<?= htmlspecialchars($item['id']) ?>">
-                                        <?= htmlspecialchars($item['id']) . ": " . $item['name'] ?>
-                                    </option>
+                                        <option value="<?= htmlspecialchars($item['id']) ?>">
+                                            <?= htmlspecialchars($item['id']) . ": " . $item['name'] ?>
+                                        </option>
                             <?php }
+                                }
                             } ?>
                         </select>
                     </div>

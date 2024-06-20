@@ -28,14 +28,12 @@
     }
   </style>
   <script>
-    // Função para imprimir a página quando ela for carregada
-    window.onload = function() {
-      window.print();
-      // Adiciona um atraso para garantir que a impressão termine antes do redirecionamento
-      setTimeout(function() {
-        window.location.href = '../../index.php?page=financial&action=sell'; // Substitua pela URL desejada
-      }, 10000); // 1000 milissegundos (1 segundo) de atraso
-    };
+    // window.onload = function() {
+    //   window.print();
+    //   setTimeout(function() {
+    //     window.location.href = '../../index.php?page=financial&action=sell';
+    //   }, 10000);
+    // };
   </script>
 </head>
 
@@ -71,6 +69,12 @@ $formattedAmountPaid = number_format((float) $salesData["amount_paid"], 2, ',', 
 $formattedDiscount = number_format((float) $salesData["discount"], 2, ',', '.');
 $formattedChangeSale = number_format((float) $salesData["change_sale"], 2, ',', '.');
 
+$methods = [
+  "cash" => "Dinheiro",
+  "credit" => "Crédito",
+  "debit" => "Débito",
+  "deposit" => "Depósito, Transferência ou PIX"
+];
 //var_dump($salesData);
 ?>
 
@@ -87,9 +91,10 @@ $formattedChangeSale = number_format((float) $salesData["change_sale"], 2, ',', 
         <p><strong>Data da Compra:</strong> <?= htmlspecialchars($formattedDate) ?></p>
         <?php
         $salestens = $salesItem->getBySaleId($salesData["id"]);
+        $counter = 0;
 
         if (isset($salestens) && !empty($salestens)) { // Verifica se há classes para exibir
-          $counter = 0;
+
           foreach ($salestens as $item) {
             $classData = $class->getById($item["class_id"]);
             $valorFormatado = number_format((float) $classData['value'], 2, ',', '.');
@@ -97,6 +102,23 @@ $formattedChangeSale = number_format((float) $salesData["change_sale"], 2, ',', 
         ?>
             <p>
               <strong>Plano <?= htmlspecialchars($counter) ?>: </strong> <?= htmlspecialchars($classData["name"]) ?> por <?= htmlspecialchars($classData["days"]) ?> dias
+              <br>
+              <strong>Valor: </strong> R$ <?= htmlspecialchars($valorFormatado) ?>
+              <hr>
+            </p>
+          <?php }
+        }
+        $salesPaymentItems = $salesPaymentItem->getBySaleId($salesData["id"]);
+        $counter2 = 0;
+
+        if (isset($salesPaymentItems) && !empty($salesPaymentItems)) { // Verifica se há classes para exibir
+          foreach ($salesPaymentItems as $item) {
+            $methodPaymentData = $methodPayment->getById($item["payment_method_id"]);
+            $valorFormatado = number_format((float) $item['amount_paid'], 2, ',', '.');
+            $counter2 += 1;
+          ?>
+            <p>
+              <strong>Metodo de pagamento <?= htmlspecialchars($counter) ?>: </strong> <?= htmlspecialchars($methods[$methodPaymentData["name"]]) ?>
               <br>
               <strong>Valor: </strong> R$ <?= htmlspecialchars($valorFormatado) ?>
               <hr>

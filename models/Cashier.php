@@ -152,5 +152,4 @@ class Cashier
             return false;
         }
     }
-
 }

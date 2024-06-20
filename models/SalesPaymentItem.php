@@ -64,6 +64,20 @@ class SalesPaymentItem
         }
     }
 
+    public function getBySaleId($sale_id)
+    {
+        try {
+            $stmt = $this->conn->prepare('SELECT * FROM sales_payment_item WHERE sale_id = ?');
+            $stmt->bind_param('i', $sale_id);
+            $stmt->execute();
+
+            return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return [];
+        }
+    }
+
 
     public function update(array $data, $id)
     {

@@ -56,7 +56,9 @@
                         <div class="card-body">
                             <h5 class="card-title">Vender</h5>
                             <p class="card-text">Venda combo de planos</strong>.</p>
-                            <a href="index.php?page=financial&action=sell" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
+                            <?php if ($cashier->isOpen()) { ?>
+                                <a href="index.php?page=financial&action=sell" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
