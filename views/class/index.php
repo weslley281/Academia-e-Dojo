@@ -9,6 +9,7 @@
                 <th>Valor</th>
                 <th>Hora Inicial</th>
                 <th>Hora Final</th>
+                <th>Duração</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -28,6 +29,7 @@
                         <td>R$ <?= htmlspecialchars($valorFormatado) ?></td> <!-- Hora inicial -->
                         <td><?= htmlspecialchars($class_item['initialHour']) ?></td> <!-- Hora inicial -->
                         <td><?= htmlspecialchars($class_item['finalHour']) ?></td> <!-- Hora final -->
+                        <td><?= htmlspecialchars($class_item['days']) . " dias" ?></td> <!-- Hora final -->
                         <td> <!-- Ações para edição e exclusão -->
                             <a href="index.php?page=classes&action=update&id=<?= $class_item['id'] ?>" class="btn btn-info"><i class="fa-regular fa-pen-to-square"></i></a>
                             <a href="index.php?page=classes&action=delete&id=<?= $class_item['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>

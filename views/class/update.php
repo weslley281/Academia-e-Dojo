@@ -73,7 +73,7 @@ $get_instructor = $user->getById($class_item["id_instructor"]);
         </div>
 
         <div class="form-group">
-            <label for="days" class="form-label"><strong>Hora Final:</strong></label>
+            <label for="days" class="form-label"><strong>Quantidade de dias de duração do plano::</strong></label>
             <input type="number" id="days" name="days" class="form-control" value="<?= htmlspecialchars($class_item['days']); ?>" required>
         </div>
 
