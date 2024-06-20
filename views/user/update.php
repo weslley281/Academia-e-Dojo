@@ -1,3 +1,11 @@
+<?php
+define('ENCRYPTION_KEY', 'gotosao');
+function decrypt($data, $key): string
+{
+    list($encrypted_data, $iv) = explode('::', base64_decode($data), 2);
+    return openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
+}
+?>
 <div class="container mt-5">
     <h1>Editar Usuário</h1>
     <form action="./controllers/UserController.php?action=update" method="post" class="form-group">
@@ -15,6 +23,11 @@
         <div class="mb-3 form-group">
             <label for="phone" class="form-label"><strong>Telefone:</strong></label>
             <input type="number" id="phone" name="phone" class="form-control" value="<?php echo $user["phone"] ?>" required>
+        </div>
+
+        <div class="mb-3 form-group">
+            <label for="cpf" class="form-label"><strong>CPF:</strong></label>
+            <input type="text" id="cpf" name="cpf" class="form-control" value="<?php echo decrypt($user["cpf"], ENCRYPTION_KEY)  ?>" required>
         </div>
 
         <div class="mb-3 form-group">

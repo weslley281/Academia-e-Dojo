@@ -50,7 +50,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 "birthDate" => htmlspecialchars($post["birthDate"] ?? ''),
                 "password" => $password,
                 "type" => 'student', // Define o tipo padrão como 'student'
-                "cpf" => htmlspecialchars($post["cpf"] ?? ''), // Adiciona o campo CPF criptografado
+                "cpf" => $cpf
             ];
         }
 
