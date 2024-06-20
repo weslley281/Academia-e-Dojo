@@ -46,8 +46,8 @@ require_once '../../models/SalesPaymentItem.php';
 require_once '../../models/ExpirationItem.php';
 require_once '../../models/Class.php';
 
+define('ENCRYPTION_KEY', 'gotosao');
 $user = new User($conn);
-
 
 $class = new ClassModel($conn);
 $salesRecord = new SalesRecord($conn);
@@ -60,6 +60,7 @@ $gymData = $user->getById(1);
 $salesData = $salesRecord->getLastProcessedSale();
 
 $studentData = $user->getById($salesData["student_id"]);
+$userData = $user->getById($salesData["user_id"]);
 
 $objDate = new DateTime($salesData["saleDate"]);
 $formattedDate = $objDate->format("d/m/Y H:i:s");
@@ -75,6 +76,12 @@ $methods = [
   "debit" => "Débito",
   "deposit" => "Depósito, Transferência ou PIX"
 ];
+
+function decrypt($data, $key)
+{
+  list($encrypted_data, $iv) = explode('::', base64_decode($data), 2);
+  return openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
+}
 //var_dump($salesData);
 ?>
 
@@ -86,14 +93,15 @@ $methods = [
         <p><strong>Recibo de Compra</strong></p>
       </div>
       <div class="receipt-body">
-        <p><strong>Nome:</strong> <?= htmlspecialchars($studentData["name"]) ?></p>
+        <p><strong>Operador de caixa:</strong> <?= htmlspecialchars($userData["name"]) ?></p>
+        <p><strong>Cliente:</strong> <?= htmlspecialchars($studentData["name"]) ?></p>
         <p><strong>Email:</strong> <?= htmlspecialchars($studentData["email"]) ?></p>
         <p><strong>Data da Compra:</strong> <?= htmlspecialchars($formattedDate) ?></p>
         <?php
         $salestens = $salesItem->getBySaleId($salesData["id"]);
         $counter = 0;
 
-        if (isset($salestens) && !empty($salestens)) { // Verifica se há classes para exibir
+        if (isset($salestens) && !empty($salestens)) {
 
           foreach ($salestens as $item) {
             $classData = $class->getById($item["class_id"]);

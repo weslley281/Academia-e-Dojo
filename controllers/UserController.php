@@ -16,10 +16,20 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
         // Verifica a ação a ser executada
         $action = isset($_GET['action']) ? strtolower($_GET['action']) : '';
 
+        define('ENCRYPTION_KEY', 'gotosao');
+
+        function encrypt($data, $key)
+        {
+            $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
+            $encrypted = openssl_encrypt($data, 'aes-256-cbc', $key, 0, $iv);
+            return base64_encode($encrypted . '::' . $iv);
+        }
+
         // Função para criar o array de dados do usuário, com tipo padrão como 'student'
         function getUserData($post)
         {
             $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+            $cpf = isset($post['cpf']) ? encrypt($post['cpf'], ENCRYPTION_KEY) : null;
 
             // Aplica a criptografia MD5 ao campo CPF
             //$cpf = isset($post['cpf']) ? md5($post['cpf']) : null;
