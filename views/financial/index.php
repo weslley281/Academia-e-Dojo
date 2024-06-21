@@ -55,7 +55,7 @@
                         <img class="card-img-top" src="./images/venda.jpg" alt="Imagem de capa do card">
                         <div class="card-body">
                             <h5 class="card-title">Vender</h5>
-                            <p class="card-text">Venda combo de planos</strong>.</p>
+                            <p class="card-text"><strong>Venda combo de planos</strong>.</p>
                             <?php if ($cashier->isOpen()) { ?>
                                 <a href="index.php?page=financial&action=sell" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
                             <?php } ?>
@@ -68,7 +68,7 @@
                         <img class="card-img-top" src="./images/gasto.jpg" alt="Imagem de capa do card">
                         <div class="card-body">
                             <h5 class="card-title">Despesas</h5>
-                            <p class="card-text">Registre suas dispesas</strong>.</p>
+                            <p class="card-text"><strong>Registre suas dispesas</strong>.</p>
                             <a href="index.php?page=financial&action=sell" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
                         </div>
                     </div>
@@ -79,15 +79,26 @@
                         <img class="card-img-top" src="./images/relatorio.jpg" alt="Imagem de capa do card">
                         <div class="card-body">
                             <h5 class="card-title">Relatórios</h5>
-                            <p class="card-text">Registre suas dispesas</strong>.</p>
+                            <p class="card-text"><strong>Veja seus relatórios de vendas</strong>.</p>
                             <a href="index.php?page=financial&action=sales_report#report" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
                         </div>
                     </div>
                 </div>
+
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4 my-2">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="./images/relatorio.jpg" alt="Imagem de capa do card">
+                        <div class="card-body">
+                            <h5 class="card-title">Adimplências</h5>
+                            <p class="card-text"><strong>Veja quais alunos estão em dias com suas mensalidades</strong>.</p>
+                            <a href="index.php?page=financial&action=compliance#compliance" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        <?php if ($action == "sales_report") {
-                include_once "sales_report.php";
-            }
+        <?php
+            if ($action == "sales_report") include_once "sales_report.php";
+            if ($action == "compliance") include_once "compliance.php";
         } elseif ($action == "sell") {
             include_once "checkout.php";
         } ?>

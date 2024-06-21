@@ -5,8 +5,11 @@ if (!isset($_SESSION["user_id"]) && !isset($_GET['page'])) {
 }
 require_once "./config/db.php";
 require_once "./config/CreateTables.php";
+
 require_once "./utils/renderAlert.php";
 require_once "./utils/truncate.php";
+require_once './utils/openssl.php';
+
 require_once './models/User.php';
 require_once './models/MartialArt.php';
 require_once './models/Class.php';
@@ -16,6 +19,7 @@ require_once './models/SalesItem.php';
 require_once './models/MethodPayment.php';
 require_once './models/SalesPaymentItem.php';
 require_once './models/ExpirationItem.php';
+
 
 $createTable = new CreateTables;
 $user = new User($conn);

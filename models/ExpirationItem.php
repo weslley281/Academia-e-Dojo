@@ -71,6 +71,34 @@ class ExpirationItem
         }
     }
 
+    public function getByUserId(int $student_id)
+    {
+        echo "SELECT * FROM expiration WHERE student_id = $student_id";
+        // Validação básica de entrada
+        if ($student_id <= 0) {
+            error_log("Invalid student_id=$student_id", 3, __DIR__ . '/errors.log');
+            return null;
+        }
+
+        try {
+            $stmt = $this->conn->prepare('SELECT * FROM expiration WHERE student_id = ?');
+
+            if ($stmt === false) {
+                throw new mysqli_sql_exception("Failed to prepare statement: " . $this->conn->error);
+            }
+
+            $stmt->bind_param('i', $student_id);
+            $stmt->execute();
+            $result = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+
+            return $result;
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return null;
+        }
+    }
+
 
     public function update(array $data, int $id)
     {
