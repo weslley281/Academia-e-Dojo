@@ -28,12 +28,12 @@
     }
   </style>
   <script>
-    // window.onload = function() {
-    //   window.print();
-    //   setTimeout(function() {
-    //     window.location.href = '../../index.php?page=financial&action=sell';
-    //   }, 10000);
-    // };
+    window.onload = function() {
+      window.print();
+      setTimeout(function() {
+        window.location.href = '../../index.php?page=financial&action=sell';
+      }, 10000);
+    };
   </script>
 </head>
 
@@ -45,6 +45,7 @@ require_once '../../models/MethodPayment.php';
 require_once '../../models/SalesPaymentItem.php';
 require_once '../../models/ExpirationItem.php';
 require_once '../../models/Class.php';
+require_once '../../utils/openssl.php';
 
 define('ENCRYPTION_KEY', 'gotosao');
 $user = new User($conn);
@@ -77,11 +78,7 @@ $methods = [
   "deposit" => "Depósito, Transferência ou PIX"
 ];
 
-function decrypt($data, $key)
-{
-  list($encrypted_data, $iv) = explode('::', base64_decode($data), 2);
-  return openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
-}
+
 //var_dump($salesData);
 ?>
 
@@ -146,6 +143,9 @@ function decrypt($data, $key)
           <?= htmlspecialchars($gymData["country"]) ?> - <?= htmlspecialchars($gymData["state"]) ?> - <?= htmlspecialchars($gymData["city"]) ?> - <?= htmlspecialchars($gymData["neighborhood"]) ?> - <?= htmlspecialchars($gymData["postalCode"]) ?>
           <br>
           Telefone: <?= htmlspecialchars($gymData["phone"]) ?>
+        </p>
+        <p>Desenvolvido por: Weslley Ferraz
+          <br><i>www.engenheirosoftwareweslley.com.br</i>
         </p>
       </div>
     </div>

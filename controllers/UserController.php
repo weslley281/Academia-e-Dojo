@@ -4,6 +4,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../models/User.php';
     require_once __DIR__ . '/../config/db.php';
     require_once __DIR__ . '/../utils/generateRandomPassword.php';
+    require_once __DIR__ . '/../utils/openssl.php';
 
     // Instância da classe User
     $user = new User($conn);
@@ -18,12 +19,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
 
         define('ENCRYPTION_KEY', 'gotosao');
 
-        function encrypt($data, $key)
-        {
-            $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
-            $encrypted = openssl_encrypt($data, 'aes-256-cbc', $key, 0, $iv);
-            return base64_encode($encrypted . '::' . $iv);
-        }
+
 
         // Função para criar o array de dados do usuário, com tipo padrão como 'student'
         function getUserData($post)
