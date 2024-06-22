@@ -21,7 +21,7 @@
                     $counter += 1;
 
                     $studentName = explode(" ", $item["name"]);
-                    $cpf = decrypt($item["cpf"], "gotosao")
+                    $cpf = decrypt($item["cpf"], "gotosao");
             ?>
                     <tr>
                         <td><?= htmlspecialchars($item['id']) ?></td>
@@ -48,13 +48,26 @@
                                     <ol>
                                         <?php
                                         $expirationDatas = $expirationItem->getByUserId($item["id"]);
-
+                                        //var_dump($expirationDatas);
                                         if (isset($expirationDatas) && !empty($expirationDatas)) {
-                                            foreach ($expirationDatas as $item) {
-                                                $classData = $class->getById($item["class_id"]);
+                                            foreach ($expirationDatas as $item2) {
+                                                //var_dump($item2);
+                                                if (isset($item2["class_id"])) {
+                                                    $classData = $class->getById($item2["class_id"]);
+
+                                                    $expirationDateObj = new DateTime($item2["expirationDate"]);
+                                                    $today = new DateTime();
+                                                    if ($expirationDateObj < $today) {
+                                                        $expired = "Expirado em";
+                                                    } else {
+                                                        $expired = "Expira em";
+                                                    }
+                                                    $expirationDateFormatted = $expirationDateObj->format("d/m/Y")
+
                                         ?>
-                                                <li><?= htmlspecialchars($classData["name"]) ?></li>
+                                                    <li><?= htmlspecialchars($classData["name"]) . " " . $expired . " " . htmlspecialchars($expirationDateFormatted) ?></li>
                                         <?php
+                                                }
                                             }
                                         }
                                         ?>
@@ -69,7 +82,8 @@
                     </div>
             <?php
                 }
-            } ?>
+            }
+            ?>
         </tbody>
     </table>
 </div>

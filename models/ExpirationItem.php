@@ -15,7 +15,7 @@ class ExpirationItem
 
     public function create(array $data)
     {
-        var_dump($data);
+        //var_dump($data);
         try {
             $stmt = $this->conn->prepare('INSERT INTO expiration (student_id, class_id, expirationDate) VALUES (?, ?, ?)');
 
@@ -45,7 +45,7 @@ class ExpirationItem
 
     public function getBySaleAndUserId(int $class_id, int $student_id)
     {
-        echo "SELECT * FROM expiration WHERE class_id = $class_id AND student_id = $student_id";
+        //echo "SELECT * FROM expiration WHERE class_id = $class_id AND student_id = $student_id";
         // Validação básica de entrada
         if ($class_id <= 0 || $student_id <= 0) {
             error_log("Invalid class_id or student_id: class_id=$class_id, student_id=$student_id", 3, __DIR__ . '/errors.log');
@@ -73,7 +73,8 @@ class ExpirationItem
 
     public function getByUserId(int $student_id)
     {
-        echo "SELECT * FROM expiration WHERE student_id = $student_id";
+        //echo "SELECT * FROM expiration WHERE student_id = $student_id";
+
         // Validação básica de entrada
         if ($student_id <= 0) {
             error_log("Invalid student_id=$student_id", 3, __DIR__ . '/errors.log');
@@ -89,10 +90,14 @@ class ExpirationItem
 
             $stmt->bind_param('i', $student_id);
             $stmt->execute();
-            $result = $stmt->get_result()->fetch_assoc();
+            $result = $stmt->get_result();
+
+            // Fetch all results as an associative array
+            $data = $result->fetch_all(MYSQLI_ASSOC);
+
             $stmt->close();
 
-            return $result;
+            return $data;
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return null;
@@ -100,10 +105,11 @@ class ExpirationItem
     }
 
 
+
     public function update(array $data, int $id)
     {
-        echo "A array enviada é: ";
-        var_dump($data);
+        //echo "A array enviada é: ";
+        //var_dump($data);
         try {
             $stmt = $this->conn->prepare('UPDATE expiration SET student_id = ?, class_id = ?, expirationDate = ? WHERE id = ?');
 
