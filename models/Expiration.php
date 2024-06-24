@@ -159,4 +159,41 @@ class Expiration
             return 0;
         }
     }
+
+    public function validateStudentEntry(int $student_id): bool
+    {
+        // Validação básica de entrada
+        if ($student_id <= 0) {
+            error_log("Invalid student_id", 3, __DIR__ . '/errors.log');
+            return false;
+        }
+
+        try {
+            // Consulta para verificar se há registros com expirationDate >= data atual
+            $sql = "
+                SELECT 1
+                FROM expiration
+                WHERE student_id = ? AND expirationDate >= CURDATE()
+                LIMIT 1
+            ";
+
+            $stmt = $this->conn->prepare($sql);
+
+            if ($stmt === false) {
+                throw new mysqli_sql_exception("Failed to prepare statement: " . $this->conn->error);
+            }
+
+            $stmt->bind_param('i', $student_id);
+            $stmt->execute();
+            $stmt->store_result();
+
+            $isValid = $stmt->num_rows > 0;
+            $stmt->close();
+
+            return $isValid;
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return false;
+        }
+    }
 }
