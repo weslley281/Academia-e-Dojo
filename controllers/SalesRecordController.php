@@ -11,7 +11,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     $salesRecord = new SalesRecord($conn);
     $expiration = new Expiration($conn);
     $saleItem = new SalesItem($conn);
-    $class = new ClassModel($conn);
+    $class = new Modality($conn);
 
     // Verifica o método HTTP
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

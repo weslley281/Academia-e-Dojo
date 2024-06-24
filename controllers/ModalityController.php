@@ -4,14 +4,14 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../models/Class.php';
     require_once __DIR__ . '/../config/db.php';
 
-    // Instância do modelo ClassModel
-    $classModel = new ClassModel($conn);
+    // Instância do modelo Modality
+    $modality = new Modality($conn);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = isset($_POST['id']) ? intval($_POST['id']) : null;
         $action = isset($_GET['action']) ? strtolower($_GET['action']) : '';
 
-        function getClassData($post)
+        function getModalityData($post)
         {
             return [
                 "id_martial_art" => intval($post["id_martial_art"] ?? 0),
@@ -27,8 +27,8 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
 
         switch ($action) {
             case 'create':
-                $data = getClassData($_POST);
-                if ($classModel->create($data)) {
+                $data = getModalityData($_POST);
+                if ($modality->create($data)) {
                     header("Location: ../index.php?page=classes&action=success");
                 } else {
                     header("Location: ../index.php?page=classes&action=fail");
@@ -40,8 +40,8 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                     header("Location: ../index.php?page=classes&action=invalid");
                     exit;
                 }
-                $data = getClassData($_POST);
-                if ($classModel->update($data, $id)) {
+                $data = getModalityData($_POST);
+                if ($modality->update($data, $id)) {
                     header("Location: ../index.php?page=classes&action=saved");
                 } else {
                     header("Location: ../index.php?page=classes&action=fail");
@@ -53,7 +53,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                     header("Location: ../index.php?page=classes&action=invalid");
                     exit;
                 }
-                if ($classModel->delete($id)) {
+                if ($modality->delete($id)) {
                     header("Location: ../index.php?page=classes&action=deleted");
                 } else {
                     header("Location: ../index.php?page=classes&action=fail");

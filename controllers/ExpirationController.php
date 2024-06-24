@@ -58,6 +58,18 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 }
                 break;
 
+            case 'validate':
+                if ($id === null) {
+                    header("Location: ../index.php?page=validate");
+                    exit;
+                }
+                if ($expiration->delete($id)) {
+                    header("Location: ../index.php?page=financial&action=sell&info=deleted");
+                } else {
+                    header("Location: ../index.php?page=financial&action=sell");
+                }
+                break;
+
             default:
                 header("Location: ../index.php?page=financial&action=sell&info==unknown");
                 break;

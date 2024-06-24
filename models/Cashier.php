@@ -13,7 +13,7 @@ class Cashier
         $this->conn = $conn;
     }
 
-    public function create(array $data)
+    public function create(array $data): bool
     {
         try {
             $stmt = $this->conn->prepare('INSERT INTO cashier (user_id, cash, credit, debit, deposit, openedBy, status) VALUES (?, ?, ?, ?, ?, ?, ?)');
@@ -28,7 +28,7 @@ class Cashier
         }
     }
 
-    public function getById($id)
+    public function getById(int $id): array
     {
         try {
             $stmt = $this->conn->prepare('SELECT * FROM cashier WHERE id = ?');
@@ -38,11 +38,11 @@ class Cashier
             return $stmt->get_result()->fetch_assoc();
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
-            return null;
+            return [];
         }
     }
 
-    public function getCashierOpenByIdUser($user_id)
+    public function getCashierOpenByIdUser(int $user_id): array
     {
         try {
             $stmt = $this->conn->prepare("SELECT * FROM cashier WHERE status = 'open' AND user_id = ?");
@@ -52,11 +52,11 @@ class Cashier
             return $stmt->get_result()->fetch_assoc();
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
-            return null;
+            return [];
         }
     }
 
-    public function update(array $data, $id)
+    public function update(array $data, int $id): bool
     {
         try {
             var_dump($data);
@@ -73,7 +73,7 @@ class Cashier
         }
     }
 
-    public function delete($id)
+    public function delete(int $id): bool
     {
         try {
             $stmt = $this->conn->prepare('DELETE FROM cashier WHERE id = ?');
@@ -86,7 +86,7 @@ class Cashier
     }
 
     // Método para listar todos os registros no caixa
-    public function getAll()
+    public function getAll(): array
     {
         try {
             $result = $this->conn->query('SELECT * FROM cashier');
@@ -98,7 +98,7 @@ class Cashier
     }
 
     // Método para contar o número total de registros no caixa
-    public function countAll()
+    public function countAll(): int
     {
         try {
             $result = $this->conn->query('SELECT COUNT(*) as total FROM cashier');
@@ -111,7 +111,7 @@ class Cashier
     }
 
     // Método para verificar se já existe um caixa com o status "open"
-    public function isOpen()
+    public function isOpen(): bool
     {
         try {
             $stmt = $this->conn->prepare('SELECT COUNT(*) as openCount FROM cashier WHERE status = "open"');
@@ -127,7 +127,7 @@ class Cashier
         }
     }
 
-    public function cashDrop($method, $user_id, $amount)
+    public function cashDrop(string $method, int $user_id, float $amount): bool
     {
         try {
             $stmt = $this->conn->prepare('UPDATE cashier SET ? = ? - ? WHERE user_id = ? AND status = "open"');
@@ -140,7 +140,7 @@ class Cashier
         }
     }
 
-    public function cashSupply($user_id, $amount)
+    public function cashSupply(int $user_id, float $amount): bool
     {
         try {
             $stmt = $this->conn->prepare('UPDATE cashier SET cash = cash + ? WHERE user_id = ? AND status = "open"');

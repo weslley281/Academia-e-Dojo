@@ -24,7 +24,7 @@ require_once './models/Expiration.php';
 $createTable = new CreateTables;
 $user = new User($conn);
 $martialart = new MartialArt($conn);
-$class = new ClassModel($conn);
+$class = new Modality($conn);
 $cashier = new Cashier($conn);
 $salesRecord = new SalesRecord($conn);
 $salesItem = new SalesItem($conn);

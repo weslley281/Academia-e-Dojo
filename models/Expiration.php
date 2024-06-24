@@ -43,12 +43,12 @@ class Expiration
         }
     }
 
-    public function getBySaleAndUserId(int $class_id, int $student_id)
+    public function getBySaleAndUserId(int $modality_id, int $student_id)
     {
         //echo "SELECT * FROM expiration WHERE class_id = $class_id AND student_id = $student_id";
         // Validação básica de entrada
-        if ($class_id <= 0 || $student_id <= 0) {
-            error_log("Invalid class_id or student_id: class_id=$class_id, student_id=$student_id", 3, __DIR__ . '/errors.log');
+        if ($modality_id <= 0 || $student_id <= 0) {
+            error_log("Invalid class_id or student_id: class_id=$modality_id, student_id=$student_id", 3, __DIR__ . '/errors.log');
             return null;
         }
 
@@ -59,7 +59,7 @@ class Expiration
                 throw new mysqli_sql_exception("Failed to prepare statement: " . $this->conn->error);
             }
 
-            $stmt->bind_param('ii', $class_id, $student_id);
+            $stmt->bind_param('ii', $modality_id, $student_id);
             $stmt->execute();
             $result = $stmt->get_result()->fetch_assoc();
             $stmt->close();

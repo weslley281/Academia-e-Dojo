@@ -50,7 +50,7 @@ require_once '../../utils/openssl.php';
 define('ENCRYPTION_KEY', 'gotosao');
 $user = new User($conn);
 
-$class = new ClassModel($conn);
+$class = new Modality($conn);
 $salesRecord = new SalesRecord($conn);
 $salesItem = new SalesItem($conn);
 $methodPayment = new MethodPayment($conn);
