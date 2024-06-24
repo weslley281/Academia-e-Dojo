@@ -15,6 +15,7 @@
 <script src="./libs/DataTables/datatables.js"></script>
 <script src="./libs/tinymce/tinymce.min.js"></script>
 <script src="./libs/select2/js/select2.js"></script>
+<script src="./libs/alertifyjs/alertify.js"></script>
 
 <script>
     $(document).ready(function() {
