@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Entrada de Alunos</h5>
                     <p class="card-text">Validar entrada do Aluno</p>
-                    <a href="index.php?page=recorded_classes" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
+                    <a href="index.php?page=validate" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
                 </div>
             </div>
         </div>

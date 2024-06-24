@@ -96,6 +96,10 @@ require_once "./header.php";
                 include_once "./views/dashboard.php";
                 break;
 
+            case 'validate':
+                include_once './views/validate/index.php';
+                break;
+
             case 'login':
                 switch ($action) {
                     case 'success':
