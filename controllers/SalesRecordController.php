@@ -2,14 +2,14 @@
 session_start();
 if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../models/SalesRecords.php';
-    require_once __DIR__ . '/../models/ExpirationItem.php';
+    require_once __DIR__ . '/../models/Expiration.php';
     require_once __DIR__ . '/../models/SalesItem.php';
     require_once __DIR__ . '/../config/db.php';
     require_once __DIR__ . '/../models/Class.php';
 
     // Instância da classe SalesRecord
     $salesRecord = new SalesRecord($conn);
-    $expirationItem = new ExpirationItem($conn);
+    $expiration = new Expiration($conn);
     $saleItem = new SalesItem($conn);
     $class = new ClassModel($conn);
 
@@ -61,8 +61,8 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                             //var_dump($item);
                             $classData = $class->getById($item["class_id"]);
 
-                            //echo var_dump($expiration = $expirationItem->getBySaleAndUserId($item["class_id"], $data["student_id"]));
-                            if ($expiration = $expirationItem->getBySaleAndUserId($item["class_id"], $data["student_id"])) {
+                            //echo var_dump($expiration = $expiration->getBySaleAndUserId($item["class_id"], $data["student_id"]));
+                            if ($expiration = $expiration->getBySaleAndUserId($item["class_id"], $data["student_id"])) {
                                 $expirationDate = $expiration["expirationDate"];
                                 $expirationDateObj = new DateTime($expirationDate);
                                 $currentDateObj = new DateTime();
@@ -79,13 +79,13 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                                 echo "<br> nova data de expiração é?";
                                 //var_dump($expirationDate);
 
-                                $expirationItemData = [
+                                $expirationData = [
                                     "student_id" => $data["student_id"],
                                     "class_id" => $item["class_id"],
                                     "expirationDate" => $expirationDate
                                 ];
 
-                                $expirationItem->update($expirationItemData, $expiration["id"]);
+                                $expiration->update($expirationData, $expiration["id"]);
 
                                 //echo "<br>Fiz Update";
                             } else {
@@ -96,13 +96,13 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                                 $expirationDateObj->modify("+" . $classData["days"] . " days");
                                 $expirationDate = $expirationDateObj->format('Y-m-d');
 
-                                $expirationItemData = [
+                                $expirationData = [
                                     "student_id" => $data["student_id"],
                                     "class_id" => $item["class_id"],
                                     "expirationDate" => $expirationDate
                                 ];
 
-                                $expirationItem->create($expirationItemData);
+                                $expiration->create($expirationData);
                                 //echo "<br>Fiz Create";
                             }
                         }

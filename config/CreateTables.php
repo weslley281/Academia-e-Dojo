@@ -224,7 +224,7 @@ class CreateTables
         }
     }
 
-    public static function createExpirationItemTable($conn)
+    public static function createExpirationTable($conn)
     {
         $sql = "
             CREATE TABLE IF NOT EXISTS expiration (

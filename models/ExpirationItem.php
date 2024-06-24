@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/db.php';
 
-class ExpirationItem
+class Expiration
 {
     private $conn;
 

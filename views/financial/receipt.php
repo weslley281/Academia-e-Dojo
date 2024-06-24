@@ -43,7 +43,7 @@ require_once '../../models/SalesRecords.php';
 require_once '../../models/SalesItem.php';
 require_once '../../models/MethodPayment.php';
 require_once '../../models/SalesPaymentItem.php';
-require_once '../../models/ExpirationItem.php';
+require_once '../../models/Expiration.php';
 require_once '../../models/Class.php';
 require_once '../../utils/openssl.php';
 
@@ -55,7 +55,7 @@ $salesRecord = new SalesRecord($conn);
 $salesItem = new SalesItem($conn);
 $methodPayment = new MethodPayment($conn);
 $salesPaymentItem = new SalesPaymentItem($conn);
-$expirationItem = new ExpirationItem($conn);
+$expiration = new Expiration($conn);
 
 $gymData = $user->getById(1);
 $salesData = $salesRecord->getLastProcessedSale();

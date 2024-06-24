@@ -18,7 +18,7 @@ require_once './models/SalesRecords.php';
 require_once './models/SalesItem.php';
 require_once './models/MethodPayment.php';
 require_once './models/SalesPaymentItem.php';
-require_once './models/ExpirationItem.php';
+require_once './models/Expiration.php';
 
 
 $createTable = new CreateTables;
@@ -30,7 +30,7 @@ $salesRecord = new SalesRecord($conn);
 $salesItem = new SalesItem($conn);
 $methodPayment = new MethodPayment($conn);
 $salesPaymentItem = new SalesPaymentItem($conn);
-$expirationItem = new ExpirationItem($conn);
+$expiration = new Expiration($conn);
 
 $createTable->createUsersTable($conn);
 $createTable->createMartialArtsTable($conn);
@@ -41,7 +41,7 @@ $createTable->createMethodPaymentTable($conn);
 $createTable->createSalesTable($conn);
 $createTable->createSalesItemTable($conn);
 $createTable->createSalesPaymentItemTable($conn);
-$createTable->createExpirationItemTable($conn);
+$createTable->createExpirationTable($conn);
 
 $page = $_GET['page'] ?? 'dashboard';
 $action = $_GET['action'] ?? '';

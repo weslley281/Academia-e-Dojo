@@ -47,7 +47,7 @@
                                 <div class="modal-body">
                                     <ol>
                                         <?php
-                                        $expirationDatas = $expirationItem->getByUserId($item["id"]);
+                                        $expirationDatas = $expiration->getByUserId($item["id"]);
                                         //var_dump($expirationDatas);
                                         if (isset($expirationDatas) && !empty($expirationDatas)) {
                                             foreach ($expirationDatas as $item2) {
