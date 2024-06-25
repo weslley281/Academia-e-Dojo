@@ -17,7 +17,7 @@ class MartialArt
     public function create(array $data)
     {
         try {
-            $stmt = $this->conn->prepare('INSERT INTO martialArts (name, description) VALUES (?, ?)');
+            $stmt = $this->conn->prepare('INSERT INTO martial_arts (name, description) VALUES (?, ?)');
 
             $stmt->bind_param('ss', $data['name'], $data['description']);
 
@@ -32,7 +32,7 @@ class MartialArt
     public function getAll()
     {
         try {
-            $result = $this->conn->query('SELECT * FROM martialArts');
+            $result = $this->conn->query('SELECT * FROM martial_arts');
 
             return $result->fetch_all(MYSQLI_ASSOC);
         } catch (mysqli_sql_exception $e) {
@@ -44,7 +44,7 @@ class MartialArt
     public function getById($id)
     {
         try {
-            $stmt = $this->conn->prepare('SELECT * FROM martialArts WHERE id = ?');
+            $stmt = $this->conn->prepare('SELECT * FROM martial_arts WHERE id = ?');
             $stmt->bind_param('i', $id);
             $stmt->execute();
 
@@ -58,7 +58,7 @@ class MartialArt
     public function update(array $data, $id)
     {
         try {
-            $stmt = $this->conn->prepare('UPDATE martialArts SET name = ?, description = ? WHERE id = ?');
+            $stmt = $this->conn->prepare('UPDATE martial_arts SET name = ?, description = ? WHERE id = ?');
 
             $stmt->bind_param('ssi', $data['name'], $data['description'], $id);
 
@@ -73,7 +73,7 @@ class MartialArt
     public function delete($id)
     {
         try {
-            $stmt = $this->conn->prepare('DELETE FROM martialArts WHERE id = ?');
+            $stmt = $this->conn->prepare('DELETE FROM martial_arts WHERE id = ?');
             $stmt->bind_param('i', $id);
             return $stmt->execute();
         } catch (mysqli_sql_exception $e) {
@@ -85,7 +85,7 @@ class MartialArt
     public function countAll()
     {
         try {
-            $result = $this->conn->query('SELECT COUNT(*) as total FROM martialArts');
+            $result = $this->conn->query('SELECT COUNT(*) as total FROM martial_arts');
             $row = $result->fetch_assoc();
 
             return $row['total'];

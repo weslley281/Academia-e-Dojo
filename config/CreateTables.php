@@ -20,10 +20,10 @@ class CreateTables
         state VARCHAR(100),
         city VARCHAR(100),
         neighborhood VARCHAR(100),
-        postalCode VARCHAR(100),
-        maritalStatus VARCHAR(50),
+        postal_code VARCHAR(100),
+        marital_status VARCHAR(50),
         gender VARCHAR(10),
-        birthDate DATE,
+        birth_date DATE,
         editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
@@ -39,7 +39,7 @@ class CreateTables
     public static function createMartialArtsTable($conn)
     {
         $sql = "
-        CREATE TABLE IF NOT EXISTS martialArts (
+        CREATE TABLE IF NOT EXISTS martial_arts (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) UNIQUE,
             description TEXT(500),
@@ -58,15 +58,15 @@ class CreateTables
     public static function createModalityTable($conn)
     {
         $sql = "
-        CREATE TABLE IF NOT EXISTS modalityes (
+        CREATE TABLE IF NOT EXISTS modalities (
             id INT AUTO_INCREMENT PRIMARY KEY,
             id_martial_art INT,
             id_instructor INT,
             name VARCHAR(255) UNIQUE,
             description TEXT(500),
             value DECIMAL(10, 2),
-            initialHour TIME,
-            finalHour TIME,
+            initial_hour TIME,
+            final_hour TIME,
             days INT,
             editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -109,7 +109,7 @@ class CreateTables
             CREATE TABLE IF NOT EXISTS method_payment (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 name VARCHAR(255),
-                processingFee DECIMAL(10, 2) DEFAULT 0,
+                processing_fee DECIMAL(10, 2) DEFAULT 0,
                 editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );

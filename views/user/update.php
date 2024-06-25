@@ -93,13 +93,13 @@
         </div>
 
         <div class="mb-3 form-group">
-            <label for="postalCode" class="form-label"><strong>CEP:</strong></label>
-            <input type="text" id="postalCode" name="postalCode" class="form-control" value="<?php echo $user["postalCode"] ?>" required>
+            <label for="postal_code" class="form-label"><strong>CEP:</strong></label>
+            <input type="text" id="postal_code" name="postal_code" class="form-control" value="<?php echo $user["postal_code"] ?>" required>
         </div>
 
         <div class="mb-3 form-group">
-            <label for="maritalStatus" class="form-label"><strong>Estado Civil:</strong></label>
-            <select class="form-control" name="maritalStatus" id="maritalStatus" required>
+            <label for="marital_status" class="form-label"><strong>Estado Civil:</strong></label>
+            <select class="form-control" name="marital_status" id="marital_status" required>
                 <?php
                 $marital_statuses = [
                     'single' => 'Solteiro',
@@ -109,7 +109,7 @@
                 ];
 
                 foreach ($marital_statuses as $status => $label) {
-                    $selected = ($user['maritalStatus'] === $status) ? 'selected' : '';
+                    $selected = ($user['marital_status'] === $status) ? 'selected' : '';
                     echo "<option value=\"$status\" $selected>$label</option>";
                 }
                 ?>
@@ -141,8 +141,8 @@
         </div>
 
         <div class="mb-3 form-group">
-            <label for="birthDate" class="form-label"><strong>Data de Nascimento:</strong></label>
-            <input type="date" id="birthDate" name="birthDate" class="form-control" value="<?php echo $user["birthDate"] ?>" required>
+            <label for="birth_date" class="form-label"><strong>Data de Nascimento:</strong></label>
+            <input type="date" id="birth_date" name="birth_date" class="form-control" value="<?php echo $user["birth_date"] ?>" required>
         </div>
 
         <div class="row">

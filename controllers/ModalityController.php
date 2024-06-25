@@ -19,8 +19,8 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 "name" => htmlspecialchars($post["name"] ?? ''),
                 "description" => htmlspecialchars($post["description"] ?? ''),
                 "value" => htmlspecialchars($post["value"] ?? ''),
-                "initialHour" => htmlspecialchars($post["initialHour"] ?? ''),
-                "finalHour" => htmlspecialchars($post["finalHour"] ?? ''),
+                "initial_hour" => htmlspecialchars($post["initial_hour"] ?? ''),
+                "final_hour" => htmlspecialchars($post["final_hour"] ?? ''),
                 "days" => htmlspecialchars($post["days"] ?? 0),
             ];
         }

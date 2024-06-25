@@ -63,13 +63,13 @@ $get_instructor = $user->getById($class_item["id_instructor"]);
         </div>
 
         <div class="form-group"> <!-- Campo para a hora inicial da classe -->
-            <label for="initialHour" class="form-label"><strong>Hora Inicial:</strong></label>
-            <input type="time" id="initialHour" name="initialHour" class="form-control" value="<?= htmlspecialchars($class_item['initialHour']); ?>" required>
+            <label for="initial_hour" class="form-label"><strong>Hora Inicial:</strong></label>
+            <input type="time" id="initial_hour" name="initial_hour" class="form-control" value="<?= htmlspecialchars($class_item['initial_hour']); ?>" required>
         </div>
 
         <div class="form-group"> <!-- Campo para a hora final da classe -->
-            <label for="finalHour" class="form-label"><strong>Hora Final:</strong></label>
-            <input type="time" id="finalHour" name="finalHour" class="form-control" value="<?= htmlspecialchars($class_item['finalHour']); ?>" required>
+            <label for="final_hour" class="form-label"><strong>Hora Final:</strong></label>
+            <input type="time" id="final_hour" name="final_hour" class="form-control" value="<?= htmlspecialchars($class_item['final_hour']); ?>" required>
         </div>
 
         <div class="form-group">

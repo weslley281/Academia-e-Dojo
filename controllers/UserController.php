@@ -40,10 +40,10 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 "state" => htmlspecialchars($post["state"] ?? ''),
                 "city" => htmlspecialchars($post["city"] ?? ''),
                 "neighborhood" => htmlspecialchars($post["neighborhood"] ?? ''),
-                "postalCode" => htmlspecialchars($post["postalCode"] ?? ''),
-                "maritalStatus" => htmlspecialchars($post["maritalStatus"] ?? ''),
+                "postal_code" => htmlspecialchars($post["postal_code"] ?? ''),
+                "marital_status" => htmlspecialchars($post["marital_status"] ?? ''),
                 "gender" => htmlspecialchars($post["gender"] ?? ''),
-                "birthDate" => htmlspecialchars($post["birthDate"] ?? ''),
+                "birth_date" => htmlspecialchars($post["birth_date"] ?? ''),
                 "password" => $password,
                 "type" => 'student', // Define o tipo padrão como 'student'
                 "cpf" => $cpf

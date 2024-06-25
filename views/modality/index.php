@@ -27,8 +27,8 @@
                         <td><?= htmlspecialchars($class_item['name']) ?></td> <!-- Nome da classe -->
                         <td><?= htmlspecialchars($get_user["name"]) ?></td> <!-- Descrição truncada -->
                         <td>R$ <?= htmlspecialchars($valorFormatado) ?></td> <!-- Hora inicial -->
-                        <td><?= htmlspecialchars($class_item['initialHour']) ?></td> <!-- Hora inicial -->
-                        <td><?= htmlspecialchars($class_item['finalHour']) ?></td> <!-- Hora final -->
+                        <td><?= htmlspecialchars($class_item['initial_hour']) ?></td> <!-- Hora inicial -->
+                        <td><?= htmlspecialchars($class_item['final_hour']) ?></td> <!-- Hora final -->
                         <td><?= htmlspecialchars($class_item['days']) . " dias" ?></td> <!-- Hora final -->
                         <td> <!-- Ações para edição e exclusão -->
                             <a href="index.php?page=modalities&action=update&id=<?= $class_item['id'] ?>" class="btn btn-info"><i class="fa-regular fa-pen-to-square"></i></a>

@@ -91,13 +91,13 @@
             </div>
 
             <div class="mb-3 form-group">
-                <label for="postalCode" class="form-label"><strong>CEP:</strong></label>
-                <input type="text" id="postalCode" name="postalCode" class="form-control" required>
+                <label for="postal_code" class="form-label"><strong>CEP:</strong></label>
+                <input type="text" id="postal_code" name="postal_code" class="form-control" required>
             </div>
 
             <div class="mb-3 form-group">
-                <label for="maritalStatus" class="form-label"><strong>Estádo Civil:</strong></label>
-                <select class="form-control" name="maritalStatus" id="maritalStatus" required>
+                <label for="marital_status" class="form-label"><strong>Estádo Civil:</strong></label>
+                <select class="form-control" name="marital_status" id="marital_status" required>
                     <option value="single">Solteiro</option>
                     <option value="married">Casado</option>
                     <option value="divorced">Divorciado</option>
@@ -121,8 +121,8 @@
             </div>
 
             <div class="mb-3 form-group">
-                <label for="birthDate" class="form-label"><strong>Data de Nascimento:</strong></label>
-                <input type="date" id="birthDate" name="birthDate" class="form-control" required>
+                <label for="birth_date" class="form-label"><strong>Data de Nascimento:</strong></label>
+                <input type="date" id="birth_date" name="birth_date" class="form-control" required>
             </div>
 
             <div class="row">

@@ -53,13 +53,13 @@
         </div>
 
         <div class="form-group"> <!-- Campo para a hora inicial da classe -->
-            <label for="initialHour" class="form-label"><strong>Hora Inicial:</strong></label>
-            <input type="time" id="initialHour" name="initialHour" class="form-control" required>
+            <label for="initial_hour" class="form-label"><strong>Hora Inicial:</strong></label>
+            <input type="time" id="initial_hour" name="initial_hour" class="form-control" required>
         </div>
 
         <div class="form-group"> <!-- Campo para a hora final da classe -->
-            <label for="finalHour" class="form-label"><strong>Hora Final:</strong></label>
-            <input type="time" id="finalHour" name="finalHour" class="form-control" required>
+            <label for="final_hour" class="form-label"><strong>Hora Final:</strong></label>
+            <input type="time" id="final_hour" name="final_hour" class="form-control" required>
         </div>
 
         <div class="form-group">

@@ -16,9 +16,9 @@ class MethodPayment
     public function create(array $data)
     {
         try {
-            $stmt = $this->conn->prepare('INSERT INTO method_payment (name, processingFee) VALUES (?, ?)');
+            $stmt = $this->conn->prepare('INSERT INTO method_payment (name, processing_fee) VALUES (?, ?)');
 
-            $stmt->bind_param('sd', $data['name'], $data['processingFee']);
+            $stmt->bind_param('sd', $data['name'], $data['processing_fee']);
 
             $stmt->execute();
             return true;
@@ -45,9 +45,9 @@ class MethodPayment
     public function update(array $data, $id)
     {
         try {
-            $stmt = $this->conn->prepare('UPDATE method_payment SET name = ?, processingFee = ? WHERE id = ?');
+            $stmt = $this->conn->prepare('UPDATE method_payment SET name = ?, processing_fee = ? WHERE id = ?');
 
-            $stmt->bind_param('sdi', $data['name'], $data['processingFee'], $id);
+            $stmt->bind_param('sdi', $data['name'], $data['processing_fee'], $id);
 
             $stmt->execute();
             return true;

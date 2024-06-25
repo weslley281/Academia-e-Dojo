@@ -17,7 +17,7 @@ class User
     {
         try {
             $stmt = $this->conn->prepare(
-                'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postalCode, maritalStatus, gender, birthDate, password, cpf, type)
+                'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postal_code, marital_status, gender, birth_date, password, cpf, type)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
             );
 
@@ -32,10 +32,10 @@ class User
                 $data['state'],
                 $data['city'],
                 $data['neighborhood'],
-                $data['postalCode'],
-                $data['maritalStatus'],
+                $data['postal_code'],
+                $data['marital_status'],
                 $data['gender'],
-                $data['birthDate'],
+                $data['birth_date'],
                 $data['password'],
                 $data['cpf'],
                 $data['type']
@@ -122,7 +122,7 @@ class User
     {
         try {
             $stmt = $this->conn->prepare(
-                'UPDATE users SET name = ?, phone = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postalCode = ?, maritalStatus = ?, gender = ?, birthDate = ?, password = ?, cpf = ?, type = ? WHERE id = ?'
+                'UPDATE users SET name = ?, phone = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postal_code = ?, marital_status = ?, gender = ?, birth_date = ?, password = ?, cpf = ?, type = ? WHERE id = ?'
             );
 
             $stmt->bind_param(
@@ -136,10 +136,10 @@ class User
                 $data['state'],
                 $data['city'],
                 $data['neighborhood'],
-                $data['postalCode'],
-                $data['maritalStatus'],
+                $data['postal_code'],
+                $data['marital_status'],
                 $data['gender'],
-                $data['birthDate'],
+                $data['birth_date'],
                 $data['password'],
                 $data['cpf'],
                 $data['type'],

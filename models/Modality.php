@@ -17,7 +17,7 @@ class Modality
     {
         try {
             $stmt = $this->conn->prepare(
-                'INSERT INTO modalityes (id_martial_art, id_instructor, name, description, value, initialHour, finalHour, days)
+                'INSERT INTO modalityes (id_martial_art, id_instructor, name, description, value, initial_hour, final_hour, days)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
             );
 
@@ -28,8 +28,8 @@ class Modality
                 $data['name'],
                 $data['description'],
                 $data['value'],
-                $data['initialHour'],
-                $data['finalHour'],
+                $data['initial_hour'],
+                $data['final_hour'],
                 $data['days']
             );
 
@@ -71,7 +71,7 @@ class Modality
     {
         try {
             $stmt = $this->conn->prepare(
-                'UPDATE modalityes SET id_martial_art = ?, id_instructor = ?, name = ?, description = ?, value = ?, initialHour = ?, finalHour = ?, days = ? WHERE id = ?'
+                'UPDATE modalityes SET id_martial_art = ?, id_instructor = ?, name = ?, description = ?, value = ?, initial_hour = ?, final_hour = ?, days = ? WHERE id = ?'
             );
 
             $stmt->bind_param(
@@ -81,8 +81,8 @@ class Modality
                 $data['name'],
                 $data['description'],
                 $data['value'],
-                $data['initialHour'],
-                $data['finalHour'],
+                $data['initial_hour'],
+                $data['final_hour'],
                 $data['days'],
                 $id
             );
