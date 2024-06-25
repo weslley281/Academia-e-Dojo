@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Turmas</h5>
                     <p class="card-text">Turmas ativas <strong><?= $class->countAll() ?></strong>.</p>
-                    <a href="index.php?page=classes" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
+                    <a href="index.php?page=modalities" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
                 </div>
             </div>
         </div>

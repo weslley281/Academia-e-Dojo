@@ -12,10 +12,10 @@
                             <input type="hidden" name="sale_id" value="<?= htmlspecialchars($sale_data["id"])  ?>">
                             <select class="form-control select_basic2" name="select_product" id="select_product">
                                 <?php
-                                $classes = $class->getAll(); // Obtém todas as classes do modelo
+                                $modalities = $class->getAll(); // Obtém todas as modalities do modelo
 
-                                if (isset($classes) && !empty($classes)) { // Verifica se há classes para exibir
-                                    foreach ($classes as $class_item) {
+                                if (isset($modalities) && !empty($modalities)) { // Verifica se há modalities para exibir
+                                    foreach ($modalities as $class_item) {
                                         $get_user = $user->getById($class_item['id_instructor']);
                                         $valorFormatado = number_format((float) $class_item['value'], 2, ',', '.');
                                 ?>

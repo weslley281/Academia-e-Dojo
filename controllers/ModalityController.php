@@ -29,39 +29,39 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
             case 'create':
                 $data = getModalityData($_POST);
                 if ($modality->create($data)) {
-                    header("Location: ../index.php?page=classes&action=success");
+                    header("Location: ../index.php?page=modalities&action=success");
                 } else {
-                    header("Location: ../index.php?page=classes&action=fail");
+                    header("Location: ../index.php?page=modalities&action=fail");
                 }
                 break;
 
             case 'update':
                 if ($id === null) {
-                    header("Location: ../index.php?page=classes&action=invalid");
+                    header("Location: ../index.php?page=modalities&action=invalid");
                     exit;
                 }
                 $data = getModalityData($_POST);
                 if ($modality->update($data, $id)) {
-                    header("Location: ../index.php?page=classes&action=saved");
+                    header("Location: ../index.php?page=modalities&action=saved");
                 } else {
-                    header("Location: ../index.php?page=classes&action=fail");
+                    header("Location: ../index.php?page=modalities&action=fail");
                 }
                 break;
 
             case 'delete':
                 if ($id === null) {
-                    header("Location: ../index.php?page=classes&action=invalid");
+                    header("Location: ../index.php?page=modalities&action=invalid");
                     exit;
                 }
                 if ($modality->delete($id)) {
-                    header("Location: ../index.php?page=classes&action=deleted");
+                    header("Location: ../index.php?page=modalities&action=deleted");
                 } else {
-                    header("Location: ../index.php?page=classes&action=fail");
+                    header("Location: ../index.php?page=modalities&action=fail");
                 }
                 break;
 
             default:
-                header("Location: ../index.php?page=classes&action=unknown");
+                header("Location: ../index.php?page=modalities&action=unknown");
                 break;
         }
     }

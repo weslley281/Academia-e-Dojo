@@ -116,7 +116,7 @@ $methods = [
         $salesPaymentItems = $salesPaymentItem->getBySaleId($salesData["id"]);
         $counter2 = 0;
 
-        if (isset($salesPaymentItems) && !empty($salesPaymentItems)) { // Verifica se há classes para exibir
+        if (isset($salesPaymentItems) && !empty($salesPaymentItems)) { // Verifica se há modalities para exibir
           foreach ($salesPaymentItems as $item) {
             $methodPaymentData = $methodPayment->getById($item["payment_method_id"]);
             $valorFormatado = number_format((float) $item['amount_paid'], 2, ',', '.');

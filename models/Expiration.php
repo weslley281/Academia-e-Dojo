@@ -17,9 +17,9 @@ class Expiration
     {
         //var_dump($data);
         try {
-            $stmt = $this->conn->prepare('INSERT INTO expiration (student_id, class_id, expirationDate) VALUES (?, ?, ?)');
+            $stmt = $this->conn->prepare('INSERT INTO expiration (student_id, modality_id, expirationDate) VALUES (?, ?, ?)');
 
-            $stmt->bind_param('iis', $data['student_id'], $data['class_id'], $data['expirationDate']);
+            $stmt->bind_param('iis', $data['student_id'], $data['modality_id'], $data['expirationDate']);
 
             $stmt->execute();
             return true;
@@ -45,15 +45,15 @@ class Expiration
 
     public function getBySaleAndUserId(int $modality_id, int $student_id)
     {
-        //echo "SELECT * FROM expiration WHERE class_id = $class_id AND student_id = $student_id";
+        //echo "SELECT * FROM expiration WHERE modality_id = $modality_id AND student_id = $student_id";
         // Validação básica de entrada
         if ($modality_id <= 0 || $student_id <= 0) {
-            error_log("Invalid class_id or student_id: class_id=$modality_id, student_id=$student_id", 3, __DIR__ . '/errors.log');
+            error_log("Invalid modality_id or student_id: modality_id=$modality_id, student_id=$student_id", 3, __DIR__ . '/errors.log');
             return null;
         }
 
         try {
-            $stmt = $this->conn->prepare('SELECT * FROM expiration WHERE class_id = ? AND student_id = ?');
+            $stmt = $this->conn->prepare('SELECT * FROM expiration WHERE modality_id = ? AND student_id = ?');
 
             if ($stmt === false) {
                 throw new mysqli_sql_exception("Failed to prepare statement: " . $this->conn->error);
@@ -111,9 +111,9 @@ class Expiration
         //echo "A array enviada é: ";
         //var_dump($data);
         try {
-            $stmt = $this->conn->prepare('UPDATE expiration SET student_id = ?, class_id = ?, expirationDate = ? WHERE id = ?');
+            $stmt = $this->conn->prepare('UPDATE expiration SET student_id = ?, modality_id = ?, expirationDate = ? WHERE id = ?');
 
-            $stmt->bind_param('iisi', $data['student_id'], $data['class_id'], $data['expirationDate'], $id);
+            $stmt->bind_param('iisi', $data['student_id'], $data['modality_id'], $data['expirationDate'], $id);
 
             $stmt->execute();
             return true;

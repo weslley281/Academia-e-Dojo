@@ -11,7 +11,7 @@ require_once "./utils/truncate.php";
 require_once './utils/openssl.php';
 
 require_once './models/User.php';
-require_once './models/MartialArt.php';
+require_once './models/Martial_art.php';
 require_once './models/Class.php';
 require_once './models/Cashier.php';
 require_once './models/SalesRecords.php';
@@ -23,7 +23,7 @@ require_once './models/Expiration.php';
 
 $createTable = new CreateTables;
 $user = new User($conn);
-$martialart = new MartialArt($conn);
+$martial_art = new MartialArt($conn);
 $class = new Modality($conn);
 $cashier = new Cashier($conn);
 $salesRecord = new SalesRecord($conn);
@@ -34,8 +34,8 @@ $expiration = new Expiration($conn);
 
 $createTable->createUsersTable($conn);
 $createTable->createMartialArtsTable($conn);
-$createTable->createClassTable($conn);
-$createTable->createClassDaysTable($conn);
+$createTable->createModalityTable($conn);
+$createTable->createModalityDaysTable($conn);
 $createTable->createCashierTable($conn);
 $createTable->createMethodPaymentTable($conn);
 $createTable->createSalesTable($conn);
@@ -51,7 +51,7 @@ $titles = [
     'login' => 'Login',
     'users' => 'Usuários',
     'martial_arts' => 'Artes Marciais',
-    'classes' => 'Turmas',
+    'modalities' => 'Turmas',
     'financial' => 'Financeiro',
 ];
 
@@ -171,11 +171,11 @@ require_once "./header.php";
                     }
                 }
 
-                include_once './views/martialArt/index.php';
+                include_once './views/martial_art/index.php';
 
                 break;
 
-            case 'classes':
+            case 'modalities':
 
                 if ($action === 'create') {
                     include_once './views/class/create.php';

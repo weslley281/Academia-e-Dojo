@@ -55,10 +55,10 @@ class CreateTables
         }
     }
 
-    public static function createClassTable($conn)
+    public static function createModalityTable($conn)
     {
         $sql = "
-        CREATE TABLE IF NOT EXISTS classes (
+        CREATE TABLE IF NOT EXISTS modalityes (
             id INT AUTO_INCREMENT PRIMARY KEY,
             id_martial_art INT,
             id_instructor INT,
@@ -76,30 +76,30 @@ class CreateTables
         ";
 
         if ($conn->query($sql) === true) {
-            //echo "Tabela 'classes' criada com sucesso.";
+            //echo "Tabela 'modalityes' criada com sucesso.";
         } else {
-            echo "Erro ao criar tabela 'classes': " . $conn->error;
+            echo "Erro ao criar tabela 'modalityes': " . $conn->error;
         }
     }
 
-    public static function createClassDaysTable($conn)
+    public static function createModalityDaysTable($conn)
     {
         $sql = "
-        CREATE TABLE IF NOT EXISTS class_days (
+        CREATE TABLE IF NOT EXISTS modality_days (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            class_id INT,
+            modality_id INT,
             day_of_week ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'),
             editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (class_id) REFERENCES classes(id)
+            FOREIGN KEY (modality_id) REFERENCES modalityes(id)
         );
 
         ";
 
         if ($conn->query($sql) === true) {
-            //echo "Tabela 'classes' criada com sucesso.";
+            //echo "Tabela 'modalityes' criada com sucesso.";
         } else {
-            echo "Erro ao criar tabela 'classes': " . $conn->error;
+            echo "Erro ao criar tabela 'modalityes': " . $conn->error;
         }
     }
 
@@ -187,11 +187,11 @@ class CreateTables
             CREATE TABLE IF NOT EXISTS sales_item (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 sale_id INT NOT NULL,
-                class_id INT NOT NULL,
+                modality_id INT NOT NULL,
                 editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (sale_id) REFERENCES sales_records(id),
-                FOREIGN KEY (class_id) REFERENCES classes(id)
+                FOREIGN KEY (modality_id) REFERENCES modalityes(id)
             );
         ";
 
@@ -230,12 +230,12 @@ class CreateTables
             CREATE TABLE IF NOT EXISTS expiration (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 student_id INT NOT NULL,
-                class_id INT NOT NULL,
+                modality_id INT NOT NULL,
                 expirationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (student_id) REFERENCES users(id),
-                FOREIGN KEY (class_id) REFERENCES classes(id)
+                FOREIGN KEY (modality_id) REFERENCES modalityes(id)
             );
         ";
 

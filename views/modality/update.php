@@ -84,7 +84,7 @@ $get_instructor = $user->getById($class_item["id_instructor"]);
                 </button> <!-- Botão de criação -->
             </div>
             <div class="col">
-                <a href="./index.php?page=classes" class="mb-3 btn btn-light float-right"><i class="fa-solid fa-xmark"></i> Cancelar</a> <!-- Link para cancelar -->
+                <a href="./index.php?page=modalities" class="mb-3 btn btn-light float-right"><i class="fa-solid fa-xmark"></i> Cancelar</a> <!-- Link para cancelar -->
             </div>
         </div>
     </form>

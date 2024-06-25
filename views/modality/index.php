@@ -1,7 +1,7 @@
 <div class="container mt-5">
-    <h1>Lista de Classes</h1>
-    <a href="index.php?page=classes&action=create" class="btn btn-success mb-3">Criar nova Classe</a> <!-- Botão para criar nova classe -->
-    <table id="minhaTabela" class="table table-striped"> <!-- Tabela para exibir as classes -->
+    <h1>Lista de Modalities</h1>
+    <a href="index.php?page=modalities&action=create" class="btn btn-success mb-3">Criar nova Classe</a> <!-- Botão para criar nova classe -->
+    <table id="minhaTabela" class="table table-striped"> <!-- Tabela para exibir as modalities -->
         <thead>
             <tr>
                 <th>Nome</th>
@@ -15,10 +15,10 @@
         </thead>
         <tbody>
             <?php
-            $classes = $class->getAll(); // Obtém todas as classes do modelo
+            $modalities = $class->getAll(); // Obtém todas as modalities do modelo
 
-            if (isset($classes) && !empty($classes)) { // Verifica se há classes para exibir
-                foreach ($classes as $class_item) {
+            if (isset($modalities) && !empty($modalities)) { // Verifica se há modalities para exibir
+                foreach ($modalities as $class_item) {
 
                     $get_user = $user->getById($class_item['id_instructor']);
                     $valorFormatado = number_format((float) $class_item['value'], 2, ',', '.');
@@ -31,8 +31,8 @@
                         <td><?= htmlspecialchars($class_item['finalHour']) ?></td> <!-- Hora final -->
                         <td><?= htmlspecialchars($class_item['days']) . " dias" ?></td> <!-- Hora final -->
                         <td> <!-- Ações para edição e exclusão -->
-                            <a href="index.php?page=classes&action=update&id=<?= $class_item['id'] ?>" class="btn btn-info"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <a href="index.php?page=classes&action=delete&id=<?= $class_item['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
+                            <a href="index.php?page=modalities&action=update&id=<?= $class_item['id'] ?>" class="btn btn-info"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a href="index.php?page=modalities&action=delete&id=<?= $class_item['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
                         </td>
                         <?php
                         // Incluir a view de atualização se a ação for 'update' e o ID for correspondente
@@ -46,7 +46,7 @@
                         ?>
                     </tr>
             <?php
-                } // Fim do loop para listar as classes
+                } // Fim do loop para listar as modalities
             }
             ?>
         </tbody>

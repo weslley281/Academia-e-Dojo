@@ -8,7 +8,7 @@
         <form action="./controllers/ClassController.php?action=delete" method="post" class="form-group">
             <input type="hidden" name="id" value="<?php echo $_GET["id"] ?>">
             <button type="submit" class="btn btn-danger">Delete</button>
-            <a href="./index.php?page=classes" class="btn btn-light">Cancelar</a>
+            <a href="./index.php?page=modalities" class="btn btn-light">Cancelar</a>
         </form>
     </div>
 <?php } else {

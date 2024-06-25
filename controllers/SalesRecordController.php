@@ -55,7 +55,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 if ($salesRecord->update($data, $id)) {
                     $saleItens = $saleItem->getBySaleId($id);
 
-                    if (isset($saleItens) && !empty($saleItens)) { // Verifica se há classes para exibir
+                    if (isset($saleItens) && !empty($saleItens)) { // Verifica se há modalities para exibir
                         foreach ($saleItens as $item) {
 
                             //var_dump($item);

@@ -14,27 +14,27 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
         switch ($action) {
             case 'create':
                 if ($modality->createModalityDays($id, $_POST["day_of_week"])) {
-                    header("Location: ../index.php?page=classes&action=update&id=$id");
+                    header("Location: ../index.php?page=modalities&action=update&id=$id");
                 } else {
-                    header("Location: ../index.php?page=classes&action=update&id=$id");
+                    header("Location: ../index.php?page=modalities&action=update&id=$id");
                 }
                 break;
 
             case 'delete':
                 if ($id === null) {
-                    header("Location: ../index.php?page=classes&action=update&id=$id");
+                    header("Location: ../index.php?page=modalities&action=update&id=$id");
                     exit;
                 }
                 if ($modality->deleteModalityDays($id, $_POST["day_of_week"])) {
                     var_dump($id, $_POST["day_of_week"]);
-                    header("Location: ../index.php?page=classes&action=update&id=$id");
+                    header("Location: ../index.php?page=modalities&action=update&id=$id");
                 } else {
-                    header("Location: ../index.php?page=classes&action=update&id=$id");
+                    header("Location: ../index.php?page=modalities&action=update&id=$id");
                 }
                 break;
 
             default:
-                header("Location: ../index.php?page=classes&action=update&id=$id");
+                header("Location: ../index.php?page=modalities&action=update&id=$id");
                 break;
         }
     }

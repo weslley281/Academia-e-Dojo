@@ -72,7 +72,7 @@
                 <button type="submit" class="mb-3 btn btn-success float-left">Criar</button> <!-- Botão de criação -->
             </div>
             <div class="col">
-                <a href="./index.php?page=classes" class="btn btn-light float-right">Cancelar</a> <!-- Link para cancelar -->
+                <a href="./index.php?page=modalities" class="btn btn-light float-right">Cancelar</a> <!-- Link para cancelar -->
             </div>
         </div>
     </form>
