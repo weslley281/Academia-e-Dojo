@@ -112,7 +112,7 @@
                     <option value="feminine">Feminino</option>
                     <option value="non-binary">Não-Binário</option>
                     <option value="gender-fluid">Gênero-Fluido</option>
-                    <option value="rransgender">Transgênero</option>
+                    <option value="transgender">Transgênero</option>
                     <option value="agender">Agênero</option>
                     <option value="two-spirit">Dois Espíritos</option>
                     <option value="other">Outro</option>

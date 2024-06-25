@@ -11,8 +11,8 @@ require_once "./utils/truncate.php";
 require_once './utils/openssl.php';
 
 require_once './models/User.php';
-require_once './models/Martial_art.php';
-require_once './models/Class.php';
+require_once './models/MartialArt.php';
+require_once './models/Modality.php';
 require_once './models/Cashier.php';
 require_once './models/SalesRecords.php';
 require_once './models/SalesItem.php';
@@ -150,7 +150,7 @@ require_once "./header.php";
             case 'martial_arts':
 
                 if ($action === 'create') {
-                    include_once './views/martialArt/create.php';
+                    include_once './views/martial_art/create.php';
                 } else {
                     switch ($action) {
                         case 'success':

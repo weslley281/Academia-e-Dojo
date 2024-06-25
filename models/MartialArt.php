@@ -12,7 +12,6 @@ class MartialArt
             throw new Exception("Conexão com o banco de dados não fornecida.");
         }
         $this->conn = $conn;
-
     }
 
     public function create(array $data)
@@ -24,7 +23,6 @@ class MartialArt
 
             $stmt->execute();
             return true;
-
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return false;
@@ -51,7 +49,6 @@ class MartialArt
             $stmt->execute();
 
             return $stmt->get_result()->fetch_assoc();
-
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return null;
@@ -63,11 +60,10 @@ class MartialArt
         try {
             $stmt = $this->conn->prepare('UPDATE martialArts SET name = ?, description = ? WHERE id = ?');
 
-            $stmt->bind_param('ss', $data['name'], $data['description'], $id);
+            $stmt->bind_param('ssi', $data['name'], $data['description'], $id);
 
             $stmt->execute();
             return true;
-
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return false;

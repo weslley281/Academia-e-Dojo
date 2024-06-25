@@ -11,23 +11,23 @@
         </thead>
         <tbody>
             <?php
-            $martialarts = $martialart->getAll();
+            $martial_arts = $martial_art->getAll();
 
-            if (isset($martialarts) && !empty($martialarts)) {
-                foreach ($martialarts as $martialart) {
-                    $description = truncate($martialart['description'], 50);
+            if (isset($martial_arts) && !empty($martial_arts)) {
+                foreach ($martial_arts as $martial_art) {
+                    $description = truncate($martial_art['description'], 50);
             ?>
                     <tr>
-                        <td><?= htmlspecialchars($martialart['name']) ?></td>
+                        <td><?= htmlspecialchars($martial_art['name']) ?></td>
                         <td><?= htmlspecialchars($description) ?></td>
                         <td>
-                            <a href="index.php?page=martial_arts&action=update&id=<?= $martialart['id'] ?>" class="btn btn-info"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <a href="index.php?page=martial_arts&action=delete&id=<?= $martialart['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
+                            <a href="index.php?page=martial_arts&action=update&id=<?= $martial_art['id'] ?>" class="btn btn-info"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a href="index.php?page=martial_arts&action=delete&id=<?= $martial_art['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
                         </td>
                         <?php
-                        if (isset($_GET["action"]) && $_GET["action"] == "update" && isset($_GET["id"]) && $_GET["id"] == $martialart['id']) {
+                        if (isset($_GET["action"]) && $_GET["action"] == "update" && isset($_GET["id"]) && $_GET["id"] == $martial_art['id']) {
                             include_once "update.php";
-                        } elseif (isset($_GET["action"]) && $_GET["action"] == "delete" && isset($_GET["id"]) && $_GET["id"] == $martialart['id']) {
+                        } elseif (isset($_GET["action"]) && $_GET["action"] == "delete" && isset($_GET["id"]) && $_GET["id"] == $martial_art['id']) {
                             include_once "delete.php";
                         }
                         ?>

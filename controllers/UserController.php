@@ -53,11 +53,13 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
         // Executa ações conforme o parâmetro 'action'
         switch ($action) {
             case 'create': // Cria um novo usuário
+
                 if ($_POST["password"] == $_POST["password2"]) {
 
                     $data = getUserData($_POST);
+                    var_dump($data);
                     if ($user->create($data)) {
-                        header("Location: ../index.php?page=users&action=success");
+                        //header("Location: ../index.php?page=users&action=success");
                     } else {
                         echo $user->create($data);
                         //header("Location: ../index.php?page=users&action=fail");
