@@ -57,17 +57,17 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 if ($_POST["password"] == $_POST["password2"]) {
 
                     $data = getUserData($_POST);
-                    var_dump($data);
+
                     if ($user->create($data)) {
-                        //header("Location: ../index.php?page=users&action=success");
+                        header("Location: ../index.php?page=users&action=success");
                     } else {
                         echo $user->create($data);
-                        //header("Location: ../index.php?page=users&action=fail");
+                        header("Location: ../index.php?page=users&action=fail");
                     }
                 } else {
                     echo "<center><strong><h1>As duas senhas diferem uma da outra</h1></strong></center>";
                     echo "<script>";
-                    //echo "setTimeout(function() { window.location.href = '../index.php?page=users&action=fail'; }, 3000);";
+                    echo "setTimeout(function() { window.location.href = '../index.php?page=users&action=fail'; }, 3000);";
                     echo "</script>";
                 }
                 break;

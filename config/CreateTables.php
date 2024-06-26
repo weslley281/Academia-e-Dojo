@@ -10,9 +10,9 @@ class CreateTables
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255),
         phone VARCHAR(100),
-        email VARCHAR(255),
-        password VARCHAR(255) UNIQUE,
-        cpf VARCHAR(50) UNIQUE NULL,
+        email VARCHAR(255) UNIQUE,
+        password VARCHAR(255),
+        cpf VARCHAR(255) UNIQUE,
         type ENUM('admin', 'instructor', 'student'),
         address VARCHAR(255),
         complement VARCHAR(255),
@@ -20,9 +20,9 @@ class CreateTables
         state VARCHAR(100),
         city VARCHAR(100),
         neighborhood VARCHAR(100),
-        postal_code VARCHAR(100),
-        marital_status VARCHAR(50),
-        gender VARCHAR(10),
+        postal_code VARCHAR(10),
+        marital_status ENUM('single', 'married', 'divorced', 'widower'),
+        gender ENUM('masculine', 'feminine', 'non-binary', 'gender-fluid', 'transgender', 'agender', 'two-spirit', 'other', 'null'),
         birth_date DATE,
         editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -70,15 +70,15 @@ class CreateTables
             days INT,
             editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (id_martial_art) REFERENCES martialArts(id),
+            FOREIGN KEY (id_martial_art) REFERENCES martial_arts(id),
             FOREIGN KEY (id_instructor) REFERENCES users(id)
         );
         ";
 
         if ($conn->query($sql) === true) {
-            //echo "Tabela 'modalityes' criada com sucesso.";
+            //echo "Tabela 'modalities' criada com sucesso.";
         } else {
-            echo "Erro ao criar tabela 'modalityes': " . $conn->error;
+            echo "Erro ao criar tabela 'modalities': " . $conn->error;
         }
     }
 
@@ -91,15 +91,15 @@ class CreateTables
             day_of_week ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'),
             editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (modality_id) REFERENCES modalityes(id)
+            FOREIGN KEY (modality_id) REFERENCES modalities(id)
         );
 
         ";
 
         if ($conn->query($sql) === true) {
-            //echo "Tabela 'modalityes' criada com sucesso.";
+            //echo "Tabela 'modalities' criada com sucesso.";
         } else {
-            echo "Erro ao criar tabela 'modalityes': " . $conn->error;
+            echo "Erro ao criar tabela 'modalities': " . $conn->error;
         }
     }
 
@@ -191,7 +191,7 @@ class CreateTables
                 editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (sale_id) REFERENCES sales_records(id),
-                FOREIGN KEY (modality_id) REFERENCES modalityes(id)
+                FOREIGN KEY (modality_id) REFERENCES modalities(id)
             );
         ";
 
@@ -235,7 +235,7 @@ class CreateTables
                 editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (student_id) REFERENCES users(id),
-                FOREIGN KEY (modality_id) REFERENCES modalityes(id)
+                FOREIGN KEY (modality_id) REFERENCES modalities(id)
             );
         ";
 
