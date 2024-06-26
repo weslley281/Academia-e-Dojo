@@ -24,7 +24,7 @@ require_once './models/Expiration.php';
 $createTable = new CreateTables;
 $user = new User($conn);
 $martial_art = new MartialArt($conn);
-$class = new Modality($conn);
+$modality = new Modality($conn);
 $cashier = new Cashier($conn);
 $salesRecord = new SalesRecord($conn);
 $salesItem = new SalesItem($conn);
@@ -178,7 +178,7 @@ require_once "./header.php";
             case 'modalities':
 
                 if ($action === 'create') {
-                    include_once './views/class/create.php';
+                    include_once './views/modality/create.php';
                 } else {
                     switch ($action) {
                         case 'success':
@@ -199,7 +199,7 @@ require_once "./header.php";
                     }
                 }
 
-                include_once './views/class/index.php';
+                include_once './views/modality/index.php';
 
                 break;
 

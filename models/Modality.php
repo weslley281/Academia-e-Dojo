@@ -17,7 +17,7 @@ class Modality
     {
         try {
             $stmt = $this->conn->prepare(
-                'INSERT INTO modalityes (id_martial_art, id_instructor, name, description, value, initial_hour, final_hour, days)
+                'INSERT INTO modalities (id_martial_art, id_instructor, name, description, value, initial_hour, final_hour, days)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
             );
 
@@ -44,7 +44,7 @@ class Modality
     public function getAll(): array
     {
         try {
-            $result = $this->conn->query('SELECT * FROM modalityes');
+            $result = $this->conn->query('SELECT * FROM modalities');
             return $result->fetch_all(MYSQLI_ASSOC);
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
@@ -55,7 +55,7 @@ class Modality
     public function getById(int $id): ?array
     {
         try {
-            $stmt = $this->conn->prepare('SELECT * FROM modalityes WHERE id = ?');
+            $stmt = $this->conn->prepare('SELECT * FROM modalities WHERE id = ?');
             $stmt->bind_param('i', $id);
             $stmt->execute();
 
@@ -71,7 +71,7 @@ class Modality
     {
         try {
             $stmt = $this->conn->prepare(
-                'UPDATE modalityes SET id_martial_art = ?, id_instructor = ?, name = ?, description = ?, value = ?, initial_hour = ?, final_hour = ?, days = ? WHERE id = ?'
+                'UPDATE modalities SET id_martial_art = ?, id_instructor = ?, name = ?, description = ?, value = ?, initial_hour = ?, final_hour = ?, days = ? WHERE id = ?'
             );
 
             $stmt->bind_param(
@@ -98,7 +98,7 @@ class Modality
     public function delete(int $id): bool
     {
         try {
-            $stmt = $this->conn->prepare('DELETE FROM modalityes WHERE id = ?');
+            $stmt = $this->conn->prepare('DELETE FROM modalities WHERE id = ?');
             $stmt->bind_param('i', $id);
             return $stmt->execute();
         } catch (mysqli_sql_exception $e) {
@@ -110,7 +110,7 @@ class Modality
     public function countAll(): int
     {
         try {
-            $result = $this->conn->query('SELECT COUNT(*) as total FROM modalityes');
+            $result = $this->conn->query('SELECT COUNT(*) as total FROM modalities');
             $row = $result->fetch_assoc();
             return $row['total'];
         } catch (mysqli_sql_exception $e) {

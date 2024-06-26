@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <h1>Criar Turma</h1> <!-- Título da página -->
-    <form action="./controllers/ClassController.php?action=create" method="post"> <!-- Ação do formulário -->
+    <form action="./controllers/ModalityController.php?action=create" method="post"> <!-- Ação do formulário -->
         <div class="form-group form-group"> <!-- Campo para o nome da classe -->
             <label for="name" class="form-label"><strong>Nome:</strong></label>
             <input type="text" id="name" name="name" class="form-control" required>
@@ -21,13 +21,13 @@
             <label for="id_martial_art" class="form-label"><strong>Arte Marcial:</strong></label>
             <select name="id_martial_art" class="form-control" id="id_martial_art">
                 <?php
-                $martialarts = $martialart->getAll();
+                $martial_arts = $martial_art->getAll();
 
-                if (isset($martialarts) && !empty($martialarts)) {
-                    foreach ($martialarts as $martialart) {
-                        $description = truncate($martialart['description'], 50);
+                if (isset($martial_arts) && !empty($martial_arts)) {
+                    foreach ($martial_arts as $item) {
+                        $description = truncate($item['description'], 50);
                 ?>
-                        <option value="<?= htmlspecialchars($martialart['id']) ?>"><?= htmlspecialchars($martialart['name']) ?></option>
+                        <option value="<?= htmlspecialchars($item['id']) ?>"><?= htmlspecialchars($item['name']) ?></option>
                 <?php
                     }
                 }
@@ -42,9 +42,9 @@
                 $users = $user->getAllInstructors();
 
                 if (isset($users) && !empty($users)) {
-                    foreach ($users as $instructor) {
+                    foreach ($users as $item) {
                 ?>
-                        <option value="<?= htmlspecialchars($instructor['id']) ?>"><?= htmlspecialchars($instructor['name']) ?></option>
+                        <option value="<?= htmlspecialchars($item['id']) ?>"><?= htmlspecialchars($item['name']) ?></option>
                 <?php
                     }
                 }
