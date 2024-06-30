@@ -44,13 +44,13 @@ require_once '../../models/SalesItem.php';
 require_once '../../models/MethodPayment.php';
 require_once '../../models/SalesPaymentItem.php';
 require_once '../../models/Expiration.php';
-require_once '../../models/Class.php';
+require_once '../../models/Modality.php';
 require_once '../../utils/openssl.php';
 
 define('ENCRYPTION_KEY', 'gotosao');
 $user = new User($conn);
 
-$class = new Modality($conn);
+$modality = new Modality($conn);
 $salesRecord = new SalesRecord($conn);
 $salesItem = new SalesItem($conn);
 $methodPayment = new MethodPayment($conn);
@@ -101,12 +101,12 @@ $methods = [
         if (isset($salestens) && !empty($salestens)) {
 
           foreach ($salestens as $item) {
-            $classData = $class->getById($item["modality_id"]);
-            $valorFormatado = number_format((float) $classData['value'], 2, ',', '.');
+            $modalityData = $modality->getById($item["modality_id"]);
+            $valorFormatado = number_format((float) $modalityData['value'], 2, ',', '.');
             $counter += 1;
         ?>
             <p>
-              <strong>Plano <?= htmlspecialchars($counter) ?>: </strong> <?= htmlspecialchars($classData["name"]) ?> por <?= htmlspecialchars($classData["days"]) ?> dias
+              <strong>Plano <?= htmlspecialchars($counter) ?>: </strong> <?= htmlspecialchars($modalityData["name"]) ?> por <?= htmlspecialchars($modalityData["days"]) ?> dias
               <br>
               <strong>Valor: </strong> R$ <?= htmlspecialchars($valorFormatado) ?>
               <hr>
@@ -140,7 +140,7 @@ $methods = [
         <p>
           <?= htmlspecialchars($gymData["address"]) ?> - <?= htmlspecialchars($gymData["complement"]) ?>
           <br>
-          <?= htmlspecialchars($gymData["country"]) ?> - <?= htmlspecialchars($gymData["state"]) ?> - <?= htmlspecialchars($gymData["city"]) ?> - <?= htmlspecialchars($gymData["neighborhood"]) ?> - <?= htmlspecialchars($gymData["postalCode"]) ?>
+          <?= htmlspecialchars($gymData["country"]) ?> - <?= htmlspecialchars($gymData["state"]) ?> - <?= htmlspecialchars($gymData["city"]) ?> - <?= htmlspecialchars($gymData["neighborhood"]) ?> - <?= htmlspecialchars($gymData["postal_code"]) ?>
           <br>
           Telefone: <?= htmlspecialchars($gymData["phone"]) ?>
         </p>

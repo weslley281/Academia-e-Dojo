@@ -53,7 +53,7 @@
                                             foreach ($expirationDatas as $item2) {
                                                 //var_dump($item2);
                                                 if (isset($item2["modality_id"])) {
-                                                    $classData = $class->getById($item2["modality_id"]);
+                                                    $modalityData = $modality->getById($item2["modality_id"]);
 
                                                     $expirationDateObj = new DateTime($item2["expirationDate"]);
                                                     $today = new DateTime();
@@ -65,17 +65,19 @@
                                                     $expirationDateFormatted = $expirationDateObj->format("d/m/Y")
 
                                         ?>
-                                                    <li><?= htmlspecialchars($classData["name"]) . " " . $expired . " " . htmlspecialchars($expirationDateFormatted) ?></li>
-                                        <?php
+                                                    <li><?= htmlspecialchars($modalityData["name"]) . " " . $expired . " " . htmlspecialchars($expirationDateFormatted) ?></li>
+                                            <?php
                                                 }
                                             }
-                                        }
-                                        ?>
+                                        } else {
+                                            ?>
+                                            <p>O aluno não tem matriculas ativas</p>
+                                        <?php } ?>
                                     </ol>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
                                 </div>
                             </div>
                         </div>

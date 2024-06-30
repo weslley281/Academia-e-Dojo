@@ -245,4 +245,23 @@ class CreateTables
             echo "Erro ao criar tabela 'sales_item': " . $conn->error;
         }
     }
+
+    public static function insertPaymentMethods($conn)
+    {
+        $paymentMethods = ['cash', 'credit', 'debit', 'deposit'];
+
+        foreach ($paymentMethods as $method) {
+            // Verifica se o método de pagamento já existe
+            $checkSql = "SELECT id FROM method_payment WHERE name = '$method'";
+            $result = $conn->query($checkSql);
+
+            if ($result->num_rows == 0) {
+                // Insere o método de pagamento se não existir
+                $insertSql = "INSERT INTO method_payment (name, processing_fee) VALUES ('$method', 0)";
+                if ($conn->query($insertSql) === true) {
+                    //echo "Método de pagamento '$method' inserido com sucesso.";
+                }
+            }
+        }
+    }
 }

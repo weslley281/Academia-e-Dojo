@@ -43,6 +43,8 @@ $createTable->createSalesItemTable($conn);
 $createTable->createSalesPaymentItemTable($conn);
 $createTable->createExpirationTable($conn);
 
+$createTable->insertPaymentMethods($conn);
+
 $page = $_GET['page'] ?? 'dashboard';
 $action = $_GET['action'] ?? '';
 
