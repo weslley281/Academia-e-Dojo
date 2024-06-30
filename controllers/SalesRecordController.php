@@ -5,13 +5,13 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../models/Expiration.php';
     require_once __DIR__ . '/../models/SalesItem.php';
     require_once __DIR__ . '/../config/db.php';
-    require_once __DIR__ . '/../models/Class.php';
+    require_once __DIR__ . '/../models/Modality.php';
 
     // Instância da classe SalesRecord
     $salesRecord = new SalesRecord($conn);
     $expiration = new Expiration($conn);
     $saleItem = new SalesItem($conn);
-    $class = new Modality($conn);
+    $modality = new Modality($conn);
 
     // Verifica o método HTTP
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -59,10 +59,10 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                         foreach ($saleItens as $item) {
 
                             //var_dump($item);
-                            $classData = $class->getById($item["class_id"]);
+                            $modalityData = $modality->getById($item["modality_id"]);
 
-                            //echo var_dump($expiration = $expiration->getBySaleAndUserId($item["class_id"], $data["student_id"]));
-                            if ($expirations = $expiration->getBySaleAndUserId($item["class_id"], $data["student_id"])) {
+                            //echo var_dump($expiration = $expiration->getBySaleAndUserId($item["modality_id"], $data["student_id"]));
+                            if ($expirations = $expiration->getBySaleAndUserId($item["modality_id"], $data["student_id"])) {
                                 //echo "Fazendo Mudanças";
                                 //var_dump($expirations);
                                 $expirationDate = $expirations["expirationDate"];
@@ -76,14 +76,14 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                                     //echo "<br>É menor sim";
                                 }
 
-                                $expirationDateObj->modify("+" . $classData["days"] . " days");
+                                $expirationDateObj->modify("+" . $modalityData["days"] . " days");
                                 $expirationDate = $expirationDateObj->format('Y-m-d');
                                 //echo "<br> nova data de expiração é?";
                                 //var_dump($expirationDate);
 
                                 $expirationDataObj = [
                                     "student_id" => $data["student_id"],
-                                    "class_id" => $item["class_id"],
+                                    "modality_id" => $item["modality_id"],
                                     "expirationDate" => $expirationDate
                                 ];
 
@@ -95,12 +95,12 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                                 //var_dump($expirationDate);
 
                                 $expirationDateObj = new DateTime($expirationDate);
-                                $expirationDateObj->modify("+" . $classData["days"] . " days");
+                                $expirationDateObj->modify("+" . $modalityData["days"] . " days");
                                 $expirationDate = $expirationDateObj->format('Y-m-d');
 
                                 $expirationData = [
                                     "student_id" => $data["student_id"],
-                                    "class_id" => $item["class_id"],
+                                    "modality_id" => $item["modality_id"],
                                     "expirationDate" => $expirationDate
                                 ];
 

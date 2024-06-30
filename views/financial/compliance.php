@@ -52,8 +52,8 @@
                                         if (isset($expirationDatas) && !empty($expirationDatas)) {
                                             foreach ($expirationDatas as $item2) {
                                                 //var_dump($item2);
-                                                if (isset($item2["class_id"])) {
-                                                    $classData = $class->getById($item2["class_id"]);
+                                                if (isset($item2["modality_id"])) {
+                                                    $classData = $class->getById($item2["modality_id"]);
 
                                                     $expirationDateObj = new DateTime($item2["expirationDate"]);
                                                     $today = new DateTime();

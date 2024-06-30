@@ -12,15 +12,15 @@
                             <input type="hidden" name="sale_id" value="<?= htmlspecialchars($sale_data["id"])  ?>">
                             <select class="form-control select_basic2" name="select_product" id="select_product">
                                 <?php
-                                $modalities = $class->getAll(); // Obtém todas as modalities do modelo
+                                $modalities = $modality->getAll(); // Obtém todas as modalities do modelo
 
                                 if (isset($modalities) && !empty($modalities)) { // Verifica se há modalities para exibir
-                                    foreach ($modalities as $class_item) {
-                                        $get_user = $user->getById($class_item['id_instructor']);
-                                        $valorFormatado = number_format((float) $class_item['value'], 2, ',', '.');
+                                    foreach ($modalities as $item) {
+                                        $get_user = $user->getById($item['id_instructor']);
+                                        $valorFormatado = number_format((float) $item['value'], 2, ',', '.');
                                 ?>
-                                        <option value="<?= htmlspecialchars($class_item['id']) ?>">
-                                            <?= htmlspecialchars($class_item['name']) . " R$ " . $valorFormatado ?>
+                                        <option value="<?= htmlspecialchars($item['id']) ?>">
+                                            <?= htmlspecialchars($item['name']) . " R$ " . $valorFormatado ?>
                                         </option>
                                 <?php }
                                 } ?>
@@ -49,13 +49,13 @@
 
                     if (isset($salesItems) && !empty($salesItems)) {
                         foreach ($salesItems as $item) {
-                            $class_item = $class->getById($item["class_id"]);
-                            $sub_total += $class_item['value'];
-                            $get_user = $user->getById($class_item['id_instructor']);
-                            $valorFormatado = number_format((float) $class_item['value'], 2, ',', '.');
+                            $item = $modality->getById($item["modality_id"]);
+                            $sub_total += $item['value'];
+                            $get_user = $user->getById($item['id_instructor']);
+                            $valorFormatado = number_format((float) $item['value'], 2, ',', '.');
                     ?>
                             <tr>
-                                <td><?= htmlspecialchars($class_item['name']) ?></td>
+                                <td><?= htmlspecialchars($item['name']) ?></td>
                                 <td><?= htmlspecialchars($get_user["name"]) ?></td>
                                 <td>R$ <?= htmlspecialchars($valorFormatado) ?></td>
                                 <td>

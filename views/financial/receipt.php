@@ -101,7 +101,7 @@ $methods = [
         if (isset($salestens) && !empty($salestens)) {
 
           foreach ($salestens as $item) {
-            $classData = $class->getById($item["class_id"]);
+            $classData = $class->getById($item["modality_id"]);
             $valorFormatado = number_format((float) $classData['value'], 2, ',', '.');
             $counter += 1;
         ?>
