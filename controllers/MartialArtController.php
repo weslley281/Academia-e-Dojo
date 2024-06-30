@@ -4,7 +4,6 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../models/MartialArt.php';
     require_once __DIR__ . '/../config/db.php';
 
-    // Instância da classe MartialArt
     $martialArt = new MartialArt($conn);
 
     // Verifica o método HTTP

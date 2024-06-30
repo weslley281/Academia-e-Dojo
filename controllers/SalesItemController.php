@@ -4,7 +4,6 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../models/SalesItem.php';
     require_once __DIR__ . '/../config/db.php';
 
-    // Instância da classe SalesItem
     $salesItem = new SalesItem($conn);
 
     // Verifica o método HTTP

@@ -6,7 +6,6 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../utils/generateRandomPassword.php';
     require_once __DIR__ . '/../utils/openssl.php';
 
-    // Instância da classe User
     $user = new User($conn);
 
     // Verifica o método HTTP

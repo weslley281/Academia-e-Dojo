@@ -4,7 +4,6 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../models/Expiration.php';
     require_once __DIR__ . '/../config/db.php';
 
-    // Instância da classe Expiration
     $expiration = new Expiration($conn);
 
     // Verifica o método HTTP

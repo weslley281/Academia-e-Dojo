@@ -7,7 +7,6 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../config/db.php';
     require_once __DIR__ . '/../models/Modality.php';
 
-    // Instância da classe SalesRecord
     $salesRecord = new SalesRecord($conn);
     $expiration = new Expiration($conn);
     $saleItem = new SalesItem($conn);
