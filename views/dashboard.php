@@ -35,7 +35,7 @@
                 <img class="card-img-top" src="./images/turmas.jpg" alt="Imagem de capa do card">
                 <div class="card-body">
                     <h5 class="card-title">Turmas</h5>
-                    <p class="card-text">Turmas ativas <strong><?= $class->countAll() ?></strong>.</p>
+                    <p class="card-text">Turmas ativas <strong><?= $modality->countAll() ?></strong>.</p>
                     <a href="index.php?page=modalities" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
                 </div>
             </div>

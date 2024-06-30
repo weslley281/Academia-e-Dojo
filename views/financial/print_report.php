@@ -23,7 +23,7 @@ require_once '../../models/SalesItem.php';
 require_once '../../models/MethodPayment.php';
 require_once '../../models/SalesPaymentItem.php';
 require_once '../../models/Expiration.php';
-require_once '../../models/Class.php';
+require_once '../../models/Modality.php';
 
 $user = new User($conn);
 $salesRecord = new SalesRecord($conn);

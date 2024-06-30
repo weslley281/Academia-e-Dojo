@@ -27,14 +27,33 @@
       color: #777;
     }
   </style>
-  <script>
-    window.onload = function() {
-      window.print();
-      setTimeout(function() {
-        window.location.href = '../../index.php?page=financial&action=sell';
-      }, 10000);
-    };
-  </script>
+
+  <?php
+  if (isset($_GET["id"])) {
+  ?>
+    <script>
+      window.onload = function() {
+        window.print();
+        setTimeout(function() {
+          window.location.href = '../../index.php?page=financial&action=sales_report#report';
+        }, 10000);
+      };
+    </script>
+  <?php
+  } else {
+  ?>
+    <script>
+      window.onload = function() {
+        window.print();
+        setTimeout(function() {
+          window.location.href = '../../index.php?page=financial&action=sell';
+        }, 10000);
+      };
+    </script>
+  <?php
+  }
+  ?>
+
 </head>
 
 <?php
@@ -58,7 +77,12 @@ $salesPaymentItem = new SalesPaymentItem($conn);
 $expiration = new Expiration($conn);
 
 $gymData = $user->getById(1);
-$salesData = $salesRecord->getLastProcessedSale();
+
+if (isset($_GET["id"])) {
+  $salesData = $salesRecord->getById($_GET["id"]);
+} else {
+  $salesData = $salesRecord->getLastProcessedSale();
+}
 
 $studentData = $user->getById($salesData["student_id"]);
 $userData = $user->getById($salesData["user_id"]);
