@@ -1,17 +1,17 @@
 <?php
 session_start();
 if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
-    require_once __DIR__ . '/../models/Class.php';
+    require_once __DIR__ . '/../models/Modality.php';
     require_once __DIR__ . '/../config/db.php';
 
-    // Instância do modelo ClassModel
-    $classModel = new ClassModel($conn);
+    // Instância do modelo Modality
+    $modality = new Modality($conn);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = isset($_POST['id']) ? intval($_POST['id']) : null;
         $action = isset($_GET['action']) ? strtolower($_GET['action']) : '';
 
-        function getClassData($post)
+        function getModalityData($post)
         {
             return [
                 "id_martial_art" => intval($post["id_martial_art"] ?? 0),
@@ -19,49 +19,49 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 "name" => htmlspecialchars($post["name"] ?? ''),
                 "description" => htmlspecialchars($post["description"] ?? ''),
                 "value" => htmlspecialchars($post["value"] ?? ''),
-                "initialHour" => htmlspecialchars($post["initialHour"] ?? ''),
-                "finalHour" => htmlspecialchars($post["finalHour"] ?? ''),
+                "initial_hour" => htmlspecialchars($post["initial_hour"] ?? ''),
+                "final_hour" => htmlspecialchars($post["final_hour"] ?? ''),
                 "days" => htmlspecialchars($post["days"] ?? 0),
             ];
         }
 
         switch ($action) {
             case 'create':
-                $data = getClassData($_POST);
-                if ($classModel->create($data)) {
-                    header("Location: ../index.php?page=classes&action=success");
+                $data = getModalityData($_POST);
+                if ($modality->create($data)) {
+                    header("Location: ../index.php?page=modalities&action=success");
                 } else {
-                    header("Location: ../index.php?page=classes&action=fail");
+                    header("Location: ../index.php?page=modalities&action=fail");
                 }
                 break;
 
             case 'update':
                 if ($id === null) {
-                    header("Location: ../index.php?page=classes&action=invalid");
+                    header("Location: ../index.php?page=modalities&action=invalid");
                     exit;
                 }
-                $data = getClassData($_POST);
-                if ($classModel->update($data, $id)) {
-                    header("Location: ../index.php?page=classes&action=saved");
+                $data = getModalityData($_POST);
+                if ($modality->update($data, $id)) {
+                    header("Location: ../index.php?page=modalities&action=saved");
                 } else {
-                    header("Location: ../index.php?page=classes&action=fail");
+                    header("Location: ../index.php?page=modalities&action=fail");
                 }
                 break;
 
             case 'delete':
                 if ($id === null) {
-                    header("Location: ../index.php?page=classes&action=invalid");
+                    header("Location: ../index.php?page=modalities&action=invalid");
                     exit;
                 }
-                if ($classModel->delete($id)) {
-                    header("Location: ../index.php?page=classes&action=deleted");
+                if ($modality->delete($id)) {
+                    header("Location: ../index.php?page=modalities&action=deleted");
                 } else {
-                    header("Location: ../index.php?page=classes&action=fail");
+                    header("Location: ../index.php?page=modalities&action=fail");
                 }
                 break;
 
             default:
-                header("Location: ../index.php?page=classes&action=unknown");
+                header("Location: ../index.php?page=modalities&action=unknown");
                 break;
         }
     }

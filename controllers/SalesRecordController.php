@@ -2,16 +2,16 @@
 session_start();
 if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../models/SalesRecords.php';
-    require_once __DIR__ . '/../models/ExpirationItem.php';
+    require_once __DIR__ . '/../models/Expiration.php';
     require_once __DIR__ . '/../models/SalesItem.php';
     require_once __DIR__ . '/../config/db.php';
     require_once __DIR__ . '/../models/Class.php';
 
     // Instância da classe SalesRecord
     $salesRecord = new SalesRecord($conn);
-    $expirationItem = new ExpirationItem($conn);
+    $expiration = new Expiration($conn);
     $saleItem = new SalesItem($conn);
-    $class = new ClassModel($conn);
+    $class = new Modality($conn);
 
     // Verifica o método HTTP
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -55,15 +55,17 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 if ($salesRecord->update($data, $id)) {
                     $saleItens = $saleItem->getBySaleId($id);
 
-                    if (isset($saleItens) && !empty($saleItens)) { // Verifica se há classes para exibir
+                    if (isset($saleItens) && !empty($saleItens)) { // Verifica se há modalities para exibir
                         foreach ($saleItens as $item) {
 
                             //var_dump($item);
                             $classData = $class->getById($item["class_id"]);
 
-                            //echo var_dump($expiration = $expirationItem->getBySaleAndUserId($item["class_id"], $data["student_id"]));
-                            if ($expiration = $expirationItem->getBySaleAndUserId($item["class_id"], $data["student_id"])) {
-                                $expirationDate = $expiration["expirationDate"];
+                            //echo var_dump($expiration = $expiration->getBySaleAndUserId($item["class_id"], $data["student_id"]));
+                            if ($expirations = $expiration->getBySaleAndUserId($item["class_id"], $data["student_id"])) {
+                                //echo "Fazendo Mudanças";
+                                //var_dump($expirations);
+                                $expirationDate = $expirations["expirationDate"];
                                 $expirationDateObj = new DateTime($expirationDate);
                                 $currentDateObj = new DateTime();
 
@@ -71,21 +73,21 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                                 //var_dump($expirationDateObj < $currentDateObj, $expirationDateObj);
                                 if ($expirationDateObj < $currentDateObj) {
                                     $expirationDateObj = $currentDateObj;
-                                    echo "<br>É menor sim";
+                                    //echo "<br>É menor sim";
                                 }
 
                                 $expirationDateObj->modify("+" . $classData["days"] . " days");
                                 $expirationDate = $expirationDateObj->format('Y-m-d');
-                                echo "<br> nova data de expiração é?";
+                                //echo "<br> nova data de expiração é?";
                                 //var_dump($expirationDate);
 
-                                $expirationItemData = [
+                                $expirationDataObj = [
                                     "student_id" => $data["student_id"],
                                     "class_id" => $item["class_id"],
                                     "expirationDate" => $expirationDate
                                 ];
 
-                                $expirationItem->update($expirationItemData, $expiration["id"]);
+                                $expiration->update($expirationDataObj, $expirations["id"]);
 
                                 //echo "<br>Fiz Update";
                             } else {
@@ -96,20 +98,20 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                                 $expirationDateObj->modify("+" . $classData["days"] . " days");
                                 $expirationDate = $expirationDateObj->format('Y-m-d');
 
-                                $expirationItemData = [
+                                $expirationData = [
                                     "student_id" => $data["student_id"],
                                     "class_id" => $item["class_id"],
                                     "expirationDate" => $expirationDate
                                 ];
 
-                                $expirationItem->create($expirationItemData);
+                                $expiration->create($expirationData);
                                 //echo "<br>Fiz Create";
                             }
                         }
                     }
 
                     echo "<script>";
-                    echo "setTimeout(function() { window.location.href = '../views/financial/receipt.php'; }, 1000);";
+                    echo "setTimeout(function() { window.location.href = '../views/financial/receipt.php'; }, 500);";
                     echo "</script>";
                 } else {
                     header("Location: ../index.php?page=financial&action=sell");

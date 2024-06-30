@@ -12,36 +12,36 @@ require_once './utils/openssl.php';
 
 require_once './models/User.php';
 require_once './models/MartialArt.php';
-require_once './models/Class.php';
+require_once './models/Modality.php';
 require_once './models/Cashier.php';
 require_once './models/SalesRecords.php';
 require_once './models/SalesItem.php';
 require_once './models/MethodPayment.php';
 require_once './models/SalesPaymentItem.php';
-require_once './models/ExpirationItem.php';
+require_once './models/Expiration.php';
 
 
 $createTable = new CreateTables;
 $user = new User($conn);
-$martialart = new MartialArt($conn);
-$class = new ClassModel($conn);
+$martial_art = new MartialArt($conn);
+$modality = new Modality($conn);
 $cashier = new Cashier($conn);
 $salesRecord = new SalesRecord($conn);
 $salesItem = new SalesItem($conn);
 $methodPayment = new MethodPayment($conn);
 $salesPaymentItem = new SalesPaymentItem($conn);
-$expirationItem = new ExpirationItem($conn);
+$expiration = new Expiration($conn);
 
 $createTable->createUsersTable($conn);
 $createTable->createMartialArtsTable($conn);
-$createTable->createClassTable($conn);
-$createTable->createClassDaysTable($conn);
+$createTable->createModalityTable($conn);
+$createTable->createModalityDaysTable($conn);
 $createTable->createCashierTable($conn);
 $createTable->createMethodPaymentTable($conn);
 $createTable->createSalesTable($conn);
 $createTable->createSalesItemTable($conn);
 $createTable->createSalesPaymentItemTable($conn);
-$createTable->createExpirationItemTable($conn);
+$createTable->createExpirationTable($conn);
 
 $page = $_GET['page'] ?? 'dashboard';
 $action = $_GET['action'] ?? '';
@@ -51,7 +51,7 @@ $titles = [
     'login' => 'Login',
     'users' => 'Usuários',
     'martial_arts' => 'Artes Marciais',
-    'classes' => 'Turmas',
+    'modalities' => 'Turmas',
     'financial' => 'Financeiro',
 ];
 
@@ -70,10 +70,10 @@ if (!$user->getByEmail("instituto@kenshydokan.org.br")) {
         "state" => "Mato Grosso",
         "city" => "Várzea Grande",
         "neighborhood" => "Centro Norte",
-        "postalCode" => "78110-520",
-        "maritalStatus" => "single",
-        "gender" => "mmasculine",
-        "birthDate" => "2000-01-01",
+        "postal_code" => "78110-520",
+        "marital_status" => "single",
+        "gender" => "masculine",
+        "birth_date" => "2000-01-01",
         "password" => $password,
         "type" => 'admin',
         "cpf" => '10.707.722/0001-34',
@@ -94,6 +94,10 @@ require_once "./header.php";
         switch ($page) {
             case 'dashboard':
                 include_once "./views/dashboard.php";
+                break;
+
+            case 'validate':
+                include_once './views/validate/index.php';
                 break;
 
             case 'login':
@@ -146,7 +150,7 @@ require_once "./header.php";
             case 'martial_arts':
 
                 if ($action === 'create') {
-                    include_once './views/martialArt/create.php';
+                    include_once './views/martial_art/create.php';
                 } else {
                     switch ($action) {
                         case 'success':
@@ -167,14 +171,14 @@ require_once "./header.php";
                     }
                 }
 
-                include_once './views/martialArt/index.php';
+                include_once './views/martial_art/index.php';
 
                 break;
 
-            case 'classes':
+            case 'modalities':
 
                 if ($action === 'create') {
-                    include_once './views/class/create.php';
+                    include_once './views/modality/create.php';
                 } else {
                     switch ($action) {
                         case 'success':
@@ -195,7 +199,7 @@ require_once "./header.php";
                     }
                 }
 
-                include_once './views/class/index.php';
+                include_once './views/modality/index.php';
 
                 break;
 

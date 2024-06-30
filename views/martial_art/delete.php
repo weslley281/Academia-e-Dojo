@@ -2,7 +2,7 @@
     <div class="container mt-5 mb-5">
         <h1>Deletar Arte Marcial</h1>
         <div class="alert alert-danger" role="alert">
-            <p>Você tem certeza que deseja deletar essa arte marcial <strong>"<?php echo $martialart["name"] ?></strong>"</p>
+            <p>Você tem certeza que deseja deletar essa arte marcial <strong>"<?php echo $martial_art["name"] ?></strong>"</p>
         </div>
 
         <form action="./controllers/MartialArtController.php?action=delete" method="post" class="form-group">

@@ -2,6 +2,16 @@
     <div class="row mt-5">
         <div class="col-12 col-sm-6 col-md-4 col-lg-4 my-2">
             <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="./images/aulas.jpg" alt="Imagem de capa do card">
+                <div class="card-body">
+                    <h5 class="card-title">Entrada de Alunos</h5>
+                    <p class="card-text">Validar entrada do Aluno</p>
+                    <a href="index.php?page=validate" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4 my-2">
+            <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src="./images/alunos.jpg" alt="Imagem de capa do card">
                 <div class="card-body">
                     <h5 class="card-title">Alunos</h5>
@@ -26,7 +36,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Turmas</h5>
                     <p class="card-text">Turmas ativas <strong><?= $class->countAll() ?></strong>.</p>
-                    <a href="index.php?page=classes" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
+                    <a href="index.php?page=modalities" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
                 </div>
             </div>
         </div>
@@ -47,16 +57,6 @@
                     <h5 class="card-title">Campeonatos</h5>
                     <p class="card-text">Campeonatos pendente <strong>0</strong>.</p>
                     <a href="index.php?page=championships" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-4 my-2">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="./images/aulas.jpg" alt="Imagem de capa do card">
-                <div class="card-body">
-                    <h5 class="card-title">Aulas</h5>
-                    <p class="card-text">Aulas gravadas <strong>0</strong></p>
-                    <a href="index.php?page=recorded_classes" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visitar</a>
                 </div>
             </div>
         </div>

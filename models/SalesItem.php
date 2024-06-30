@@ -15,11 +15,11 @@ class SalesItem
 
     public function create(array $data)
     {
-        var_dump($data);
+        //var_dump($data);
         try {
-            $stmt = $this->conn->prepare('INSERT INTO sales_item (sale_id, class_id) VALUES (?, ?)');
+            $stmt = $this->conn->prepare('INSERT INTO sales_item (sale_id, modality_id) VALUES (?, ?)');
 
-            $stmt->bind_param('ii', $data['sale_id'], $data['class_id']);
+            $stmt->bind_param('ii', $data['sale_id'], $data['modality_id']);
 
             $stmt->execute();
             return true;
@@ -60,9 +60,9 @@ class SalesItem
     public function update(array $data, $id)
     {
         try {
-            $stmt = $this->conn->prepare('UPDATE sales_item SET sale_id = ?, class_id = ? WHERE id = ?');
+            $stmt = $this->conn->prepare('UPDATE sales_item SET sale_id = ?, modality_id = ? WHERE id = ?');
 
-            $stmt->bind_param('iii', $data['sale_id'], $data['class_id'], $id);
+            $stmt->bind_param('iii', $data['sale_id'], $data['modality_id'], $id);
 
             $stmt->execute();
             return true;

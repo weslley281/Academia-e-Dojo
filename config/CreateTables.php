@@ -10,9 +10,9 @@ class CreateTables
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255),
         phone VARCHAR(100),
-        email VARCHAR(255),
-        password VARCHAR(255) UNIQUE,
-        cpf VARCHAR(50) UNIQUE NULL,
+        email VARCHAR(255) UNIQUE,
+        password VARCHAR(255),
+        cpf VARCHAR(255) UNIQUE,
         type ENUM('admin', 'instructor', 'student'),
         address VARCHAR(255),
         complement VARCHAR(255),
@@ -20,10 +20,10 @@ class CreateTables
         state VARCHAR(100),
         city VARCHAR(100),
         neighborhood VARCHAR(100),
-        postalCode VARCHAR(100),
-        maritalStatus VARCHAR(50),
-        gender VARCHAR(10),
-        birthDate DATE,
+        postal_code VARCHAR(10),
+        marital_status ENUM('single', 'married', 'divorced', 'widower'),
+        gender ENUM('masculine', 'feminine', 'non-binary', 'gender-fluid', 'transgender', 'agender', 'two-spirit', 'other', 'null'),
+        birth_date DATE,
         editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
@@ -39,7 +39,7 @@ class CreateTables
     public static function createMartialArtsTable($conn)
     {
         $sql = "
-        CREATE TABLE IF NOT EXISTS martialArts (
+        CREATE TABLE IF NOT EXISTS martial_arts (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) UNIQUE,
             description TEXT(500),
@@ -55,51 +55,51 @@ class CreateTables
         }
     }
 
-    public static function createClassTable($conn)
+    public static function createModalityTable($conn)
     {
         $sql = "
-        CREATE TABLE IF NOT EXISTS classes (
+        CREATE TABLE IF NOT EXISTS modalities (
             id INT AUTO_INCREMENT PRIMARY KEY,
             id_martial_art INT,
             id_instructor INT,
             name VARCHAR(255) UNIQUE,
             description TEXT(500),
             value DECIMAL(10, 2),
-            initialHour TIME,
-            finalHour TIME,
+            initial_hour TIME,
+            final_hour TIME,
             days INT,
             editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (id_martial_art) REFERENCES martialArts(id),
+            FOREIGN KEY (id_martial_art) REFERENCES martial_arts(id),
             FOREIGN KEY (id_instructor) REFERENCES users(id)
         );
         ";
 
         if ($conn->query($sql) === true) {
-            //echo "Tabela 'classes' criada com sucesso.";
+            //echo "Tabela 'modalities' criada com sucesso.";
         } else {
-            echo "Erro ao criar tabela 'classes': " . $conn->error;
+            echo "Erro ao criar tabela 'modalities': " . $conn->error;
         }
     }
 
-    public static function createClassDaysTable($conn)
+    public static function createModalityDaysTable($conn)
     {
         $sql = "
-        CREATE TABLE IF NOT EXISTS class_days (
+        CREATE TABLE IF NOT EXISTS modality_days (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            class_id INT,
+            modality_id INT,
             day_of_week ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'),
             editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (class_id) REFERENCES classes(id)
+            FOREIGN KEY (modality_id) REFERENCES modalities(id)
         );
 
         ";
 
         if ($conn->query($sql) === true) {
-            //echo "Tabela 'classes' criada com sucesso.";
+            //echo "Tabela 'modalities' criada com sucesso.";
         } else {
-            echo "Erro ao criar tabela 'classes': " . $conn->error;
+            echo "Erro ao criar tabela 'modalities': " . $conn->error;
         }
     }
 
@@ -109,7 +109,7 @@ class CreateTables
             CREATE TABLE IF NOT EXISTS method_payment (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 name VARCHAR(255),
-                processingFee DECIMAL(10, 2) DEFAULT 0,
+                processing_fee DECIMAL(10, 2) DEFAULT 0,
                 editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
@@ -187,11 +187,11 @@ class CreateTables
             CREATE TABLE IF NOT EXISTS sales_item (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 sale_id INT NOT NULL,
-                class_id INT NOT NULL,
+                modality_id INT NOT NULL,
                 editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (sale_id) REFERENCES sales_records(id),
-                FOREIGN KEY (class_id) REFERENCES classes(id)
+                FOREIGN KEY (modality_id) REFERENCES modalities(id)
             );
         ";
 
@@ -224,18 +224,18 @@ class CreateTables
         }
     }
 
-    public static function createExpirationItemTable($conn)
+    public static function createExpirationTable($conn)
     {
         $sql = "
             CREATE TABLE IF NOT EXISTS expiration (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 student_id INT NOT NULL,
-                class_id INT NOT NULL,
+                modality_id INT NOT NULL,
                 expirationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 editDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (student_id) REFERENCES users(id),
-                FOREIGN KEY (class_id) REFERENCES classes(id)
+                FOREIGN KEY (modality_id) REFERENCES modalities(id)
             );
         ";
 

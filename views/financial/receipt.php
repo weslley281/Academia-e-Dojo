@@ -43,19 +43,19 @@ require_once '../../models/SalesRecords.php';
 require_once '../../models/SalesItem.php';
 require_once '../../models/MethodPayment.php';
 require_once '../../models/SalesPaymentItem.php';
-require_once '../../models/ExpirationItem.php';
+require_once '../../models/Expiration.php';
 require_once '../../models/Class.php';
 require_once '../../utils/openssl.php';
 
 define('ENCRYPTION_KEY', 'gotosao');
 $user = new User($conn);
 
-$class = new ClassModel($conn);
+$class = new Modality($conn);
 $salesRecord = new SalesRecord($conn);
 $salesItem = new SalesItem($conn);
 $methodPayment = new MethodPayment($conn);
 $salesPaymentItem = new SalesPaymentItem($conn);
-$expirationItem = new ExpirationItem($conn);
+$expiration = new Expiration($conn);
 
 $gymData = $user->getById(1);
 $salesData = $salesRecord->getLastProcessedSale();
@@ -116,7 +116,7 @@ $methods = [
         $salesPaymentItems = $salesPaymentItem->getBySaleId($salesData["id"]);
         $counter2 = 0;
 
-        if (isset($salesPaymentItems) && !empty($salesPaymentItems)) { // Verifica se há classes para exibir
+        if (isset($salesPaymentItems) && !empty($salesPaymentItems)) { // Verifica se há modalities para exibir
           foreach ($salesPaymentItems as $item) {
             $methodPaymentData = $methodPayment->getById($item["payment_method_id"]);
             $valorFormatado = number_format((float) $item['amount_paid'], 2, ',', '.');

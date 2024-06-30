@@ -76,7 +76,7 @@ class SalesRecord
 
     public function update(array $data, $id)
     {
-        var_dump($data);
+        //var_dump($data);
         try {
             $stmt = $this->conn->prepare('UPDATE sales_records SET cashier_id = ?, user_id = ?, student_id = ?, discount = ?, amount_paid = ?, change_sale = ?, total = ?, status = ? WHERE id = ?');
 

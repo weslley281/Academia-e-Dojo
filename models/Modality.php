@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/db.php';
 
-class ClassModel
+class Modality
 {
     private $conn;
 
@@ -13,11 +13,11 @@ class ClassModel
         $this->conn = $conn;
     }
 
-    public function create(array $data)
+    public function create(array $data): bool
     {
         try {
             $stmt = $this->conn->prepare(
-                'INSERT INTO classes (id_martial_art, id_instructor, name, description, value, initialHour, finalHour, days)
+                'INSERT INTO modalities (id_martial_art, id_instructor, name, description, value, initial_hour, final_hour, days)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
             );
 
@@ -28,8 +28,8 @@ class ClassModel
                 $data['name'],
                 $data['description'],
                 $data['value'],
-                $data['initialHour'],
-                $data['finalHour'],
+                $data['initial_hour'],
+                $data['final_hour'],
                 $data['days']
             );
 
@@ -41,10 +41,10 @@ class ClassModel
         }
     }
 
-    public function getAll()
+    public function getAll(): array
     {
         try {
-            $result = $this->conn->query('SELECT * FROM classes');
+            $result = $this->conn->query('SELECT * FROM modalities');
             return $result->fetch_all(MYSQLI_ASSOC);
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
@@ -52,25 +52,26 @@ class ClassModel
         }
     }
 
-    public function getById($id)
+    public function getById(int $id): ?array
     {
         try {
-            $stmt = $this->conn->prepare('SELECT * FROM classes WHERE id = ?');
+            $stmt = $this->conn->prepare('SELECT * FROM modalities WHERE id = ?');
             $stmt->bind_param('i', $id);
             $stmt->execute();
 
-            return $stmt->get_result()->fetch_assoc();
+            $result = $stmt->get_result()->fetch_assoc();
+            return $result ?: null;
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return null;
         }
     }
 
-    public function update(array $data, $id)
+    public function update(array $data, int $id): bool
     {
         try {
             $stmt = $this->conn->prepare(
-                'UPDATE classes SET id_martial_art = ?, id_instructor = ?, name = ?, description = ?, value = ?, initialHour = ?, finalHour = ?, days = ? WHERE id = ?'
+                'UPDATE modalities SET id_martial_art = ?, id_instructor = ?, name = ?, description = ?, value = ?, initial_hour = ?, final_hour = ?, days = ? WHERE id = ?'
             );
 
             $stmt->bind_param(
@@ -80,8 +81,8 @@ class ClassModel
                 $data['name'],
                 $data['description'],
                 $data['value'],
-                $data['initialHour'],
-                $data['finalHour'],
+                $data['initial_hour'],
+                $data['final_hour'],
                 $data['days'],
                 $id
             );
@@ -94,10 +95,10 @@ class ClassModel
         }
     }
 
-    public function delete($id)
+    public function delete(int $id): bool
     {
         try {
-            $stmt = $this->conn->prepare('DELETE FROM classes WHERE id = ?');
+            $stmt = $this->conn->prepare('DELETE FROM modalities WHERE id = ?');
             $stmt->bind_param('i', $id);
             return $stmt->execute();
         } catch (mysqli_sql_exception $e) {
@@ -106,12 +107,11 @@ class ClassModel
         }
     }
 
-    public function countAll()
+    public function countAll(): int
     {
         try {
-            $result = $this->conn->query('SELECT COUNT(*) as total FROM classes');
+            $result = $this->conn->query('SELECT COUNT(*) as total FROM modalities');
             $row = $result->fetch_assoc();
-
             return $row['total'];
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
@@ -119,14 +119,13 @@ class ClassModel
         }
     }
 
-    public function createClassDays($classId, $daysOfWeek)
+    public function createModalityDays(int $modality_id, string $daysOfWeek): bool
     {
         try {
-
             $stmt = $this->conn->prepare(
-                'INSERT INTO class_days (class_id, day_of_week) VALUES (?, ?)'
+                'INSERT INTO modality_days (modality_id, day_of_week) VALUES (?, ?)'
             );
-            $stmt->bind_param('is', $classId, $daysOfWeek);
+            $stmt->bind_param('is', $modality_id, $daysOfWeek);
             $stmt->execute();
 
             return true;
@@ -136,11 +135,11 @@ class ClassModel
         }
     }
 
-    public function getClassDays($classId)
+    public function getModalityDays(int $modality_id): array
     {
         try {
-            $stmt = $this->conn->prepare('SELECT day_of_week FROM class_days WHERE class_id = ?');
-            $stmt->bind_param('i', $classId);
+            $stmt = $this->conn->prepare('SELECT day_of_week FROM modality_days WHERE modality_id = ?');
+            $stmt->bind_param('i', $modality_id);
             $stmt->execute();
             $result = $stmt->get_result();
             $daysOfWeek = [];
@@ -154,11 +153,11 @@ class ClassModel
         }
     }
 
-    public function deleteClassDays($classId, $day_of_week)
+    public function deleteModalityDays(int $modality_id, string $day_of_week): bool
     {
         try {
-            $stmt = $this->conn->prepare('DELETE FROM class_days WHERE class_id = ? AND day_of_week = ?');
-            $stmt->bind_param('is', $classId, $day_of_week);
+            $stmt = $this->conn->prepare('DELETE FROM modality_days WHERE modality_id = ? AND day_of_week = ?');
+            $stmt->bind_param('is', $modality_id, $day_of_week);
             $stmt->execute();
             return true;
         } catch (mysqli_sql_exception $e) {

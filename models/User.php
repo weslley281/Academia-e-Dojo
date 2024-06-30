@@ -15,9 +15,12 @@ class User
 
     public function create(array $data)
     {
+        var_dump($data);
+        echo "INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postal_code, marital_status, gender, birth_date, password, cpf, type)
+                 VALUES (" . $data['name'] . ", " . $data['phone'] . ","  . $data['email'] . ", " . $data['address'] . ", " . $data['complement'] . ", " . $data['country'] . ", " . $data['state'] . ", " . $data['city'] . ", " . $data['neighborhood'] . ", " . $data['postal_code'] . ", " . $data['marital_status'] . ", " . $data['gender'] . ", " . $data['birth_date'] . ", " . $data['password'] . ", " . $data['cpf'] . ", " . $data['type'] . ")";
         try {
             $stmt = $this->conn->prepare(
-                'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postalCode, maritalStatus, gender, birthDate, password, cpf, type)
+                'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postal_code, marital_status, gender, birth_date, password, cpf, type)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
             );
 
@@ -32,19 +35,21 @@ class User
                 $data['state'],
                 $data['city'],
                 $data['neighborhood'],
-                $data['postalCode'],
-                $data['maritalStatus'],
+                $data['postal_code'],
+                $data['marital_status'],
                 $data['gender'],
-                $data['birthDate'],
+                $data['birth_date'],
                 $data['password'],
                 $data['cpf'],
                 $data['type']
             );
 
             $stmt->execute();
+            //echo "Deu certo";
             return true;
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            //echo "Deu merda";
             return false;
         }
     }
@@ -122,7 +127,7 @@ class User
     {
         try {
             $stmt = $this->conn->prepare(
-                'UPDATE users SET name = ?, phone = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postalCode = ?, maritalStatus = ?, gender = ?, birthDate = ?, password = ?, cpf = ?, type = ? WHERE id = ?'
+                'UPDATE users SET name = ?, phone = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postal_code = ?, marital_status = ?, gender = ?, birth_date = ?, password = ?, cpf = ?, type = ? WHERE id = ?'
             );
 
             $stmt->bind_param(
@@ -136,10 +141,10 @@ class User
                 $data['state'],
                 $data['city'],
                 $data['neighborhood'],
-                $data['postalCode'],
-                $data['maritalStatus'],
+                $data['postal_code'],
+                $data['marital_status'],
                 $data['gender'],
-                $data['birthDate'],
+                $data['birth_date'],
                 $data['password'],
                 $data['cpf'],
                 $data['type'],

@@ -22,7 +22,7 @@ require_once '../../models/SalesRecords.php';
 require_once '../../models/SalesItem.php';
 require_once '../../models/MethodPayment.php';
 require_once '../../models/SalesPaymentItem.php';
-require_once '../../models/ExpirationItem.php';
+require_once '../../models/Expiration.php';
 require_once '../../models/Class.php';
 
 $user = new User($conn);

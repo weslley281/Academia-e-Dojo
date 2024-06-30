@@ -89,7 +89,7 @@
                     </div>
                     <div class="form-group">
                         <label for="amount_paid">Quantidade</label>
-                        <input type="number" class="form-control" id="amount_paid" name="amount_paid" placeholder="0.00">
+                        <input type="number" class="form-control" id="amount_paid" name="amount_paid" value="<?= htmlspecialchars($total); ?>">
                     </div>
 
                     <div class="form-group">

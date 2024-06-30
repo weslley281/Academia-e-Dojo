@@ -1,10 +1,4 @@
 <?php
-define('ENCRYPTION_KEY', 'gotosao');
-function decrypt($data, $key): string
-{
-    list($encrypted_data, $iv) = explode('::', base64_decode($data), 2);
-    return openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
-}
 ?>
 <div class="container mt-5">
     <h1>Editar Usuário</h1>
@@ -27,7 +21,7 @@ function decrypt($data, $key): string
 
         <div class="mb-3 form-group">
             <label for="cpf" class="form-label"><strong>CPF:</strong></label>
-            <input type="text" id="cpf" name="cpf" class="form-control" value="<?php echo decrypt($user["cpf"], ENCRYPTION_KEY)  ?>" required>
+            <input type="text" id="cpf" name="cpf" class="form-control" value="<?php echo decrypt($user["cpf"], "gotosao")  ?>" required>
         </div>
 
         <div class="mb-3 form-group">
@@ -99,13 +93,13 @@ function decrypt($data, $key): string
         </div>
 
         <div class="mb-3 form-group">
-            <label for="postalCode" class="form-label"><strong>CEP:</strong></label>
-            <input type="text" id="postalCode" name="postalCode" class="form-control" value="<?php echo $user["postalCode"] ?>" required>
+            <label for="postal_code" class="form-label"><strong>CEP:</strong></label>
+            <input type="text" id="postal_code" name="postal_code" class="form-control" value="<?php echo $user["postal_code"] ?>" required>
         </div>
 
         <div class="mb-3 form-group">
-            <label for="maritalStatus" class="form-label"><strong>Estado Civil:</strong></label>
-            <select class="form-control" name="maritalStatus" id="maritalStatus" required>
+            <label for="marital_status" class="form-label"><strong>Estado Civil:</strong></label>
+            <select class="form-control" name="marital_status" id="marital_status" required>
                 <?php
                 $marital_statuses = [
                     'single' => 'Solteiro',
@@ -115,7 +109,7 @@ function decrypt($data, $key): string
                 ];
 
                 foreach ($marital_statuses as $status => $label) {
-                    $selected = ($user['maritalStatus'] === $status) ? 'selected' : '';
+                    $selected = ($user['marital_status'] === $status) ? 'selected' : '';
                     echo "<option value=\"$status\" $selected>$label</option>";
                 }
                 ?>
@@ -147,8 +141,8 @@ function decrypt($data, $key): string
         </div>
 
         <div class="mb-3 form-group">
-            <label for="birthDate" class="form-label"><strong>Data de Nascimento:</strong></label>
-            <input type="date" id="birthDate" name="birthDate" class="form-control" value="<?php echo $user["birthDate"] ?>" required>
+            <label for="birth_date" class="form-label"><strong>Data de Nascimento:</strong></label>
+            <input type="date" id="birth_date" name="birth_date" class="form-control" value="<?php echo $user["birth_date"] ?>" required>
         </div>
 
         <div class="row">
