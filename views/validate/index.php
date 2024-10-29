@@ -8,9 +8,9 @@
 </style>0
 <div class="container mt-5">
     <h1>Validar entrada de aluno</h1>
-    <form class="form-signin" action="./controllers/ExpirationController.php" method="post">
+    <form class="form-signin" action="./controllers/ExpirationController.php?action=validate" method="post">
         <h1 class="h3 mb-3 font-weight-normal mt-5">Por favor valide a entrada do aluno:</h1>
-        <label for="inputEmail" class="sr-only">Id do Aluno</label>
+        <label for="query" class="sr-only">Id ou email do Aluno</label>
         <input type="email" id="inputEmail" class="form-control" required autofocus>
 
         <button class="btn btn-lg btn-primary btn-block mt-5" type="submit">Validar</button>

@@ -58,7 +58,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 break;
 
             case 'validate':
-                if ($id === null) {
+                if ($query == null || $query == "" || $query == 0) {
                     header("Location: ../index.php?page=validate");
                     exit;
                 }
