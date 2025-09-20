@@ -30,9 +30,11 @@ $type_user = [
                                 <div class="col-sm-3">
                                     <a href="index.php?page=users&action=update&id=<?= $user['id'] ?>" class="btn btn-info"><i class="fa-regular fa-pen-to-square"></i></a>
                                 </div>
+                                <?php if (isset($_SESSION['type']) && $_SESSION['type'] === 'admin') { ?>
                                 <div class="col-sm-3">
                                     <a href="index.php?page=users&action=delete&id=<?= $user['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
                                 </div>
+                                <?php } ?>
                                 <div class="col-sm-6">
                                     <?php
                                     if (isset($_SESSION["type"]) && $_SESSION["type"] == "admin") {
@@ -81,7 +83,7 @@ $type_user = [
                         <?php
                         if (isset($_GET["action"]) && $_GET["action"] == "update" && isset($_GET["id"]) && $_GET["id"] == $user['id']) {
                             include_once "update.php";
-                        } elseif (isset($_GET["action"]) && $_GET["action"] == "delete" && isset($_GET["id"]) && $_GET["id"] == $user['id']) {
+                        } elseif (isset($_SESSION['type']) && $_SESSION['type'] === 'admin' && isset($_GET["action"]) && $_GET["action"] == "delete" && isset($_GET["id"]) && $_GET["id"] == $user['id']) {
                             include_once "delete.php";
                         }
                         ?>

@@ -15,7 +15,6 @@ class SalesPaymentItem
 
     public function create(array $data)
     {
-        var_dump($data);
         try {
             $stmt = $this->conn->prepare('INSERT INTO sales_payment_item (sale_id, payment_method_id, amount_paid) VALUES (?, ?, ?)');
 

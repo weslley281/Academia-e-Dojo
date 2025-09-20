@@ -149,8 +149,20 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 }
 
                 if ($salesRecord->updateDiscount($_POST["discount"], $id)) {
+                    // Check if it's an AJAX request
+                    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                        header('Content-Type: application/json');
+                        echo json_encode(['success' => true, 'message' => 'Desconto aplicado com sucesso.']);
+                        exit;
+                    }
                     header("Location: ../index.php?page=financial&action=sell");
                 } else {
+                    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                        header('Content-Type: application/json');
+                        http_response_code(500);
+                        echo json_encode(['success' => false, 'message' => 'Erro ao aplicar desconto.']);
+                        exit;
+                    }
                     header("Location: ../index.php?page=financial&action=sell");
                 }
                 break;

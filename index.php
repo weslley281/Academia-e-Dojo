@@ -99,6 +99,10 @@ require_once "./header.php";
                 break;
 
             case 'validate':
+                if (isset($_SESSION['type']) && $_SESSION['type'] === 'student') {
+                    echo "<script>window.location.href = './index.php?page=dashboard&error=permission';</script>";
+                    exit;
+                }
                 include_once './views/validate/index.php';
                 break;
 
@@ -122,6 +126,10 @@ require_once "./header.php";
                 }
                 break;
             case 'users':
+                if (isset($_SESSION['type']) && $_SESSION['type'] === 'student') {
+                    echo "<script>window.location.href = './index.php?page=dashboard&error=permission';</script>";
+                    exit;
+                }
 
                 if ($action === 'create') {
                     include_once './views/user/create.php';
@@ -150,6 +158,10 @@ require_once "./header.php";
                 break;
 
             case 'martial_arts':
+                if (isset($_SESSION['type']) && $_SESSION['type'] === 'student') {
+                    echo "<script>window.location.href = './index.php?page=dashboard&error=permission';</script>";
+                    exit;
+                }
 
                 if ($action === 'create') {
                     include_once './views/martial_art/create.php';
@@ -178,6 +190,10 @@ require_once "./header.php";
                 break;
 
             case 'modalities':
+                if (isset($_SESSION['type']) && $_SESSION['type'] === 'student') {
+                    echo "<script>window.location.href = './index.php?page=dashboard&error=permission';</script>";
+                    exit;
+                }
 
                 if ($action === 'create') {
                     include_once './views/modality/create.php';
@@ -206,6 +222,10 @@ require_once "./header.php";
                 break;
 
             case "financial":
+                if (isset($_SESSION['type']) && $_SESSION['type'] === 'student') {
+                    echo "<script>window.location.href = './index.php?page=dashboard&error=permission';</script>";
+                    exit;
+                }
                 include_once './views/financial/index.php';
                 break;
 

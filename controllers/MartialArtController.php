@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
+if (isset($_SESSION["user_id"]) && isset($_SESSION['type']) && in_array($_SESSION['type'], ['admin', 'instructor'])) {
     require_once __DIR__ . '/../models/MartialArt.php';
     require_once __DIR__ . '/../config/db.php';
 
@@ -47,6 +47,10 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 break;
 
             case 'delete':
+                if ($_SESSION['type'] !== 'admin') {
+                    header("Location: ../index.php?page=martial_arts&action=permission_error");
+                    exit;
+                }
                 if ($id === null) {
                     header("Location: ../index.php?page=martial_arts&action=invalid");
                     exit;

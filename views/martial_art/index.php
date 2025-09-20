@@ -22,12 +22,12 @@
                         <td><?= htmlspecialchars($description) ?></td>
                         <td>
                             <a href="index.php?page=martial_arts&action=update&id=<?= $martial_art['id'] ?>" class="btn btn-info"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <a href="index.php?page=martial_arts&action=delete&id=<?= $martial_art['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
+                            <?php if (isset($_SESSION['type']) && $_SESSION['type'] === 'admin') { ?><a href="index.php?page=martial_arts&action=delete&id=<?= $martial_art['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a><?php } ?>
                         </td>
                         <?php
                         if (isset($_GET["action"]) && $_GET["action"] == "update" && isset($_GET["id"]) && $_GET["id"] == $martial_art['id']) {
                             include_once "update.php";
-                        } elseif (isset($_GET["action"]) && $_GET["action"] == "delete" && isset($_GET["id"]) && $_GET["id"] == $martial_art['id']) {
+                        } elseif (isset($_SESSION['type']) && $_SESSION['type'] === 'admin' && isset($_GET["action"]) && $_GET["action"] == "delete" && isset($_GET["id"]) && $_GET["id"] == $martial_art['id']) {
                             include_once "delete.php";
                         }
                         ?>

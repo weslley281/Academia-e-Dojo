@@ -2,9 +2,11 @@
 session_start();
 if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../models/SalesPaymentItem.php';
+    require_once __DIR__ . '/../models/MethodPayment.php'; // Include MethodPayment model
     require_once __DIR__ . '/../config/db.php';
 
     $salesPaymentItem = new SalesPaymentItem($conn);
+    $methodPayment = new MethodPayment($conn); // Instantiate MethodPayment model
 
     // Verifica o método HTTP
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -26,8 +28,30 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
             case 'create':
                 $data = getSalesItemData($_POST);
                 if ($salesPaymentItem->create($data)) {
+                    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                        $newTotalPaid = $salesPaymentItem->getTotalAmountPaidBySaleId($data["sale_id"]);
+                        $method = $methodPayment->getById($data["payment_method_id"]);
+                        $methodName = $method ? $method['name'] : 'Desconhecido'; // Defensive check
+                        
+                        header('Content-Type: application/json');
+                        echo json_encode([
+                            'success' => true,
+                            'newTotalPaid' => $newTotalPaid,
+                            'payment' => [
+                                'methodName' => $methodName,
+                                'amountPaid' => $data['amount_paid']
+                            ]
+                        ]);
+                        exit;
+                    }
                     header("Location: ../index.php?page=financial&action=sell#order");
                 } else {
+                    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                        header('Content-Type: application/json');
+                        http_response_code(500);
+                        echo json_encode(['success' => false, 'message' => 'Erro ao adicionar pagamento.']);
+                        exit;
+                    }
                     header("Location: ../index.php?page=financial&action=sell&info=error");
                 }
                 break;

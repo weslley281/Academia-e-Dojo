@@ -1,8 +1,8 @@
 <?php
-$host = '';
-$user = '';
-$password = '';
-$database = '';
+$host = 'academias.mysql.uhserver.com';
+$user = 'academias';
+$password = 'Wesv@g28';
+$database = 'academias';
 
 $conn = new mysqli($host, $user, $password, $database);
 
