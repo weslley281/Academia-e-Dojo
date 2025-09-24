@@ -7,6 +7,7 @@
 
         <form action="./controllers/UserController.php?action=delete" method="post" class="form-group">
             <input type="hidden" name="id" value="<?php echo $_GET["id"] ?>">
+            <?= $_GET["id"] ?>
             <button type="submit" class="btn btn-danger">Delete</button>
             <a href="./index.php?page=users" class="btn btn-light">Cancelar</a>
         </form>
