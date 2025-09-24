@@ -18,16 +18,10 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION['type']) && in_array($_SESSIO
 
         define('ENCRYPTION_KEY', 'gotosao');
 
-
-
         // Função para criar o array de dados do usuário, com tipo padrão como 'student'
         function getUserData($post)
         {
             $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-            $cpf = isset($post['cpf']) ? encrypt($post['cpf'], ENCRYPTION_KEY) : null;
-
-            // Aplica a criptografia MD5 ao campo CPF
-            //$cpf = isset($post['cpf']) ? md5($post['cpf']) : null;
 
             return [
                 "name" => htmlspecialchars($post["name"] ?? ''),
@@ -43,9 +37,9 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION['type']) && in_array($_SESSIO
                 "marital_status" => htmlspecialchars($post["marital_status"] ?? ''),
                 "gender" => htmlspecialchars($post["gender"] ?? ''),
                 "birth_date" => htmlspecialchars($post["birth_date"] ?? ''),
+                "status" => 1,
                 "password" => $password,
                 "type" => 'student', // Define o tipo padrão como 'student'
-                "cpf" => $cpf
             ];
         }
 
@@ -98,18 +92,25 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION['type']) && in_array($_SESSIO
                 break;
 
             case 'delete': // Deleta um usuário pelo ID
+                echo "executou aqui";
                 if ($_SESSION['type'] !== 'admin') {
                     header("Location: ../index.php?page=users&action=permission_error");
+                    echo "<center><strong><h1>Você não Tem permição para isso</h1></strong></center>";
                     exit;
                 }
                 if ($id === null) {
                     header("Location: ../index.php?page=users&action=invalid");
+                    echo "id nulo";
                     exit;
                 }
+
                 if ($user->delete($id)) {
                     header("Location: ../index.php?page=users&action=deleted");
+                    echo "deletado com sucesso";
                 } else {
                     header("Location: ../index.php?page=users&action=fail");
+                    echo "falha ao salvar no banco";
+                    var_dump($id);
                 }
                 break;
 

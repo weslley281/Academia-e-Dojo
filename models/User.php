@@ -17,7 +17,7 @@ class User
     {
         try {
             $stmt = $this->conn->prepare(
-                'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postal_code, marital_status, gender, birth_date, password, cpf, type)
+                'INSERT INTO users (name, phone, email, address, complement, country, state, city, neighborhood, postal_code, marital_status, gender, birth_date, status, password, type)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
             );
 
@@ -36,8 +36,8 @@ class User
                 $data['marital_status'],
                 $data['gender'],
                 $data['birth_date'],
+                $data['status'],
                 $data['password'],
-                $data['cpf'],
                 $data['type']
             );
 
@@ -54,7 +54,7 @@ class User
     public function getAll()
     {
         try {
-            $result = $this->conn->query('SELECT * FROM users');
+            $result = $this->conn->query('SELECT * FROM users WHERE status = 1');
             return $result->fetch_all(MYSQLI_ASSOC);
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
@@ -66,7 +66,7 @@ class User
     {
         try {
             // Executa a consulta para obter todos os usuários
-            $result = $this->conn->query("SELECT * FROM users WHERE type = 'instructor'");
+            $result = $this->conn->query("SELECT * FROM users WHERE type = 'instructor' AND status = 1");
 
             // Retorna os resultados como uma matriz associativa
             return $result->fetch_all(MYSQLI_ASSOC);
@@ -81,7 +81,7 @@ class User
     {
         try {
             // Executa a consulta para obter todos os usuários
-            $result = $this->conn->query("SELECT * FROM users WHERE type = 'student'");
+            $result = $this->conn->query("SELECT * FROM users WHERE type = 'student' AND status = 1");
 
             // Retorna os resultados como uma matriz associativa
             return $result->fetch_all(MYSQLI_ASSOC);
@@ -124,7 +124,7 @@ class User
     {
         try {
             $stmt = $this->conn->prepare(
-                'UPDATE users SET name = ?, phone = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postal_code = ?, marital_status = ?, gender = ?, birth_date = ?, password = ?, cpf = ?, type = ? WHERE id = ?'
+                'UPDATE users SET name = ?, phone = ?, email = ?, address = ?, complement = ?, country = ?, state = ?, city = ?, neighborhood = ?, postal_code = ?, marital_status = ?, gender = ?, birth_date = ?, status = ?, password = ?, type = ? WHERE id = ?'
             );
 
             $stmt->bind_param(
@@ -142,8 +142,8 @@ class User
                 $data['marital_status'],
                 $data['gender'],
                 $data['birth_date'],
+                $data['status'],
                 $data['password'],
-                $data['cpf'],
                 $data['type'],
                 $id
             );
@@ -176,14 +176,17 @@ class User
     public function delete($id)
     {
         try {
-            $stmt = $this->conn->prepare('DELETE FROM users WHERE id = ?');
+            $stmt = $this->conn->prepare('UPDATE users SET status = 0 WHERE id = ?');
             $stmt->bind_param('i', $id);
             return $stmt->execute();
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            echo "falha ao deletar no banco <br>" . $e->getMessage();
             return false;
         }
     }
+
+
 
     public function countAll()
     {

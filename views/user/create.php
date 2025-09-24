@@ -32,12 +32,6 @@
             </div>
 
             <div class="mb-3 form-group">
-                <label for="cpf" class="form-label"><strong>CPF:</strong></label>
-                <input type="text" id="cpf" name="cpf" class="form-control" required>
-                <div class="invalid-feedback">Por favor, insira um CPF válido.</div>
-            </div>
-
-            <div class="mb-3 form-group">
                 <label for="address" class="form-label"><strong>Endereço:</strong></label>
                 <input type="text" id="address" name="address" class="form-control" required>
             </div>
@@ -144,7 +138,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const email = document.getElementById('email');
     const password = document.getElementById('password');
     const password2 = document.getElementById('password2');
-    const cpf = document.getElementById('cpf');
 
     // --- VALIDATION FUNCTIONS ---
     function validateName() {
@@ -188,47 +181,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function validateCPF() {
-        const cpfValue = cpf.value.replace(/[.\-]/g, '');
-        if (cpfValue.length !== 11 || /^(\d)\1{10}$/.test(cpfValue)) {
-            cpf.classList.add('is-invalid');
-            return false;
-        }
-        let sum = 0;
-        let remainder;
-        for (let i = 1; i <= 9; i++) {
-            sum += parseInt(cpfValue.substring(i - 1, i)) * (11 - i);
-        }
-        remainder = (sum * 10) % 11;
-        if ((remainder === 10) || (remainder === 11)) {
-            remainder = 0;
-        }
-        if (remainder !== parseInt(cpfValue.substring(9, 10))) {
-            cpf.classList.add('is-invalid');
-            return false;
-        }
-        sum = 0;
-        for (let i = 1; i <= 10; i++) {
-            sum += parseInt(cpfValue.substring(i - 1, i)) * (12 - i);
-        }
-        remainder = (sum * 10) % 11;
-        if ((remainder === 10) || (remainder === 11)) {
-            remainder = 0;
-        }
-        if (remainder !== parseInt(cpfValue.substring(10, 11))) {
-            cpf.classList.add('is-invalid');
-            return false;
-        }
-        cpf.classList.remove('is-invalid');
-        return true;
-    }
-
     // --- EVENT LISTENERS for real-time validation ---
     name.addEventListener('blur', validateName);
     email.addEventListener('blur', validateEmail);
     password.addEventListener('blur', validatePassword);
     password2.addEventListener('input', validatePasswordMatch);
-    cpf.addEventListener('blur', validateCPF);
 
     // --- FINAL SUBMIT VALIDATION ---
     form.addEventListener('submit', function(event) {
@@ -237,10 +194,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const isEmailValid = validateEmail();
         const isPasswordValid = validatePassword();
         const isPasswordMatchValid = validatePasswordMatch();
-        const isCpfValid = validateCPF();
 
         // If any validation fails, prevent submission
-        if (!isNameValid || !isEmailValid || !isPasswordValid || !isPasswordMatchValid || !isCpfValid) {
+        if (!isNameValid || !isEmailValid || !isPasswordValid || !isPasswordMatchValid) {
             event.preventDefault();
         }
     });
