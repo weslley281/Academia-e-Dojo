@@ -129,11 +129,24 @@ class Cashier
 
     public function cashDrop(string $method, int $user_id, float $amount): bool
     {
+        // Whitelist of allowed columns to prevent SQL injection
+        $allowed_methods = ['cash', 'credit', 'debit', 'deposit'];
+        if (!in_array($method, $allowed_methods)) {
+            error_log("Invalid method provided to cashDrop: " . $method, 3, __DIR__ . '/errors.log');
+            return false;
+        }
+
         try {
-            $stmt = $this->conn->prepare('UPDATE cashier SET ? = ? - ? WHERE user_id = ? AND status = "open"');
-            $stmt->bind_param('ssdi', $method, $method, $amount, $user_id);
-            $stmt->execute();
-            return true;
+            // Safely build the query with the validated column name
+            $sql = "UPDATE cashier SET `$method` = `$method` - ? WHERE user_id = ? AND status = 'open'";
+            $stmt = $this->conn->prepare($sql);
+
+            if ($stmt === false) {
+                throw new mysqli_sql_exception('Erro ao preparar a instrução: ' . $this->conn->error);
+            }
+
+            $stmt->bind_param('di', $amount, $user_id);
+            return $stmt->execute();
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
             return false;

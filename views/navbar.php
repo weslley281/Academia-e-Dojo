@@ -14,8 +14,14 @@
             </li>
             <?php } ?>
             <?php if (isset($_SESSION['type']) && $_SESSION['type'] !== 'student') { ?>
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?page=financial"><i class="fa-solid fa-hand-holding-dollar"></i> Financeiro</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownFinancial" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa-solid fa-hand-holding-dollar"></i> Financeiro
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownFinancial">
+                    <a class="dropdown-item" href="index.php?page=financial">Checkout</a>
+                    <a class="dropdown-item" href="index.php?page=monthly_fees">Mensalidades</a>
+                </div>
             </li>
             <?php } ?>
             <li class="nav-item dropdown">

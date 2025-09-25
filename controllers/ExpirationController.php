@@ -3,8 +3,12 @@ session_start();
 if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../models/Expiration.php';
     require_once __DIR__ . '/../config/db.php';
+    require_once __DIR__ . '/../models/User.php';
+    require_once __DIR__ . '/../models/MonthlyFee.php';
 
     $expiration = new Expiration($conn);
+    $user = new User($conn);
+    $monthlyFee = new MonthlyFee($conn);
 
     // Verifica o método HTTP
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -58,15 +62,44 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 break;
 
             case 'validate':
-                if ($query == null || $query == "" || $query == 0) {
-                    header("Location: ../index.php?page=validate");
+                $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+                $password = $_POST['password'] ?? '';
+
+                if (!$email || empty($password)) {
+                    header("Location: ../index.php?page=validate&action=invalid_input");
                     exit;
                 }
-                if ($expiration->delete($id)) {
-                    header("Location: ../index.php?page=financial&action=sell&info=deleted");
+
+                $student = $user->getByEmail($email);
+
+                // 1. Verifica se o aluno existe e a senha está correta
+                if ($student && password_verify($password, $student['password'])) {
+                    
+                    // 2. Verifica o status das mensalidades
+                    $fees = $monthlyFee->getByStudentId($student['id']);
+                    $hasPendingFees = false;
+                    foreach ($fees as $fee) {
+                        if ($fee['status'] === 'pending' || $fee['status'] === 'overdue') {
+                            $hasPendingFees = true;
+                            break; // Encontrou uma pendência, não precisa checar mais
+                        }
+                    }
+
+                    if ($hasPendingFees) {
+                        // 3a. Bloqueia a entrada se houver pendências
+                        $_SESSION['validated_student_name'] = $student['name'];
+                        header("Location: ../index.php?page=validate&action=payment_due");
+                    } else {
+                        // 3b. Permite a entrada se estiver tudo em dia
+                        $_SESSION['validated_student_name'] = $student['name'];
+                        header("Location: ../index.php?page=validate&action=success");
+                    }
+
                 } else {
-                    header("Location: ../index.php?page=financial&action=sell");
+                    // Falha no login
+                    header("Location: ../index.php?page=validate&action=fail");
                 }
+                exit;
                 break;
 
             default:

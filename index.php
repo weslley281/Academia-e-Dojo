@@ -103,6 +103,26 @@ require_once "./header.php";
                     echo "<script>window.location.href = './index.php?page=dashboard&error=permission';</script>";
                     exit;
                 }
+
+                switch ($action) {
+                    case 'success':
+                        $studentName = $_SESSION['validated_student_name'] ?? 'Aluno(a)';
+                        echo renderAlert('success', 'Sucesso!', 'Entrada de ' . htmlspecialchars($studentName) . ' validada com sucesso.');
+                        unset($_SESSION['validated_student_name']); // Limpa a sessão
+                        break;
+                    case 'fail':
+                        echo renderAlert('danger', 'Erro!', 'E-mail ou senha incorretos. Tente novamente.');
+                        break;
+                    case 'invalid_input':
+                        echo renderAlert('warning', 'Atenção!', 'Por favor, preencha todos os campos.');
+                        break;
+                    case 'payment_due':
+                        $studentName = $_SESSION['validated_student_name'] ?? 'Aluno(a)';
+                        echo renderAlert('danger', 'Acesso Negado!', 'A entrada de ' . htmlspecialchars($studentName) . ' foi bloqueada por ter mensalidades pendentes.');
+                        unset($_SESSION['validated_student_name']); // Limpa a sessão
+                        break;
+                }
+
                 include_once './views/validate/index.php';
                 break;
 
@@ -219,6 +239,22 @@ require_once "./header.php";
 
                 include_once './views/modality/index.php';
 
+                break;
+
+            case "register_payment":
+                if (isset($_SESSION['type']) && $_SESSION['type'] === 'student') {
+                    echo "<script>window.location.href = './index.php?page=dashboard&error=permission';</script>";
+                    exit;
+                }
+                include_once './views/financial/register_payment.php';
+                break;
+
+            case "monthly_fees":
+                if (isset($_SESSION['type']) && $_SESSION['type'] === 'student') {
+                    echo "<script>window.location.href = './index.php?page=dashboard&error=permission';</script>";
+                    exit;
+                }
+                include_once './views/financial/monthly_fees.php';
                 break;
 
             case "financial":

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Manual de Usuário</title>
+    <style>
+        body { font-family: DejaVu Sans, sans-serif; line-height: 1.6; }
+        h1 { text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px; }
+        h2 { border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-top: 30px; }
+        p, li { font-size: 14px; }
+        strong { color: #333; }
+        .step { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+    <h1>Manual de Usuário - Sistema de Gestão da Academia</h1>
+
+    <h2>Capítulo 1: Primeiros Passos</h2>
+    <div class="step">
+        <p><strong>Como fazer login:</strong></p>
+        <ol>
+            <li>Acesse o endereço do sistema no seu navegador.</li>
+            <li>Digite seu e-mail e senha nos campos indicados.</li>
+            <li>Clique no botão "Entrar".</li>
+        </ol>
+    </div>
+    <div class="step">
+        <p><strong>O Painel de Controle (Dashboard):</strong></p>
+        <p>Após o login, você verá o painel principal. Ele mostra um resumo rápido das informações mais importantes, como total de alunos, instrutores e um resumo financeiro.</p>
+    </div>
+
+    <h2>Capítulo 2: Gerenciando Usuários</h2>
+    <div class="step">
+        <p><strong>Como cadastrar um novo Aluno ou Instrutor:</strong></p>
+        <ol>
+            <li>No menu superior, clique em "Usuários".</li>
+            <li>Na página de usuários, clique no botão "Criar Usuário".</li>
+            <li>Preencha todos os campos do formulário.</li>
+            <li>No campo "Tipo de Usuário", selecione se ele é um "Aluno" ou "Instrutor".</li>
+            <li>Clique em "Criar" para salvar.</li>
+        </ol>
+    </div>
+    <div class="step">
+        <p><strong>Como editar um usuário:</strong></p>
+        <ol>
+            <li>Na lista de usuários, encontre o usuário que deseja editar.</li>
+            <li>Clique no ícone de lápis (editar) na linha correspondente.</li>
+            <li>Altere as informações desejadas no formulário.</li>
+            <li>Clique em "Salvar".</li>
+        </ol>
+    </div>
+
+    <h2>Capítulo 3: O Fluxo Financeiro Essencial</h2>
+    <p>Esta é a parte mais importante do sistema. O fluxo foi desenhado para ser feito em 3 passos: Matricular (Checkout), Visualizar (Mensalidades) e Pagar.</p>
+    <div class="step">
+        <p><strong>Passo 1: Matricular um Aluno (Checkout)</strong></p>
+        <p>Quando um aluno novo chega ou um aluno antigo renova um plano, você usa o Checkout.</p>
+        <ol>
+            <li>No menu, vá em <strong>Financeiro -> Checkout</strong>.</li>
+            <li>Na seção "Informações do Cliente", clique em "Selecionar Aluno" e escolha o aluno na lista.</li>
+            <li>Na seção "Adicionar Produto/Serviço", selecione a turma/plano que o aluno está pagando.</li>
+            <li>O sistema adicionará o item ao "Resumo do Pedido".</li>
+            <li>Na seção de pagamento, registre como o aluno pagou (Dinheiro, Crédito, etc.).</li>
+            <li>Clique em <strong>"Finalizar Venda"</strong>.</li>
+            <li><strong>IMPORTANTE:</strong> Ao fazer isso, o sistema registra o pagamento atual E JÁ CRIA a cobrança para o próximo mês na tela de Mensalidades.</li>
+        </ol>
+    </div>
+    <div class="step">
+        <p><strong>Passo 2: Visualizar Mensalidades Pendentes</strong></p>
+        <p>Para ver quem precisa pagar a mensalidade, siga os passos:</p>
+        <ol>
+            <li>No menu, vá em <strong>Financeiro -> Mensalidades</strong>.</li>
+            <li>A tela mostrará duas listas: "Mensalidades Atrasadas" e "Mensalidades Pendentes".</li>
+            <li>Aqui você tem uma visão clara de todas as cobranças em aberto.</li>
+        </ol>
+    </div>
+    <div class="step">
+        <p><strong>Passo 3: Registrar o Pagamento de uma Mensalidade</strong></p>
+        <ol>
+            <li>Na tela de "Mensalidades", encontre a cobrança que o aluno está pagando.</li>
+            <li>Clique no botão verde <strong>"Registrar Pagamento"</strong> na mesma linha.</li>
+            <li>A página de registro de pagamento será exibida com os detalhes da cobrança.</li>
+            <li>Confirme a data do pagamento e o valor pago.</li>
+            <li>Clique em <strong>"Confirmar Pagamento"</strong>. A cobrança desaparecerá da lista de pendentes.</li>
+        </ol>
+    </div>
+
+    <h2>Capítulo 4: Gerenciando Aulas</h2>
+    <div class="step">
+        <p><strong>Como cadastrar uma nova Arte Marcial:</strong></p>
+        <ol>
+            <li>No menu, vá em <strong>Aulas -> Artes Marciais</strong>.</li>
+            <li>Clique em "Criar Arte Marcial" e preencha o nome e a descrição.</li>
+        </ol>
+    </div>
+    <div class="step">
+        <p><strong>Como cadastrar uma nova Turma (Modalidade):</strong></p>
+        <ol>
+            <li>No menu, vá em <strong>Aulas -> Turmas</strong>.</li>
+            <li>Clique em "Criar Turma".</li>
+            <li>Preencha as informações da turma, como nome, a qual arte marcial ela pertence, o instrutor, o valor da mensalidade e os dias de aula.</li>
+            <li>Clique em "Criar".</li>
+        </ol>
+    </div>
+
+</body>
+</html>

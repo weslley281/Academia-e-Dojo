@@ -11,7 +11,10 @@
     <form class="form-signin" action="./controllers/ExpirationController.php?action=validate" method="post">
         <h1 class="h3 mb-3 font-weight-normal mt-5">Por favor valide a entrada do aluno:</h1>
         <label for="query" class="sr-only">Id ou email do Aluno</label>
-        <input type="email" id="inputEmail" class="form-control" required autofocus>
+        <input type="email" id="inputEmail" name="email" class="form-control" required autofocus>
+
+        <label for="password" class="sr-only mt-2">Senha</label>
+        <input type="password" id="password" name="password" class="form-control mt-2" placeholder="Senha" required>
 
         <button class="btn btn-lg btn-primary btn-block mt-5" type="submit">Validar</button>
     </form>

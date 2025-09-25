@@ -6,11 +6,13 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
     require_once __DIR__ . '/../models/SalesItem.php';
     require_once __DIR__ . '/../config/db.php';
     require_once __DIR__ . '/../models/Modality.php';
+    require_once __DIR__ . '/../models/MonthlyFee.php';
 
     $salesRecord = new SalesRecord($conn);
     $expiration = new Expiration($conn);
     $saleItem = new SalesItem($conn);
     $modality = new Modality($conn);
+    $monthlyFee = new MonthlyFee($conn);
 
     // Verifica o método HTTP
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -54,58 +56,24 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                 if ($salesRecord->update($data, $id)) {
                     $saleItens = $saleItem->getBySaleId($id);
 
-                    if (isset($saleItens) && !empty($saleItens)) { // Verifica se há modalities para exibir
+                    if (isset($saleItens) && !empty($saleItens)) {
                         foreach ($saleItens as $item) {
-
-                            //var_dump($item);
                             $modalityData = $modality->getById($item["modality_id"]);
 
-                            //echo var_dump($expiration = $expiration->getBySaleAndUserId($item["modality_id"], $data["student_id"]));
-                            if ($expirations = $expiration->getBySaleAndUserId($item["modality_id"], $data["student_id"])) {
-                                //echo "Fazendo Mudanças";
-                                //var_dump($expirations);
-                                $expirationDate = $expirations["expirationDate"];
-                                $expirationDateObj = new DateTime($expirationDate);
-                                $currentDateObj = new DateTime();
+                            // Lógica para criar a próxima mensalidade
+                            // A data de vencimento será calculada com base na data de hoje + os dias do plano
+                            $dueDate = new DateTime();
+                            $dueDate->modify("+" . $modalityData["days"] . " days");
 
-                                //echo "<br>A data de exppiração do banco = $expirationDate é menor que a data atual?";
-                                //var_dump($expirationDateObj < $currentDateObj, $expirationDateObj);
-                                if ($expirationDateObj < $currentDateObj) {
-                                    $expirationDateObj = $currentDateObj;
-                                    //echo "<br>É menor sim";
-                                }
+                            $monthlyFeeData = [
+                                "student_id" => $data["student_id"],
+                                "modality_id" => $item["modality_id"],
+                                "due_date" => $dueDate->format('Y-m-d'),
+                                "amount_due" => $modalityData['value'],
+                                "status" => 'pending'
+                            ];
 
-                                $expirationDateObj->modify("+" . $modalityData["days"] . " days");
-                                $expirationDate = $expirationDateObj->format('Y-m-d');
-                                //echo "<br> nova data de expiração é?";
-                                //var_dump($expirationDate);
-
-                                $expirationDataObj = [
-                                    "student_id" => $data["student_id"],
-                                    "modality_id" => $item["modality_id"],
-                                    "expirationDate" => $expirationDate
-                                ];
-
-                                $expiration->update($expirationDataObj, $expirations["id"]);
-
-                                //echo "<br>Fiz Update";
-                            } else {
-                                $expirationDate = Date("Y-m-d");
-                                //var_dump($expirationDate);
-
-                                $expirationDateObj = new DateTime($expirationDate);
-                                $expirationDateObj->modify("+" . $modalityData["days"] . " days");
-                                $expirationDate = $expirationDateObj->format('Y-m-d');
-
-                                $expirationData = [
-                                    "student_id" => $data["student_id"],
-                                    "modality_id" => $item["modality_id"],
-                                    "expirationDate" => $expirationDate
-                                ];
-
-                                $expiration->create($expirationData);
-                                //echo "<br>Fiz Create";
-                            }
+                            $monthlyFee->create($monthlyFeeData);
                         }
                     }
 

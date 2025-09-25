@@ -39,7 +39,7 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION['type']) && in_array($_SESSIO
                 "birth_date" => htmlspecialchars($post["birth_date"] ?? ''),
                 "status" => 1,
                 "password" => $password,
-                "type" => 'student', // Define o tipo padrão como 'student'
+                "type" => htmlspecialchars($post["type"] ?? 'student'), // Usa o tipo do formulário ou 'student' como padrão
             ];
         }
 
@@ -70,8 +70,35 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION['type']) && in_array($_SESSIO
                     header("Location: ../index.php?page=users&action=invalid");
                     exit;
                 }
-                $data = getUserData($_POST);
-                if ($user->update($data, $id)) {
+
+                // Busca os dados atuais do usuário para preservar a senha e o tipo
+                $currentUser = $user->getById($id);
+                if (!$currentUser) {
+                    header("Location: ../index.php?page=users&action=fail");
+                    exit;
+                }
+
+                // Monta o array de dados com as informações do formulário
+                $data = [
+                    "name" => htmlspecialchars($_POST["name"] ?? ''),
+                    "phone" => htmlspecialchars($_POST["phone"] ?? ''),
+                    "email" => filter_var($_POST["email"], FILTER_VALIDATE_EMAIL),
+                    "address" => htmlspecialchars($_POST["address"] ?? ''),
+                    "complement" => htmlspecialchars($_POST["complement"] ?? ''),
+                    "country" => htmlspecialchars($_POST["country"] ?? ''),
+                    "state" => htmlspecialchars($_POST["state"] ?? ''),
+                    "city" => htmlspecialchars($_POST["city"] ?? ''),
+                    "neighborhood" => htmlspecialchars($_POST["neighborhood"] ?? ''),
+                    "postal_code" => htmlspecialchars($_POST["postal_code"] ?? ''),
+                    "marital_status" => htmlspecialchars($_POST["marital_status"] ?? ''),
+                    "gender" => htmlspecialchars($_POST["gender"] ?? ''),
+                    "birth_date" => htmlspecialchars($_POST["birth_date"] ?? ''),
+                    "status" => 1, // Mantém o status como ativo
+                    "password" => $currentUser['password'], // REUTILIZA A SENHA ATUAL
+                    "type" => $currentUser['type'], // REUTILIZA O TIPO ATUAL
+                ];
+
+                if ($user->update($data, id: $id)) {
                     header("Location: ../index.php?page=users&action=saved");
                 } else {
                     header("Location: ../index.php?page=users&action=fail");

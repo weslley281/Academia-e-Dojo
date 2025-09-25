@@ -27,6 +27,15 @@
             </div>
 
             <div class="mb-3 form-group">
+                <label for="type" class="form-label"><strong>Tipo de Usuário:</strong></label>
+                <select class="form-control" name="type" id="type" required>
+                    <option value="student">Aluno</option>
+                    <option value="instructor">Instrutor</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            <div class="mb-3 form-group">
                 <label for="phone" class="form-label"><strong>Telefone:</strong></label>
                 <input type="number" id="phone" name="phone" class="form-control" required>
             </div>

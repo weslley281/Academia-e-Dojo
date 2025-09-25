@@ -264,4 +264,30 @@ class CreateTables
             }
         }
     }
+
+    public static function createMonthlyFeesTable($conn)
+    {
+        $sql = "
+        CREATE TABLE IF NOT EXISTS monthly_fees (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            student_id INT NOT NULL,
+            modality_id INT NOT NULL,
+            due_date DATE NOT NULL,
+            payment_date DATE NULL,
+            amount_due DECIMAL(10, 2) NOT NULL,
+            amount_paid DECIMAL(10, 2) DEFAULT 0.00,
+            status ENUM('pending', 'paid', 'overdue', 'canceled') NOT NULL DEFAULT 'pending',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            FOREIGN KEY (student_id) REFERENCES users(id),
+            FOREIGN KEY (modality_id) REFERENCES modalities(id)
+        );
+        ";
+
+        if ($conn->query($sql) === true) {
+            //echo "Tabela 'monthly_fees' criada com sucesso.";
+        } else {
+            echo "Erro ao criar tabela 'monthly_fees': " . $conn->error;
+        }
+    }
 }
