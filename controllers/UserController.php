@@ -137,7 +137,6 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION['type']) && in_array($_SESSIO
                 } else {
                     header("Location: ../index.php?page=users&action=fail");
                     echo "falha ao salvar no banco";
-                    var_dump($id);
                 }
                 break;
 

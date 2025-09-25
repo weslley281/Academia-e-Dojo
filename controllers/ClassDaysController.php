@@ -26,7 +26,6 @@ if (isset($_SESSION["user_id"]) && $_SESSION['type'] == "admin") {
                     exit;
                 }
                 if ($modality->deleteModalityDays($id, $_POST["day_of_week"])) {
-                    var_dump($id, $_POST["day_of_week"]);
                     header("Location: ../index.php?page=modalities&action=update&id=$id");
                 } else {
                     header("Location: ../index.php?page=modalities&action=update&id=$id");

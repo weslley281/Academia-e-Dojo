@@ -15,7 +15,6 @@ class Expiration
 
     public function create(array $data)
     {
-        //var_dump($data);
         try {
             $stmt = $this->conn->prepare('INSERT INTO expiration (student_id, modality_id, expirationDate) VALUES (?, ?, ?)');
 
@@ -108,8 +107,6 @@ class Expiration
 
     public function update(array $data, int $id)
     {
-        //echo "A array enviada é: ";
-        //var_dump($data);
         try {
             $stmt = $this->conn->prepare('UPDATE expiration SET student_id = ?, modality_id = ?, expirationDate = ? WHERE id = ?');
 

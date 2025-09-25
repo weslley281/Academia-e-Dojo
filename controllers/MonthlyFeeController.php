@@ -1,6 +1,12 @@
 <?php
 // controllers/MonthlyFeeController.php
 session_start();
+require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../models/Modality.php';
+require_once __DIR__ . '/../models/MonthlyFee.php';
+
+$modality = new Modality($conn);
+$monthlyFee = new MonthlyFee($conn);
 
 if (isset($_SESSION["user_id"]) && in_array($_SESSION['type'], ['admin', 'instructor'])) {
     
@@ -34,6 +40,12 @@ if (isset($_SESSION["user_id"]) && in_array($_SESSION['type'], ['admin', 'instru
 
                 // Tenta atualizar o pagamento
                 if ($monthlyFee->updatePayment($fee_id, $paymentData)) {
+                    $monthlyFeeData = $monthlyFee->getMonthlyFeesByID($fee_id);
+                    
+                    $modalityData = $modality->getById($monthlyFeeData['modality_id']);
+                    $days = $modalityData['days'];
+
+                    $monthlyFee->updateDaysUntilDue($fee_id, $days);
                     header("Location: ../index.php?page=monthly_fees&action=payment_success");
                 } else {
                     header("Location: ../index.php?page=monthly_fees&action=payment_fail");

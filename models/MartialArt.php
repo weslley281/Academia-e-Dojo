@@ -57,7 +57,6 @@ class MartialArt
 
     public function update(array $data, $id)
     {
-        var_dump($data);
         try {
             $stmt = $this->conn->prepare('UPDATE martial_arts SET name = ?, description = ? WHERE id = ?');
 

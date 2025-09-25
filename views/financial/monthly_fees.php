@@ -5,6 +5,8 @@ if (isset($_SESSION["user_id"]) && in_array($_SESSION['type'], ['admin', 'instru
     require_once __DIR__ . '/../../models/MonthlyFee.php';
     $monthlyFee = new MonthlyFee($conn);
 
+    $monthlyFee->turnStatusToOverdue();
+
     // Buscar mensalidades pendentes e atrasadas
     $pending_fees = $monthlyFee->getByStatus('pending');
     $overdue_fees = $monthlyFee->getByStatus('overdue');

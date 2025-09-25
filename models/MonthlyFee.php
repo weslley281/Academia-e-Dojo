@@ -63,6 +63,20 @@ class MonthlyFee
         }
     }
 
+    public function getMonthlyFeesByID(int $id): ?array
+    {
+        try {
+            $stmt = $this->conn->prepare('SELECT * FROM monthly_fees WHERE id = ?');
+            $stmt->bind_param('i', $id);
+            $stmt->execute();
+
+            return $stmt->get_result()->fetch_assoc();
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return null;
+        }
+    }
+
     /**
      * Busca todas as mensalidades de um aluno específico.
      * @param int $student_id
@@ -99,6 +113,19 @@ class MonthlyFee
         }
     }
 
+    public function turnStatusToOverdue(): void
+    {
+        try {
+            $today = date('Y-m-d');
+            //echo "UPDATE monthly_fees SET status = 'overdue' WHERE due_date < $today";
+            $stmt = $this->conn->prepare("UPDATE monthly_fees SET status = 'overdue' WHERE due_date < ?");
+            $stmt->bind_param('s', $today);
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+        }
+    }
+
     /**
      * Atualiza o status e os dados de pagamento de uma mensalidade.
      * @param int $id
@@ -118,6 +145,21 @@ class MonthlyFee
                 $data['status'],
                 $id
             );
+            return $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
+            return false;
+        }
+    }
+
+    public function updateDaysUntilDue(int $id, int $days): bool
+    {
+        $today = date('Y-m-d');
+        try {
+            $stmt = $this->conn->prepare(
+                'UPDATE monthly_fees SET due_date = DATE_ADD(?, INTERVAL ? DAY) WHERE id = ?'
+            );
+            $stmt->bind_param('sii', $today, $days, $id);
             return $stmt->execute();
         } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage(), 3, __DIR__ . '/errors.log');
