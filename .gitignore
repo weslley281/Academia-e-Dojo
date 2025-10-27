@@ -1,2 +1,4 @@
 # Ignore sensitive configuration files
 config/db.php
+vendor
+/vendor/

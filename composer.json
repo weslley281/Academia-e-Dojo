@@ -1,0 +1,18 @@
+{
+    "name": "wesll/academia-e-dojo",
+    "description": "Aplicação para gerenciamento de academias de artes marciais",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Wesll\\AcademiaEDojo\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Weslley H V Ferraz",
+            "email": "weslleyhenrique800@gmail.com"
+        }
+    ],
+    "require": {}
+}
